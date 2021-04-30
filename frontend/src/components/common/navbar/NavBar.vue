@@ -19,17 +19,10 @@
         line-height: 44px;
         box-shadow: 0 1px 1px rgba(100,100,100,.1);
         text-align: center;
-        background-color: rgb(243, 243, 243);
-        color: #fff;
-        position: fixed;
-        left: 0;
-        right: 0;
-        top: 0;
-        z-index: 99;
-  }
+    }
     .left, .right{
-    width: 60px;
-  }
+        width: 60px;
+    }
   .center{
     flex: 1;
   }

@@ -11,6 +11,8 @@ const Message = () => import('views/message/Message');
 const Profile = () => import('views/profile/Profile');
 const UnloginProfile = () => import('views/profile/UnloginProfile');
 
+// const Login = () => import('views/user/Login');
+
 const PhoneLogin = () => import('views/user/PhoneLogin');
 const AccountLogin = () => import('views/user/AccountLogin');
 
@@ -56,10 +58,10 @@ const routes = [
       path:'/login/phone',
     },
     {
-        path:'/login/account',
-        component:AccountLogin,
-        name:'账号登录'
-    }
+      name:'账号登录',
+      component:AccountLogin ,
+      path:'/login/account',
+    },
 ];
 
 const router = new VueRouter({
