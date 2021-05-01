@@ -20,7 +20,7 @@
             <div class="login-password">
                 <input type="text" placeholder="请输入手机验证码" style="float: left;height: 50px" v-model="code">
                 <span class="pwd_span" v-show="isShowPwdCancel" @click="del_password"><i class="el-icon-circle-close" style="font-size: 18px"></i></span>
-                <span>获取动态码</span>
+                <span :class="{'get-sms-code':isCorrect}" @click="get_sms_code">{{code_recommend}}</span>
             </div>
         </div>
     </login>
@@ -28,13 +28,18 @@
 
 <script>
     import Login from "./Login";
+
+    import {get_code} from "network/users/login";
+
     export default {
         name: "PhoneLogin",
         data(){
             return{
                 mobile_profix:1,
                 mobile: '',
-                code:''
+                code:'',
+                code_recommend:'获取动态码',
+                resendSms:false,
             }
         },
         components:{
@@ -48,6 +53,32 @@
             //重置输入框短信验证码
             del_password(){
                 this.code = ""
+            },
+            //获取短信验证码
+            get_sms_code(){
+                //手机号验证，不符合，不准发送请求
+                if(this.isCorrect || this.resendSms){
+                    return;
+                }
+                get_code(this.mobile).then(res=>{
+                    this.resendSms = true;
+                    console.log(res);
+                    this.code_recommend = '发送成功'
+                    let computer = 10;
+                    let timer = setInterval(()=>{
+                        if(computer==1){
+                            this.code_recommend = '获取动态码'
+                            clearInterval(timer);
+                            this.resendSms = false;
+                            return;
+                        }
+                        this.code_recommend = computer + '秒后可重发';
+                        computer--;
+                    },1000)
+                }).catch(err=>{
+                    console.log(err);
+                })
+
             }
         },
         computed:{
@@ -56,6 +87,14 @@
             },
             isShowPwdCancel(){
                 return this.code != ''
+            },
+            isCorrect(){
+                let re = /^1[3-9]\d{9}$/;
+                if(re.test(this.mobile)){
+                    return false;
+                }else{
+                    return true;
+                }
             }
         },
     }
@@ -97,5 +136,8 @@
     .pwd_span{
         position: absolute;
         left: 240px;
+    }
+    .get-sms-code{
+        color: lightgray;
     }
 </style>

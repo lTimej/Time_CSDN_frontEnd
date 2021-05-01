@@ -13,11 +13,11 @@
                 <slot name="which_username"></slot>
                 <slot name="which_password"></slot>
                 <div class="login-radio">
-                    <input type="checkbox">
+                    <input type="radio" :checked="accept" @click="change_accept">
                     <span class="login-outer">我已阅读同意<span class="login-inner">《用户服务条款》</span>与<span class="login-inner">隐私政策</span></span>
                 </div>
                 <div class="login-confirm">
-                    <el-button type="danger" round class="login-btn" @click="login">登录</el-button>
+                    <el-button type="danger" round style="width: 360px" :class="{'login_btn':isLogin}" @click="login">登录</el-button>
                 </div>
             </div>
         </scroll>
@@ -28,6 +28,9 @@
     import NavBar from "components/common/navbar/NavBar";
     import Scroll from "components/common/scroll/Scroll";
 
+    //前端认证
+    import {auth} from "network/users/login";
+
     export default {
         name: "Login",
         props:{//获取子组件的数据
@@ -37,12 +40,13 @@
             },
             pwd:{//密码或短信验证码
                 typy:String,
-                default:""
+                default:"",
+
             }
         },
         data() {
             return {
-
+                accept:false,
             }
         },
         mounted() {
@@ -57,14 +61,27 @@
             back(){
                 this.$router.back();
             },
+            change_accept(){
+                this.accept = !this.accept;
+            },
             //切换登录方式
             changeLoginMethod(path){
                 this.$router.replace(path).catch(()=>{})
             },
             //登录
             login(){
-                console.log(this.username,this.pwd);
-            }
+                //判断是否满足登录条件
+                if(!this.isLogin){
+                    return;
+                }
+                console.log(this.username,this.pwd,this.accept);
+                auth(this.username,this.pwd).then(res=>{
+                    console.log(11111,res);
+                }).catch(err=>{
+                    console.log(2222,err);
+                })
+            },
+
         },
         computed:{
             isPhone(){//改变切换登录模式的字体颜色
@@ -72,6 +89,16 @@
             },
             isAccount(){//改变切换登录模式的字体颜色
                 return this.$route.path !== '/login/account'
+            },
+            isLogin(){
+                let re1 = /^\d{6}$/;
+                let re2 = /^1[3-9]\d{9}$/;
+                if(re1.test(this.pwd) && re2.test(this.username) && this.accept){
+                    return true
+                }else{
+                    return false;
+                }
+
             }
         }
     }
@@ -123,8 +150,8 @@
     .login-confirm {
         text-align: center;
     }
-    .login-confirm .login-btn{
-        width: 360px;
+    .login-confirm .login_btn{
+        background-color: orangered;
     }
     .login_status{
         color: lightgray;

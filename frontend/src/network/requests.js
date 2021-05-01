@@ -3,7 +3,7 @@ import axios from "axios";
 export function requests(config){
     //实例化对象
     const instance = axios.create({
-        baseURL:'http://192.168.1.146:8081/',
+        baseURL:'http://192.168.153.130:8081',
         timeout: 5000
     });
 
@@ -20,4 +20,7 @@ export function requests(config){
     },error => {
         console.log(error);
     })
+
+    //发送请求
+    return instance(config)
 }
