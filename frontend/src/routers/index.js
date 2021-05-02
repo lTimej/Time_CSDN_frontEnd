@@ -17,6 +17,8 @@ const PhoneLogin = () => import('views/user/PhoneLogin');
 const AccountLogin = () => import('views/user/AccountLogin');
 const MainSettings = () => import("views/settings/MainSettings") ;
 
+const NavPhoto = () => import("views/profile/homepageChildren/NavPhoto") ;
+
 const routes = [
     {
       name:'首页',
@@ -67,6 +69,14 @@ const routes = [
       name:'账号设置',
       component:MainSettings ,
       path:'/account/setting',
+      meta:{
+          isShowTabbar:true
+        }
+    },
+    {
+      name:'头像导航',
+      component:NavPhoto ,
+      path:'/account/tx',
       meta:{
           isShowTabbar:true
         }

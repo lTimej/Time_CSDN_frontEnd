@@ -80,12 +80,13 @@
             }
         },
         methods:{
+            //改变夜间模式
             change(){
                 console.log(this.value);
             },
         },
+        //判断是否登录，给想的页面
         activated() {
-            console.log(1111,this.$store.getters.getToken);
             if(!window.localStorage.getItem('token')){
                 this.isShowLogout = false;
                 this.isShowAccountManage = false;
@@ -96,7 +97,7 @@
 
 <style scoped>
     .setting{
-        /*background-color: gray;*/
+
     }
   .account-manage{
       margin: 20px 0;

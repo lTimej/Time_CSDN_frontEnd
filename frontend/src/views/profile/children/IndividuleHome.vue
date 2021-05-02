@@ -1,6 +1,6 @@
 <template>
     <div class="indi-center">
-        <div class="indi-home">
+        <div class="indi-home" @click="myCenter">
             <div class="indi-info">
                 <div class="tx">
                     <img src="~assets/img/tabbar/tx.jpg">
@@ -25,7 +25,12 @@
 
 <script>
     export default {
-        name: "IndividuleHome"
+        name: "IndividuleHome",
+        methods:{
+            myCenter(){
+                this.$router.push('/account/tx');
+            }
+        }
     }
 </script>
 

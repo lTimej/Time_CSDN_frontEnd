@@ -52,9 +52,6 @@
                 // isShow:false
             }
         },
-        mounted() {
-
-        },
         components:{
             NavBar,//导航栏
             Scroll,
@@ -65,6 +62,7 @@
             back(){
                 this.$router.back();
             },
+            //同意按钮
             change_accept(){
                 this.accept = !this.accept;
             },
@@ -86,9 +84,10 @@
                         this.$toast.show('验证码输入错误',5000);
                     }else if(res.status=='201'){//登录成功
                         this.$toast.show('登录成功',5000)
+                        //登录成功，将token值存入locaStorage
                         window.localStorage.clear();
                         window.localStorage.setItem('token',res.data.token);
-                        this.setSto
+                        //跳转到我的页面
                         this.$router.push('/profile')
                     }
                 }).catch(err=>{

@@ -14,6 +14,7 @@
             }
         },
         methods:{
+            //退出
             changeRouter(){
                 this.$store.getters.delToken;
                 this.$router.replace(this.path).catch(()=>{})

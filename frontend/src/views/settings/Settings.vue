@@ -13,7 +13,7 @@
 <script>
     import NavBar from "components/common/navbar/NavBar";
     import Scroll from "components/common/scroll/Scroll";
-    import MessageSetting from "./MessageSetting";
+    import MessageSetting from "./children/MessageSetting";
 
     export default {
         name: "Settings",
@@ -23,6 +23,7 @@
             MessageSetting
         },
         methods:{
+            //返回上一页
             back(){
                 this.$router.go(-1);
             }
