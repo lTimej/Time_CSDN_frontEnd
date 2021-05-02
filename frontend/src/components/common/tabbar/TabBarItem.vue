@@ -7,7 +7,10 @@
 </template>
 
 <script>
+    import {mapGetters} from "vuex"
+
     export default {
+        inject:['reload'],
         name: "TarBarItem",
         props:{
             path:{
@@ -20,12 +23,12 @@
         },
         data(){
             return{
-                // isActive:false
+                new_path:this.path
             }
         },
         computed:{
             isActive(){
-                return this.$route.path.indexOf(this.path) !== -1;
+                return this.$route.path.indexOf(this.new_path) !== -1;
             },
             ActiveStyle(){
                 return this.isActive ?{color:this.ActiveColor}:{}
@@ -33,9 +36,32 @@
         },
         methods:{
             changeRouter(){
-                this.$router.replace(this.path).catch(()=>{
+                if(this.new_path === "/unloginprofile" || this.new_path === "/profile"){
+                    let token = window.localStorage.getItem('token');
+                    if(token) {
+                        this.new_path = '/profile';
+                        this.$router.push(this.new_path).catch(() => {
+                        });
+                        return;
+                    }
+                    this.new_path= '/unloginprofile';
+                    this.$router.push(this.new_path).catch(()=>{});
+                    return;
+                }
+                this.$router.replace(this.new_path).catch(()=>{});
 
-                })
+
+                // this.reload();
+
+            }
+        },
+        watch:{
+            path:{
+                handler(newValue,oldValue){
+                    this.new_path = newValue
+                },
+                deep:true,
+                immediate:true
             }
         }
     }

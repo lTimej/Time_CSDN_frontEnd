@@ -15,6 +15,7 @@ const UnloginProfile = () => import('views/profile/UnloginProfile');
 
 const PhoneLogin = () => import('views/user/PhoneLogin');
 const AccountLogin = () => import('views/user/AccountLogin');
+const MainSettings = () => import("views/settings/MainSettings") ;
 
 const routes = [
     {
@@ -25,7 +26,7 @@ const routes = [
     {
       name:'首页',
       component:Home ,
-      path:'/home'
+      path:'/home',
     },
     {
       name:'博客',
@@ -62,6 +63,14 @@ const routes = [
       component:AccountLogin ,
       path:'/login/account',
     },
+    {
+      name:'账号设置',
+      component:MainSettings ,
+      path:'/account/setting',
+      meta:{
+          isShowTabbar:true
+        }
+    },
 ];
 
 const router = new VueRouter({
@@ -69,4 +78,8 @@ const router = new VueRouter({
     mode:'history'
 });
 
+router.beforeEach((to,from,next)=>{
+    // console.log(to)
+    next();
+});
 export default router;

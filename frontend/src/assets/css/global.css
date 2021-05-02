@@ -4,3 +4,13 @@
     height: 60px;
     font-size: 20px;
 }
+.el-drawer{
+        height: 10%;
+    }
+    .el-drawer__header{
+        margin-bottom: 0;
+        padding-top: 0;
+    }
+    .el-drawer__body{
+        height: 50px;
+    }

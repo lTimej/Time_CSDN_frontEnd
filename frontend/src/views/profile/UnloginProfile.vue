@@ -2,7 +2,7 @@
     <div class="profile">
         <nav-bar class="profile-nav">
             <img slot="left" src="~assets/img/tabbar/download.png">
-            <img src="~assets/img/tabbar/icon-wap-toolbar-menu.png" slot="right">
+            <img src="~assets/img/tabbar/icon-wap-toolbar-menu.png" slot="right" @click="account_setting">
         </nav-bar>
         <scroll class="content"
         >
@@ -31,6 +31,11 @@
             Collections,
             MoreServe,
             Scroll
+        },
+        methods:{
+            account_setting(){
+                this.$router.push('/account/setting').catch(()=>{})
+            }
         }
     }
 </script>

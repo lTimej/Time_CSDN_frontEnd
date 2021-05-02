@@ -12,13 +12,15 @@ export function requests(config){
         return config
     },error => {
         console.log(error);
+        return error;
     });
 
     //响应前被调用
     instance.interceptors.response.use(res=>{
-        return res.data
+        return res
     },error => {
         console.log(error);
+        return error.response;
     })
 
     //发送请求

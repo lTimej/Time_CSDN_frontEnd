@@ -64,9 +64,9 @@
                     this.resendSms = true;
                     console.log(res);
                     this.code_recommend = '发送成功'
-                    let computer = 10;
+                    let computer = 60;
                     let timer = setInterval(()=>{
-                        if(computer==1){
+                        if(computer==0){
                             this.code_recommend = '获取动态码'
                             clearInterval(timer);
                             this.resendSms = false;

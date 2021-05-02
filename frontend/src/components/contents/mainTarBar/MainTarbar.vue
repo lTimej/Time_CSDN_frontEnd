@@ -31,12 +31,31 @@
 <script>
     import TabBar from "components/common/tabbar/TabBar";
     import TabBarItem from "components/common/tabbar/TabBarItem";
+
+
     export default {
         name: "MainTarbar",
+        data(){
+            return{
+
+            }
+        },
         components:{
             TabBar,
             TabBarItem,
-        }
+        },
+        // computed:{
+        //     dynamic_path(){
+        //         let token =window.localStorage.getItem('token')
+        //         console.log(444444444444,token)
+        //         if(token === null){
+        //             return '/unloginprofile'
+        //         }else{
+        //             return '/profile'
+        //         }
+        //     }
+        // }
+
     }
 </script>
 

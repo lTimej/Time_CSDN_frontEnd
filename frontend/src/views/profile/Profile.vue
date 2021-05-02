@@ -2,14 +2,18 @@
     <div class="profile">
         <nav-bar class="profile-nav">
             <img slot="left" src="~assets/img/tabbar/download.png">
-            <img src="~assets/img/tabbar/icon-wap-toolbar-menu.png" slot="right">
+            <img src="~assets/img/tabbar/icon-wap-toolbar-menu.png" slot="right" @click="account_setting">
         </nav-bar>
-        <individule-home />
-        <collections />
-        <creation-center />
-        <content-libs />
-        <my-curriculum />
-        <more-serve />
+        <scroll
+             class="content"
+            >
+            <individule-home />
+            <collections />
+            <creation-center />
+            <content-libs />
+            <my-curriculum />
+            <more-serve />
+        </scroll>
     </div>
 </template>
 
@@ -22,7 +26,10 @@
     import MoreServe from "./children/MoreServe";
 
     import Collections from "components/contents/profile/Collections";
+
+    import Scroll from "components/common/scroll/Scroll";
     export default {
+
         name: "Profile",
         components:{
             NavBar,
@@ -31,18 +38,37 @@
             CreationCenter,
             ContentLibs,
             MyCurriculum,
-            MoreServe
+            MoreServe,
+            Scroll
+        },
+        methods:{
+            account_setting(){
+                this.$router.push('/account/setting').catch(()=>{})
+            }
         }
     }
 </script>
 
 <style scoped>
-
+    .profile-nav{
+        color: #fff;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: 9;
+    }
     .profile{
+        height: 100vh;
+        position: relative;
+        background-color: rgb(243, 243, 243);
+    }
+    .content{
+        overflow: hidden;
+        position: absolute;
         top: 44px;
         bottom: 49px;
-        height: 100vh;
-        position: absolute;
-        background-color: rgb(243, 243, 243);
+        left: 0;
+        right: 0;
     }
 </style>

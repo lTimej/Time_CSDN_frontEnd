@@ -20,6 +20,7 @@
                     <el-button type="danger" round style="width: 360px" :class="{'login_btn':isLogin}" @click="login">登录</el-button>
                 </div>
             </div>
+<!--            <toast v-show="isShow"></toast>-->
         </scroll>
     </div>
 </template>
@@ -30,6 +31,7 @@
 
     //前端认证
     import {auth} from "network/users/login";
+    import Toast from "components/contents/toast/Toast";
 
     export default {
         name: "Login",
@@ -47,6 +49,7 @@
         data() {
             return {
                 accept:false,
+                // isShow:false
             }
         },
         mounted() {
@@ -54,7 +57,8 @@
         },
         components:{
             NavBar,//导航栏
-            Scroll
+            Scroll,
+            Toast
         },
         methods:{
             //返回上个页面
@@ -76,7 +80,17 @@
                 }
                 console.log(this.username,this.pwd,this.accept);
                 auth(this.username,this.pwd).then(res=>{
-                    console.log(11111,res);
+                    if(res.status=='400'){//验证码过期
+                        this.$toast.show('验证码已过期',5000);
+                    }else if(res.status=='401'){//验证码输入错误
+                        this.$toast.show('验证码输入错误',5000);
+                    }else if(res.status=='201'){//登录成功
+                        this.$toast.show('登录成功',5000)
+                        window.localStorage.clear();
+                        window.localStorage.setItem('token',res.data.token);
+                        this.setSto
+                        this.$router.push('/profile')
+                    }
                 }).catch(err=>{
                     console.log(2222,err);
                 })
