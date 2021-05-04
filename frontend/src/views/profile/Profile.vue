@@ -13,6 +13,7 @@
             <content-libs />
             <my-curriculum />
             <more-serve />
+            <div>{{get_user_info}}</div>
         </scroll>
     </div>
 </template>
@@ -26,6 +27,7 @@
     import MoreServe from "./children/MoreServe";
 
     import Collections from "components/contents/profile/Collections";
+    import {mapGetters} from 'vuex'
 
     import Scroll from "components/common/scroll/Scroll";
     export default {
@@ -42,10 +44,11 @@
             Scroll
         },
         methods:{
+            ...mapGetters(['get_user_info']),
             account_setting(){
                 this.$router.push('/account/setting').catch(()=>{})
             }
-        }
+        },
     }
 </script>
 

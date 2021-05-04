@@ -11,6 +11,13 @@ export function auth(username,password) {
         }
     })
 }
+
+export function refresh_token(){
+    return requests({
+        url:'/v1/login/auth',
+        method:'put',
+    })
+}
 //获取短信验证码
 export function get_code(mobile){
     return requests({

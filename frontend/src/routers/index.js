@@ -90,6 +90,12 @@ const router = new VueRouter({
 
 router.beforeEach((to,from,next)=>{
     // console.log(to)
+    let white_list = ['/unloginprofile','/profile'];
+    if(white_list.indexOf(to.path)!==-1){
+
+
+    }
+
     next();
 });
 export default router;

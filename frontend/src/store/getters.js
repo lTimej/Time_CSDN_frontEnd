@@ -2,8 +2,7 @@ export default {
     getToken(state){
         return state.token;
     },
-    delToken(state){
-        state.token = "";
-        window.localStorage.clear();
+    get_user_info(state){
+        return state.user_individule;
     }
 }

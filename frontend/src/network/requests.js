@@ -1,4 +1,5 @@
 import axios from "axios";
+import {refresh_token} from "./users/login";
 
 export function requests(config){
     //实例化对象
@@ -9,6 +10,8 @@ export function requests(config){
 
     //请求前调用
     instance.interceptors.request.use(config=>{
+        //请求前，将token加入请求头
+        config.headers.Authorization = "Bearer " + window.localStorage.getItem('token');
         return config
     },error => {
         console.log(error);
@@ -17,11 +20,13 @@ export function requests(config){
 
     //响应前被调用
     instance.interceptors.response.use(res=>{
+        //成功响应
         return res
     },error => {
-        console.log(error);
+        //错误响应
         return error.response;
-    })
+
+    });
 
     //发送请求
     return instance(config)

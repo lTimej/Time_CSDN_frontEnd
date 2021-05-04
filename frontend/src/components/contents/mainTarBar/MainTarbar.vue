@@ -20,7 +20,7 @@
           <img slot="active_icon" src="~assets/img/tabbar/ask.png" alt="">
           <div slot="title">消息</div>
         </tab-bar-item>
-        <tab-bar-item path="/unloginprofile" ActiveColor="deeppink">
+        <tab-bar-item :path="dynamic_path" ActiveColor="deeppink">
           <img slot="icon" src="~assets/img/tabbar/profile.svg" alt="">
           <img slot="active_icon" src="~assets/img/tabbar/profile_active.svg" alt="">
           <div slot="title">我的</div>
@@ -44,17 +44,16 @@
             TabBar,
             TabBarItem,
         },
-        // computed:{
-        //     dynamic_path(){
-        //         let token =window.localStorage.getItem('token')
-        //         console.log(444444444444,token)
-        //         if(token === null){
-        //             return '/unloginprofile'
-        //         }else{
-        //             return '/profile'
-        //         }
-        //     }
-        // }
+        computed:{
+            dynamic_path(){
+                let token =window.localStorage.getItem('token')
+                if(token){
+                    return '/profile'
+                }else{
+                    return '/unloginprofile'
+                }
+            }
+        }
 
     }
 </script>

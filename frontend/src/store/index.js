@@ -7,7 +7,7 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     state:{
-        token:window.localStorage.getItem('token')?window.localStorage.getItem('token'):""
+        token:window.localStorage.getItem('token')?window.localStorage.getItem('token'):"",
     },
     mutations:mutations,
     actions:actions,

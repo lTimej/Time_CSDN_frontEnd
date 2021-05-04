@@ -1,8 +1,12 @@
 export default{
-    get_token(state,payloads){
-
+    save_token(state,payloads){
+        state.token = payloads
     },
-    del_token(){
-
+    del_token(state){
+        window.localStorage.removeItem('token')
+        state.token = ""
+    },
+    save_individule_info(state,payloads){
+        state.user_individule = payloads
     }
 }
