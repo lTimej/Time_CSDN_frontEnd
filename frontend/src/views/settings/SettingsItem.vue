@@ -6,6 +6,8 @@
 </template>
 
 <script>
+    import {mapActions} from 'vuex'
+
     export default {
         name: "SettingsItem",
         props:{
@@ -15,8 +17,11 @@
         },
         methods:{
             //退出
+            ...mapActions({
+                logout:'DelToken'
+            }),
             changeRouter(){
-                this.$store.getters.delToken;
+                this.logout();
                 this.$router.replace(this.path).catch(()=>{})
 
             }

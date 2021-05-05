@@ -33,6 +33,8 @@
     import {auth} from "network/users/login";
     import Toast from "components/contents/toast/Toast";
 
+    import {mapActions} from 'vuex'
+
     export default {
         name: "Login",
         props:{//获取子组件的数据
@@ -43,7 +45,6 @@
             pwd:{//密码或短信验证码
                 typy:String,
                 default:"",
-
             }
         },
         data() {
@@ -59,6 +60,10 @@
         },
         methods:{
             //返回上个页面
+            ...mapActions({
+                saveToken:'SaveToken',
+                saveRefreshToken:'SaveRefreshToken'
+            }),
             back(){
                 this.$router.back();
             },
@@ -83,12 +88,18 @@
                     }else if(res.status=='401'){//验证码输入错误
                         this.$toast.show('验证码输入错误',5000);
                     }else if(res.status=='201'){//登录成功
+                        console.log(23333233,res);
                         this.$toast.show('登录成功',5000)
                         //登录成功，将token值存入locaStorage
                         window.localStorage.clear();
                         window.localStorage.setItem('token',res.data.token);
+                        window.localStorage.setItem('refresh_token',res.data.refresh_token);
+                        this.saveToken(res.data.token);
+                        this.saveRefreshToken(res.data.refresh_token);
                         //跳转到我的页面
                         this.$router.push('/profile')
+                    }else {
+                        this.$toast.show('用户不存在',5000)
                     }
                 }).catch(err=>{
                     console.log(2222,err);

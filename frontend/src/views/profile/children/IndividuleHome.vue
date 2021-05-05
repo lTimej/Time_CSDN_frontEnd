@@ -24,41 +24,30 @@
 </template>
 
 <script>
-    import{userProfile} from "network/users/profile";
-    import {refresh_token} from "network/users/login";
     import {mapActions} from 'vuex'
 
     export default {
         name: "IndividuleHome",
+        props:{
+            individule_info:{
+                type:Object,
+                default:{}
+            }
+        },
         data(){
             return{
-                individule_info:{}
+
             }
         },
         methods:{
-            ...mapActions(['SaveIndividuleInfo']),
+
             myCenter(){
                 this.$router.push('/account/tx');
             },
-            get_user_individule_info(){
-                userProfile().then(res=>{
-                    console.log(99999999999,res);
-                    if (res.status===401){
-                        refresh_token().then(res=>{
-                            if(res.status===403){
-                                this.$router.push('/login/phone')
-                            }
-                        })
-                    }else if(res.status===201){
-                        this.SaveIndividuleInfo(res.data);
-                    this.individule_info = res.data
-                    }
 
-                })
-            }
         },
         mounted() {
-            this.get_user_individule_info();
+
         }
     }
 </script>

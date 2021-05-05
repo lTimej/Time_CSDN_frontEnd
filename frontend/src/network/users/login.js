@@ -11,11 +11,14 @@ export function auth(username,password) {
         }
     })
 }
-
+//刷新token
 export function refresh_token(){
     return requests({
         url:'/v1/login/auth',
         method:'put',
+        headers:{
+            Authorization : "Bearer " + window.localStorage.getItem('refresh_token')
+        }
     })
 }
 //获取短信验证码
