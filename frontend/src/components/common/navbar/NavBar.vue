@@ -16,18 +16,21 @@
     .navbar{
         display: flex;
         height: 44px;
-        line-height: 44px;
-        box-shadow: 0 1px 1px rgba(100,100,100,.1);
+        line-height: 54px;
         text-align: center;
+        box-shadow: 0 1px 1px rgba(100,100,100,.1);
+        margin: 0 12px;
+
     }
     .left, .right{
-        width: 60px;
+        /*width: 120px;*/
     }
   .center{
     flex: 1;
+
   }
     .navbar img{
-        width: 19px;
-        height: 19px;
+        width: 24px;
+        height: 24px;
     }
 </style>
