@@ -19,6 +19,13 @@ const MainSettings = () => import("views/settings/MainSettings") ;
 
 const NavPhoto = () => import("views/profile/homepageChildren/NavPhoto") ;
 
+const MyDynamic = () => import('views/profile/homepageChildren/MyDynamic');
+const MyBlog = () => import("views/profile/homepageChildren/MyBlog");
+const MyCategory = () => import("views/profile/homepageChildren/MyCategory");
+const MyBlink = () => import("views/profile/homepageChildren/MyBlink");
+const MyVedio = () => import("views/profile/homepageChildren/MyVedio");
+const MyMore = () => import("views/profile/homepageChildren/MyMore");
+
 const routes = [
     {
       name:'首页',
@@ -77,6 +84,54 @@ const routes = [
       name:'头像导航',
       component:NavPhoto ,
       path:'/account/tx',
+      meta:{
+          isShowTabbar:true
+        }
+    },
+    {
+      name:'我的动态',
+      component:MyDynamic ,
+      path:'/my/dynamic',
+      meta:{
+          isShowTabbar:true
+        }
+    },
+    {
+      name:'我的博客',
+      component:MyBlog ,
+      path:'/my/blog',
+      meta:{
+          isShowTabbar:true
+        }
+    },
+    {
+      name:'我的分类',
+      component:MyCategory,
+      path:'/my/category',
+      meta:{
+          isShowTabbar:true
+        }
+    },
+    {
+      name:'我的直播',
+      component:MyVedio ,
+      path:'/my/vedio',
+      meta:{
+          isShowTabbar:true
+        }
+    },
+    {
+      name:'我的blink',
+      component:MyBlink ,
+      path:'/my/blink',
+      meta:{
+          isShowTabbar:true
+        }
+    },
+    {
+      name:'我的更多',
+      component:MyMore ,
+      path:'/my/more',
       meta:{
           isShowTabbar:true
         }

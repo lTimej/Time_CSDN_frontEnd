@@ -42,7 +42,7 @@
         methods:{
 
             myCenter(){
-                this.$router.push('/account/tx');
+                this.$router.push('/my/dynamic');
             },
 
         },

@@ -49,10 +49,6 @@
                     return;
                 }
                 this.$router.replace(this.new_path).catch(()=>{});
-
-
-                // this.reload();
-
             }
         },
         watch:{

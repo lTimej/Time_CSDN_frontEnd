@@ -12,71 +12,8 @@
             @scroll="myscroll">
             <div class="content-item">
                 <individule-data />
-                <ul>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-                <li>hello world</li>
-            </ul>
+                <main-tab-control />
+                <slot></slot>
             </div>
         </scroll>
     </div>
@@ -85,6 +22,7 @@
 <script>
     import NavBar from "components/common/navbar/NavBar";
     import IndividuleData from "./IndividuleData";
+    import MainTabControl from "components/contents/mainTabControl/MainTabControl";
 
     import {mapGetters} from 'vuex'
 
@@ -101,11 +39,12 @@
         components:{
           NavBar,
           Scroll,
-          IndividuleData
+          IndividuleData,
+            MainTabControl
         },
         methods: {
             back(){
-                this.$router.back()
+                this.$router.push('/profile')
             },
           myscroll(pos){
                 //监听content下拉位置，改变导航栏的展现
@@ -129,8 +68,9 @@
 
 <style scoped>
     .bgc-img img{
-        width: 415px;
-        height: 415px;
+        margin: 0 8px;
+        width: 400px;
+        height: 400px;
         opacity: .4;
     }
     .bgc-img i{
@@ -162,8 +102,13 @@
         z-index: 99;
     }
     .contents{
+        position: absolute;
         overflow: hidden;
         top: 44px;
+        bottom: 49px;
+        left: 0;
+        right: 0;
+        z-index: 99;
     }
     .content .content-item{
         background-color: #fff;
