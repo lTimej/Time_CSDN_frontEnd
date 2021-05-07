@@ -15,10 +15,10 @@
             </div>
             <div class="article">
                 <div class="article-title">
-                    centos7安装elasticsearch
+                    centos7安装elasticsearch1111111111
                 </div>
                 <div class="article-detail">
-                    <p>一、下载（一下操作均在root下执行）wget https://articlets.elastic.co/downloads/elasticsearch/elasticsearch-6.3.2.rpm 二、安装 rpm-ivh</p>
+                    <span>一、下载（一下操作均在root下执行）wget https://articlets.elastic.co/downloads/elasticsearch/elasticsearch-6.3.2.rpm 二、安装 rpm-ivh</span>
                 </div>
                 <div class="other">
                     <span class="good"><i class="el-icon-thumb"></i> <span> 点赞</span></span>
@@ -285,11 +285,10 @@
         margin-top: 10px;
     }
     .indi-home{
-        height: 79px;
-        vertical-align: middle;
+        height: 59px;
+        margin-top: 20px;
     }
     .indi-info{
-        float: left;
         margin-top: 13px;
         margin-left: 20px;
     }
@@ -318,17 +317,27 @@
         margin-left: 20px;
     }
     .article{
-        margin:0 20px;
+        margin-left: 20px;
     }
     .article .article-title{
         font-size: 22px;
         font-weight: 700;
         color: #000000;
         margin-bottom: 10px;
+        width: 350px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
     }
     .article .article-detail{
         color: #777777;
         font-size: 18px;
+        width: 350px;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp:2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
     .article .other{
         margin-left: 200px;

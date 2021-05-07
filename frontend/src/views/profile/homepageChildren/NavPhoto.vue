@@ -1,21 +1,24 @@
 <template>
     <div>
-        <div class="bgc-img">
+
+        <div class="bgc-img" v-show="!isShowNav">
                 <img :src="individuleInfo.head_photo">
                 <i class="el-icon-arrow-left" @click="back"></i>
             </div>
         <nav-bar class="info-nav" v-show="isShowNav">
             <div slot="left" @click="back"><i class="el-icon-arrow-left" style="font-size: 32px;color: #333;"></i><img :src="individuleInfo.head_photo"><span>{{individuleInfo.user_name}}</span></div>
         </nav-bar>
+        <main-tab-control class="tab-control1" v-if="isShowTabControl"/>
         <scroll
-            class="content" :class="{'contents':isChangeContent}"
+            class="content" :class="{'contents':isChangeContent,'contentss':isChangeContents}"
             @scroll="myscroll">
             <div class="content-item">
                 <individule-data />
-                <main-tab-control />
+                <main-tab-control v-show="!isShowTabControl" />
                 <slot></slot>
             </div>
         </scroll>
+        <bottom-toast v-show="isShowBottom" @cancel="cancel" />
     </div>
 </template>
 
@@ -23,6 +26,7 @@
     import NavBar from "components/common/navbar/NavBar";
     import IndividuleData from "./IndividuleData";
     import MainTabControl from "components/contents/mainTabControl/MainTabControl";
+    import BottomToast from "components/contents/bottomToast/BottomToast";
 
     import {mapGetters} from 'vuex'
 
@@ -30,17 +34,27 @@
 
     export default {
         name: "NavPhote",
+        props:{
+            isBottomToast:{
+                type:Boolean,
+                default:false
+            }
+        },
         data() {
           return {
             isShowNav:false,
-            isChangeContent:false
+            isChangeContent:false,
+              isChangeContents:false,
+              isShowBottom:this.isBottomToast,
+              isShowTabControl:false
           };
         },
         components:{
           NavBar,
           Scroll,
           IndividuleData,
-            MainTabControl
+            MainTabControl,
+            BottomToast
         },
         methods: {
             back(){
@@ -48,15 +62,14 @@
             },
           myscroll(pos){
                 //监听content下拉位置，改变导航栏的展现
-            if(pos.y<-110){
-                this.isShowNav=true;
-                this.isChangeContent = true;
-            }
-            else{
-                this.isShowNav=false;
-                this.isChangeContent = false;
-            }
+                  this.isShowTabControl = pos.y<-182;
+                  this.isShowNav=pos.y<-110;
+                  this.isChangeContent = pos.y<-110;
+                  this.isChangeContents = pos.y<-182
           },
+            cancel(){
+                this.isShowBottom = false
+            }
         },
         computed:{
             ...mapGetters({
@@ -83,10 +96,19 @@
     .info-nav{
         color: #fff;
         background-color: #fff;;
-        position: fixed;
+        position: absolute;
         left: 0;
         right: 0;
         top: 0;
+    }
+    .tab-control1{
+        color: #fff;
+        background-color: #fff;;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 44px;
+        z-index: 10;
     }
     .info-nav span{
         margin-left: 15px;
@@ -100,17 +122,22 @@
         left: 0;
         right: 0;
         z-index: 99;
+        margin-top: 10px;
     }
     .contents{
         position: absolute;
         overflow: hidden;
-        top: 44px;
+        top: 32px;
         bottom: 49px;
         left: 0;
         right: 0;
         z-index: 99;
     }
+    .contentss{
+        top: 88px;
+    }
     .content .content-item{
         background-color: #fff;
     }
+
 </style>

@@ -48,13 +48,6 @@
         text-align: center;
         color: #b0b0b0;
     }
-    /*.tab-control-item img{*/
-    /*    width: 24px;*/
-    /*    height: 24px;*/
-    /*    vertical-align: middle;*/
-    /*    margin-top: 2px;*/
-    /*    margin-bottom: 3px;*/
-    /*}*/
     .ActiveColor1{
         color: #333;
         font-weight: 600;
