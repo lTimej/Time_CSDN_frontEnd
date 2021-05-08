@@ -21,8 +21,11 @@
                 logout:'DelToken'
             }),
             changeRouter(){
-                this.logout();
-                this.$router.replace(this.path).catch(()=>{})
+                if (this.path==='/unloginprofile'){
+                    this.logout();
+                    this.$router.replace(this.path).catch(()=>{})
+                }
+
 
             }
         }

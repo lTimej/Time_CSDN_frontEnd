@@ -10,5 +10,8 @@ export default{
     },
     save_individule_info(state,payloads){
         state.user_individule = payloads
+    },
+    setPath(state,payloads){
+        state.curr_path = payloads
     }
 }

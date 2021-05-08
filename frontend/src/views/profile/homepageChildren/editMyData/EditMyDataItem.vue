@@ -1,8 +1,8 @@
 <template>
     <div class="edit-data-item">
-        <settings-item class="e">
+        <settings-item >
             <div slot="left">昵称</div>
-            <div slot="right"><span v-model="namenick">{{individuleInfo.user_name}}</span><i class="el-icon-arrow-right" ></i></div>
+            <div slot="right"><span v-model="namenick" @click="nickEdit">{{namenick}}</span><i class="el-icon-arrow-right" ></i></div>
         </settings-item>
         <settings-item class="e">
             <div slot="left">性别</div>
@@ -50,6 +50,7 @@
 <script>
     // import Settings from "views/settings/Settings";
     import SettingsItem from "views/settings/SettingsItem";
+    import {mapGetters} from "vuex";
     export default {
         name: "EditMyDataItem",
         props:{
@@ -59,7 +60,7 @@
         },
         data(){
             return {
-                namenick:'未填写',
+                namenick:this.individuleInfo.user_name?this.individuleInfo.user_name:'未填写',
                 gender:this.individuleInfo.gender?this.individuleInfo.gender:'未填写',
                 introduce:this.individuleInfo.introduction?this.individuleInfo.introduction:'未填写',
                 tag:this.individuleInfo.tag?this.individuleInfo.tag:'未填写',
@@ -69,10 +70,24 @@
                 workTime:'未填写'
             }
         },
+        mounted() {
+            console.log(777,this.individuleInfo.user_name);
+        },
         components:{
             // Settings,
             SettingsItem
         },
+        methods:{
+            nickEdit(){
+                this.$router.push('/edit/nick')
+            }
+        },
+        // computed:{
+        //     ...mapGetters({
+        //         individuleInfo:'get_user_info'
+        //     })
+        // },
+
     }
 </script>
 

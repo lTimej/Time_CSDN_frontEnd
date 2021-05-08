@@ -10,5 +10,8 @@ export default {
     },
     SaveIndividuleInfo(context,payloads){
         context.commit('save_individule_info',payloads)
+    },
+    SetPath(context,payloads){
+        context.commit('setPath',payloads)
     }
 }

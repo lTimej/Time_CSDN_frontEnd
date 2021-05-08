@@ -1,5 +1,5 @@
 <template>
-    <nav-photo>
+    <div>
         <div class="indi-center">
             <div class="indi-home">
                 <div class="indi-info">
@@ -260,11 +260,11 @@
                 </div>
             </div>
         </div>
-    </nav-photo>
+    </div>
 </template>
 
 <script>
-    import NavPhoto from "./NavPhoto";
+    import NavPhoto from "../NavPhoto";
 
     import {mapGetters} from 'vuex'
     export default {
@@ -276,7 +276,15 @@
             ...mapGetters({
                 individuleInfo:'get_user_info'
             })
+        },
+        activated() {
+            // console.log(2222223333,this.$refs.scrollTo.getScrollY());
+
+        },
+        methods:{
+
         }
+
     }
 </script>
 

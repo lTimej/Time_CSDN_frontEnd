@@ -24,7 +24,8 @@
         },
         computed:{
             isActive(){
-                return this.$route.path.indexOf(this.path) !== -1;
+                // return this.$route.path.indexOf(this.path) !== -1;
+                return this.$store.state.curr_path === this.path
             },
             ActiveStyle(){
                 return this.isActive ?{color:this.ActiveColor}:{}
@@ -32,7 +33,8 @@
         },
         methods:{
             changeRouter(){
-                this.$router.push(this.path).catch(()=>{})
+                // this.$router.push(this.path).catch(()=>{})
+                this.$store.dispatch('SetPath',this.path)
             }
 
         }

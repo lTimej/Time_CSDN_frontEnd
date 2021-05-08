@@ -1,21 +1,27 @@
 <template>
     <div>
-
         <div class="bgc-img" v-show="!isShowNav">
                 <img :src="individuleInfo.head_photo">
                 <i class="el-icon-arrow-left" @click="back"></i>
-            </div>
+        </div>
         <nav-bar class="info-nav" v-show="isShowNav">
             <div slot="left" @click="back"><i class="el-icon-arrow-left" style="font-size: 32px;color: #333;"></i><img :src="individuleInfo.head_photo"><span>{{individuleInfo.user_name}}</span></div>
         </nav-bar>
         <main-tab-control class="tab-control1" v-if="isShowTabControl"/>
         <scroll
             class="content" :class="{'contents':isChangeContent,'contentss':isChangeContents}"
-            @scroll="myscroll">
+            @scroll="myscroll"
+            ref="scrollTo">
             <div class="content-item">
                 <individule-data />
                 <main-tab-control v-show="!isShowTabControl" />
-                <slot></slot>
+<!--                <slot></slot>-->
+                <my-dynamic v-show="currPath==='/my/dynamic'" />
+                <my-blog v-show="currPath==='/my/blog'" />
+                <my-blink v-show="currPath==='/my/blink'" />
+                <my-category v-show="currPath==='/my/category'" />
+                <my-vedio v-show="currPath==='/my/vedio'" />
+                <my-more v-show="currPath==='/my/more'" />
             </div>
         </scroll>
         <bottom-toast v-show="isShowBottom" @cancel="cancel" />
@@ -27,6 +33,13 @@
     import IndividuleData from "./IndividuleData";
     import MainTabControl from "components/contents/mainTabControl/MainTabControl";
     import BottomToast from "components/contents/bottomToast/BottomToast";
+
+    import MyDynamic from "./individuleCenter/MyDynamic";
+    import MyBlog from "./individuleCenter/MyBlog";
+    import MyBlink from "./individuleCenter/MyBlink";
+    import MyCategory from "./individuleCenter/MyCategory";
+    import MyVedio from "./individuleCenter/MyVedio";
+    import MyMore from "./individuleCenter/MyMore";
 
     import {mapGetters} from 'vuex'
 
@@ -42,11 +55,12 @@
         },
         data() {
           return {
-            isShowNav:false,
-            isChangeContent:false,
+              isShowNav:false,
+              isChangeContent:false,
               isChangeContents:false,
               isShowBottom:this.isBottomToast,
-              isShowTabControl:false
+              isShowTabControl:false,
+              curr_location:0,
           };
         },
         components:{
@@ -54,7 +68,13 @@
           Scroll,
           IndividuleData,
             MainTabControl,
-            BottomToast
+            BottomToast,
+            MyDynamic,
+            MyBlog,
+            MyBlink,
+            MyCategory,
+            MyVedio,
+            MyMore
         },
         methods: {
             back(){
@@ -67,23 +87,38 @@
                   this.isChangeContent = pos.y<-110;
                   this.isChangeContents = pos.y<-182
           },
-            cancel(){
-                this.isShowBottom = false
+         cancel(){
+             this.isShowBottom = false
+         },
+            get_curr_location(){
+                return this.$refs.scrollTo.getScrollY();
             }
         },
         computed:{
             ...mapGetters({
-                individuleInfo:'get_user_info'
+                individuleInfo:'get_user_info',
+                currPath:'get_curr_path',
             })
+        },
+
+        mounted() {
+
+        },
+        activated() {
+            this.$refs.scrollTo.scrollTo(0,this.curr_location)
+
+        },
+        deactivated() {
+            this.curr_location = this.$refs.scrollTo.getScrollY();
         }
     }
 </script>
 
 <style scoped>
     .bgc-img img{
-        margin: 0 8px;
-        width: 400px;
-        height: 400px;
+        /*margin: 0 8px;*/
+        width: 420px;
+        height: 300px;
         opacity: .4;
     }
     .bgc-img i{
@@ -119,6 +154,7 @@
         position: absolute;
         top: 144px;
         bottom: 49px;
+        /*height: calc(100% - 304px + 10px);*/
         left: 0;
         right: 0;
         z-index: 99;

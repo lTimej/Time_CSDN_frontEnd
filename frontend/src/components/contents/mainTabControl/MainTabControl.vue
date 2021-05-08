@@ -1,6 +1,6 @@
 <template>
     <tab-control>
-        <tab-control-item  path="/my/dynamic" ActiveColor="#020202">
+        <tab-control-item  path="/my/dynamic" ActiveColor="#020202" >
             <div slot="title">动态</div>
             <div slot="active_icon" class="heng"></div>
         </tab-control-item>
@@ -35,7 +35,10 @@
         components:{
             TabControl,
             TabControlItem
-        }
+        },
+        methods:{
+
+    }
     }
 </script>
 

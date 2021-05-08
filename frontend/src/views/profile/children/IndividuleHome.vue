@@ -42,7 +42,7 @@
         methods:{
 
             myCenter(){
-                this.$router.push('/my/dynamic');
+                this.$router.push('/myAccount');
             },
 
         },

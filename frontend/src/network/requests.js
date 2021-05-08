@@ -12,7 +12,7 @@ export function requests(config){
     instance.interceptors.request.use(config=>{
         //请求前，将token加入请求头
         config.headers.Authorization = "Bearer " + window.localStorage.getItem('token');
-        console.log(4444444,config);
+        console.log(999999,config);
         return config
     },error => {
         console.log(error);

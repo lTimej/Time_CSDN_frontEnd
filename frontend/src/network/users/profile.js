@@ -7,9 +7,8 @@ export function userProfile() {
         method:'get'
     })
 }
-//修该当前用户信息
-export  function updateUserProfile(file) {
-    console.log(file);
+//修该当前用户文件信息
+export  function updateUserImgProfile(file) {
     return requests({
         url:'/v1/curr/user',
         method:'patch',
@@ -17,5 +16,15 @@ export  function updateUserProfile(file) {
         //     'Content-Type':'multipart/form-data'
         // },
         data:file
+    })
+}
+export  function updateUserProfile(data) {
+    return requests({
+        url:'/v1/curr/user',
+        method:'patch',
+        // headers:{
+        //     'Content-Type':'multipart/form-data'
+        // },
+        data:data
     })
 }

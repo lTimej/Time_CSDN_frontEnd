@@ -22,14 +22,6 @@
                     console.log(res);
                 })
             }
-            // handleChange(file){
-            //     console.log(222222,file.raw);
-            //
-            //   formData.append('head_photo',file.raw)
-            //     updateUserProfile(formData).then(res=>{
-            //         console.log(33333333333,res);
-            //     })
-            // },
         }
     }
 </script>

@@ -1,16 +1,16 @@
 <template>
-    <nav-photo>
-        <div class="my-category">
+    <div>
+        <div class="my-vedio">
             <img src="~assets/img/pikaqiu.gif">
             <p>在这个星球找不到你需要的信息</p>
         </div>
-    </nav-photo>
+    </div>
 </template>
 
 <script>
-    import NavPhoto from "./NavPhoto";
+    import NavPhoto from "../NavPhoto";
     export default {
-        name: "MyCategory",
+        name: "MyVedio",
         components:{
             NavPhoto
         }
@@ -18,12 +18,12 @@
 </script>
 
 <style scoped>
-.my-category{
+    .my-vedio{
         height: 800px;
         line-height: 600px;
         text-align: center;
     }
-    .my-category img{
+    .my-vedio img{
         width: 300px;
         height: 300px;
         border-radius: 50%;

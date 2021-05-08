@@ -2,11 +2,12 @@
     <div>
         <nav-bar class="edit-nav" >
             <div slot="left" @click="back"><i class="el-icon-arrow-left"></i></div>
-            <div slot="center"><span>编辑个人资料</span></div>
+            <div slot="center" ><span>编辑个人资料</span></div>
         </nav-bar>
-        <scroll class="content">
+        <scroll class="content"
+        ref="scrollTo">
             <form class="my-avatar">
-                <img :src="individuleInfo.head_photo"><input type="file" id="file" ref="file" @click="e=>{e.target.value = ''}" @change="getFileData">
+                <img :src="individuleInfo.head_photo"><input type="file" ref="file" @click="e=>{e.target.value = ''}" @change="getFileData">
                 <div class="avatar-camera"><i class="el-icon-camera"></i></div>
                 <p @click="see">点击更换头像</p>
             </form>
@@ -24,7 +25,7 @@
     import Scroll from "components/common/scroll/Scroll";
     import EditMyDataItem from "./EditMyDataItem";
     import {mapGetters} from "vuex";
-    import {updateUserProfile} from "network/users/profile";
+    import {updateUserImgProfile} from "network/users/profile";
 
     export default {
         name: "MyResume",
@@ -46,13 +47,11 @@
                 this.$router.push('/example')
             },
             getFileData(){
-                this.fileData = this.$refs.file.files[0];
                 let file = this.$refs.file.files[0];
                 let formData = new FormData();
                 formData.append('head_photo',file);
-                // formData.append('head_photo',file);
-                updateUserProfile(formData).then(res=>{
-                    console.log(res);
+                updateUserImgProfile(formData).then(res=>{
+                    this.individuleInfo.head_photo = res.data.head_photo;
                 })
 
             }
@@ -61,6 +60,10 @@
             ...mapGetters({
                 individuleInfo:'get_user_info'
             })
+        },
+        activated() {
+            console.log('进来了',this.individuleInfo.user_name)
+            this.$refs.scrollTo.refresh()
         }
     }
 </script>

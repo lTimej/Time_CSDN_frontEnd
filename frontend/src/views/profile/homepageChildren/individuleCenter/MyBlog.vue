@@ -1,5 +1,5 @@
 <template>
-    <nav-photo :isBottomToast="isShowBottom">
+    <div >
         <div class="my-blog">
             <div class="my-blog-first">
                 <div class="title">
@@ -154,16 +154,16 @@
                 <span class="more"><i class="el-icon-more"></i></span>
             </div>
         </div>
-    </nav-photo>
+    </div>
 </template>
 
 <script>
-    import NavPhoto from "./NavPhoto";
+    import NavPhoto from "../NavPhoto";
     export default {
         name: "MyBloc",
         data(){
             return{
-                isShowBottom:false
+                // isShowBottom:false
             }
         },
         components:{
@@ -171,8 +171,8 @@
         },
         methods:{
             getMore(){
-                this.isShowBottom = true
-            }
+                // this.isShowBottom = true
+            },
         }
     }
 </script>
