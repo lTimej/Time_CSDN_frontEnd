@@ -135,6 +135,8 @@
     }
     .contentss{
         top: 88px;
+        bottom: 0;
+        height: calc(100% - 44px - 39px - 22px);
     }
     .content .content-item{
         background-color: #fff;

@@ -50,7 +50,8 @@
         overflow: hidden;
         position: absolute;
         top: 44px;
-        bottom: 49px;
+        /*bottom: 49px;*/
+        height: calc(100% - 44px);
         left: 0;
         right: 0;
         background-color: #f6f6f6;

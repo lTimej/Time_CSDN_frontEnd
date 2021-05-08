@@ -4,7 +4,7 @@
             <img :src="individuleInfo.head_photo">
             <div class="gender"><i class="el-icon-male" style="color: #fff;font-size: 16px"></i></div>
             <div class="edit-data">
-                <el-button round class="bu">编辑资料</el-button>
+                <el-button round class="bu" @click="toEditInfo">编辑资料</el-button>
                 <el-button type="danger" round class="bu">申请认证</el-button>
             </div>
         </div>
@@ -40,6 +40,11 @@
             ...mapGetters({
                 individuleInfo:'get_user_info'
             })
+        },
+        methods:{
+            toEditInfo(){
+                this.$router.push('/edit/mydata')
+            }
         }
 
     }

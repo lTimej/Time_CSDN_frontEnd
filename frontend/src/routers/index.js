@@ -25,6 +25,7 @@ const MyCategory = () => import("views/profile/homepageChildren/MyCategory");
 const MyBlink = () => import("views/profile/homepageChildren/MyBlink");
 const MyVedio = () => import("views/profile/homepageChildren/MyVedio");
 const MyMore = () => import("views/profile/homepageChildren/MyMore");
+const EditMyData = () => import("views/profile/homepageChildren/editMyData/EditMyData") ;
 
 const routes = [
     {
@@ -132,6 +133,14 @@ const routes = [
       name:'我的更多',
       component:MyMore ,
       path:'/my/more',
+      meta:{
+          isShowTabbar:true
+        }
+    },
+    {
+      name:'我的个人资料',
+      component:EditMyData ,
+      path:'/edit/mydata',
       meta:{
           isShowTabbar:true
         }
