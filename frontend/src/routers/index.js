@@ -26,6 +26,7 @@ const MyBlink = () => import("views/profile/homepageChildren/MyBlink");
 const MyVedio = () => import("views/profile/homepageChildren/MyVedio");
 const MyMore = () => import("views/profile/homepageChildren/MyMore");
 const EditMyData = () => import("views/profile/homepageChildren/editMyData/EditMyData") ;
+const example = () => import("views/profile/example");
 
 const routes = [
     {
@@ -141,6 +142,14 @@ const routes = [
       name:'我的个人资料',
       component:EditMyData ,
       path:'/edit/mydata',
+      meta:{
+          isShowTabbar:true
+        }
+    },
+    {
+      name:'例子',
+      component:example ,
+      path:'/example',
       meta:{
           isShowTabbar:true
         }

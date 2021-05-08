@@ -60,12 +60,12 @@
         data(){
             return {
                 namenick:'未填写',
-                gender:'男',
-                introduce:'未填写',
-                tag:'未填写',
-                authName:'未填写',
-                birthday:'未填写',
-                areas:'未填写',
+                gender:this.individuleInfo.gender?this.individuleInfo.gender:'未填写',
+                introduce:this.individuleInfo.introduction?this.individuleInfo.introduction:'未填写',
+                tag:this.individuleInfo.tag?this.individuleInfo.tag:'未填写',
+                authName:this.individuleInfo.authName?this.individuleInfo.authName:'未填写',
+                birthday:this.individuleInfo.birthday?this.individuleInfo.birthday:'未填写',
+                areas:this.individuleInfo.area?this.individuleInfo.area:'未填写',
                 workTime:'未填写'
             }
         },

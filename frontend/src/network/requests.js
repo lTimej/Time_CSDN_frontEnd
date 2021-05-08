@@ -4,7 +4,7 @@ import {refresh_token} from "./users/login";
 export function requests(config){
     //实例化对象
     const instance = axios.create({
-        baseURL:'http://192.168.153.130:8081',
+        baseURL:'http://192.168.153.132:8081',
         timeout: 5000
     });
 
@@ -12,6 +12,7 @@ export function requests(config){
     instance.interceptors.request.use(config=>{
         //请求前，将token加入请求头
         config.headers.Authorization = "Bearer " + window.localStorage.getItem('token');
+        console.log(4444444,config);
         return config
     },error => {
         console.log(error);

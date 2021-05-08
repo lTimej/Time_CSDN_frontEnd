@@ -5,11 +5,11 @@
             <div slot="center"><span>编辑个人资料</span></div>
         </nav-bar>
         <scroll class="content">
-            <div class="my-avatar">
-                <img :src="individuleInfo.head_photo"><input type="file"></input>
+            <form class="my-avatar">
+                <img :src="individuleInfo.head_photo"><input type="file" id="file" ref="file" @click="e=>{e.target.value = ''}" @change="getFileData">
                 <div class="avatar-camera"><i class="el-icon-camera"></i></div>
-                <p>点击更换头像</p>
-            </div>
+                <p @click="see">点击更换头像</p>
+            </form>
             <edit-my-data-item :individuleInfo="individuleInfo" />
             <div class="upload-more">
 
@@ -24,12 +24,13 @@
     import Scroll from "components/common/scroll/Scroll";
     import EditMyDataItem from "./EditMyDataItem";
     import {mapGetters} from "vuex";
+    import {updateUserProfile} from "network/users/profile";
 
     export default {
         name: "MyResume",
         data() {
           return {
-
+            fileData:null
           };
         },
         components:{
@@ -41,6 +42,20 @@
             back(){
                 this.$router.back();
             },
+            see(){
+                this.$router.push('/example')
+            },
+            getFileData(){
+                this.fileData = this.$refs.file.files[0];
+                let file = this.$refs.file.files[0];
+                let formData = new FormData();
+                formData.append('head_photo',file);
+                // formData.append('head_photo',file);
+                updateUserProfile(formData).then(res=>{
+                    console.log(res);
+                })
+
+            }
         },
         computed:{
             ...mapGetters({
