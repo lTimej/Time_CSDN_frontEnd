@@ -163,7 +163,7 @@
         name: "MyBloc",
         data(){
             return{
-                // isShowBottom:false
+
             }
         },
         components:{
@@ -171,7 +171,7 @@
         },
         methods:{
             getMore(){
-                // this.isShowBottom = true
+
             },
         }
     }

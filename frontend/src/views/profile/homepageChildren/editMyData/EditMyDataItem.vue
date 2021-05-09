@@ -48,9 +48,7 @@
 </template>
 
 <script>
-    // import Settings from "views/settings/Settings";
     import SettingsItem from "views/settings/SettingsItem";
-    import {mapGetters} from "vuex";
     export default {
         name: "EditMyDataItem",
         props:{
@@ -71,10 +69,8 @@
             }
         },
         mounted() {
-            console.log(777,this.individuleInfo.user_name);
         },
         components:{
-            // Settings,
             SettingsItem
         },
         methods:{
@@ -82,12 +78,6 @@
                 this.$router.push('/edit/nick')
             }
         },
-        // computed:{
-        //     ...mapGetters({
-        //         individuleInfo:'get_user_info'
-        //     })
-        // },
-
     }
 </script>
 

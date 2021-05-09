@@ -24,7 +24,7 @@
             <div  slot="right">0M</div>
         </settings-item>
         <div class="account-manage" v-show="isShowAccountManage">
-            <settings-item >
+            <settings-item path="/account/admin">
                 <div slot="left">账号与安全管理</div>
                 <i class="el-icon-arrow-right" slot="right"></i>
             </settings-item>

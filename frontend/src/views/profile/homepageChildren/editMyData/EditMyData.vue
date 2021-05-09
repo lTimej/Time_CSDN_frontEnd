@@ -13,7 +13,6 @@
             </form>
             <edit-my-data-item :individuleInfo="individuleInfo" />
             <div class="upload-more">
-
             </div>
         </scroll>
 
@@ -62,7 +61,6 @@
             })
         },
         activated() {
-            console.log('进来了',this.individuleInfo.user_name)
             this.$refs.scrollTo.refresh()
         }
     }

@@ -22,6 +22,7 @@ const NavPhoto = () => import("views/profile/homepageChildren/NavPhoto") ;
 const EditMyData = () => import("views/profile/homepageChildren/editMyData/EditMyData") ;
 const example = () => import("views/profile/example");
 const NickEdit = () => import("views/profile/homepageChildren/editMyData/NickEdit");
+const AccountAdmin = () => import("views/settings/children/AccountAdmin");
 
 const routes = [
     {
@@ -105,6 +106,14 @@ const routes = [
       name:'昵称编辑',
       component:NickEdit ,
       path:'/edit/nick',
+      meta:{
+          isShowTabbar:true
+        }
+    },
+    {
+      name:'账号管理',
+      component:AccountAdmin ,
+      path:'/account/admin',
       meta:{
           isShowTabbar:true
         }

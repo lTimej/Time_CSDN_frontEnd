@@ -11,7 +11,7 @@
               type="text"
               placeholder="请输入内容"
               v-model='namenick'
-              maxlength="10"
+              maxlength="20"
               show-word-limit
              style="height: 50px">
             </el-input>

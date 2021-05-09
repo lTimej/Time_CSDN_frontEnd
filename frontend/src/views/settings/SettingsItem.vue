@@ -24,6 +24,8 @@
                 if (this.path==='/unloginprofile'){
                     this.logout();
                     this.$router.replace(this.path).catch(()=>{})
+                }else{
+                    this.$router.push(this.path).catch(()=>{})
                 }
 
 

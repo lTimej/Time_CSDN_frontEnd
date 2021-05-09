@@ -13,7 +13,7 @@
 <script>
     import NavBar from "components/common/navbar/NavBar";
     import Scroll from "components/common/scroll/Scroll";
-    import MessageSetting from "./children/MessageSetting";
+    import MessageSetting from "./children/AccountAdmin";
 
     export default {
         name: "Settings",
