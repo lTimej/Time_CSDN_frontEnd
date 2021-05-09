@@ -7,9 +7,9 @@
         <scroll class="content">
             <settings-item>
                 <div slot="left">修改手机号</div>
-                <div slot="right"><span>199****1761</span><i class="el-icon-arrow-right" ></i></div>
+                <div slot="right"><span>{{individuleInfo.mobile}}</span><i class="el-icon-arrow-right" ></i></div>
             </settings-item>
-            <settings-item>
+            <settings-item path="/update/pwd">
                 <div slot="left">修改密码</div>
                 <div slot="right"><i class="el-icon-arrow-right" ></i></div>
             </settings-item>
@@ -38,6 +38,7 @@
     import Settings from "../Settings";
     import SettingsItem from "../SettingsItem";
     import Scroll from "components/common/scroll/Scroll";
+    import {mapGetters} from "vuex";
     export default {
         name: "AccountAdmin",
         components:{
@@ -49,6 +50,11 @@
             back(){
                 this.$router.back();
             }
+        },
+        computed:{
+            ...mapGetters({
+                individuleInfo:'get_user_info'
+            })
         }
     }
 </script>

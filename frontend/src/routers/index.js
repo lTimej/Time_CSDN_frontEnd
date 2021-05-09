@@ -23,6 +23,7 @@ const EditMyData = () => import("views/profile/homepageChildren/editMyData/EditM
 const example = () => import("views/profile/example");
 const NickEdit = () => import("views/profile/homepageChildren/editMyData/NickEdit");
 const AccountAdmin = () => import("views/settings/children/AccountAdmin");
+const UpdatePassword = () => import("views/settings/children/UpdatePassword");
 
 const routes = [
     {
@@ -114,6 +115,14 @@ const routes = [
       name:'账号管理',
       component:AccountAdmin ,
       path:'/account/admin',
+      meta:{
+          isShowTabbar:true
+        }
+    },
+     {
+      name:'密码修改',
+      component:UpdatePassword ,
+      path:'/update/pwd',
       meta:{
           isShowTabbar:true
         }
