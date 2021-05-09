@@ -11,6 +11,17 @@ export function auth(username,password) {
         }
     })
 }
+//登录
+export function login(username,password) {
+    return requests({
+        url:'/v1/login',
+        method:'post',
+        data:{
+            username:username,
+            password:password
+        }
+    })
+}
 //刷新token
 export function refresh_token(){
     return requests({

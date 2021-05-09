@@ -17,7 +17,8 @@
                     <span class="login-outer">我已阅读同意<span class="login-inner">《用户服务条款》</span>与<span class="login-inner">隐私政策</span></span>
                 </div>
                 <div class="login-confirm">
-                    <el-button type="danger" round style="width: 360px" :class="{'login_btn':isLogin}" @click="login">登录</el-button>
+                    <el-button type="danger" round style="width: 360px" :class="{'login_btn':isPhoneLogin}" @click="phoneLogin" v-show="!isPhone">手机登录</el-button>
+                    <el-button type="danger" round style="width: 360px" :class="{'login_btn':isAccountLogin}" @click="accountLogin" v-show="!isAccount">账号登录</el-button>
                 </div>
             </div>
 <!--            <toast v-show="isShow"></toast>-->
@@ -30,7 +31,7 @@
     import Scroll from "components/common/scroll/Scroll";
 
     //前端认证
-    import {auth} from "network/users/login";
+    import {auth,login} from "network/users/login";
     import Toast from "components/contents/toast/Toast";
 
     import {mapActions} from 'vuex'
@@ -75,20 +76,15 @@
             changeLoginMethod(path){
                 this.$router.replace(path).catch(()=>{})
             },
-            //登录
-            login(){
-                //判断是否满足登录条件
-                if(!this.isLogin){
-                    return;
-                }
-                console.log(this.username,this.pwd,this.accept);
-                auth(this.username,this.pwd).then(res=>{
+            login(res){//登录逻辑
+                console.log(res);
                     if(res.status=='400'){//验证码过期
                         this.$toast.show('验证码已过期',5000);
                     }else if(res.status=='401'){//验证码输入错误
                         this.$toast.show('验证码输入错误',5000);
+                    }else if(res.status=='402'){//验证码输入错误
+                        this.$toast.show('用户名或密码输入错误',5000);
                     }else if(res.status=='201'){//登录成功
-                        console.log(23333233,res);
                         this.$toast.show('登录成功',5000)
                         //登录成功，将token值存入locaStorage
                         window.localStorage.clear();
@@ -101,10 +97,31 @@
                     }else {
                         this.$toast.show('用户不存在',5000)
                     }
+            },
+            //手机号登录
+            phoneLogin(){
+                //判断是否满足登录条件
+                if(!this.isPhoneLogin){
+                    return;
+                }
+                auth(this.username,this.pwd).then(res=>{
+                    this.login(res)
                 }).catch(err=>{
                     console.log(2222,err);
                 })
             },
+            //账号登录
+            accountLogin(){
+                // 判断是否满足登录条件
+                if(!this.isAccountLogin){
+                    return;
+                }
+                login(this.username,this.pwd).then(res=>{
+                    this.login(res)
+                }).catch(err=>{
+                    console.log(2222,err);
+                })
+            }
 
         },
         computed:{
@@ -114,7 +131,7 @@
             isAccount(){//改变切换登录模式的字体颜色
                 return this.$route.path !== '/login/account'
             },
-            isLogin(){
+            isPhoneLogin(){
                 let re1 = /^\d{6}$/;
                 let re2 = /^1[3-9]\d{9}$/;
                 if(re1.test(this.pwd) && re2.test(this.username) && this.accept){
@@ -122,7 +139,15 @@
                 }else{
                     return false;
                 }
-
+            },
+            isAccountLogin(){
+                let re1 = /^.{8,16}$/;
+                let re2 = /^.+$/;
+                if(re1.test(this.pwd) && re2.test(this.username) && this.accept){
+                    return true
+                }else{
+                    return false;
+                }
             }
         }
     }

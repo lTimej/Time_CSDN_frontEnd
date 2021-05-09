@@ -6,7 +6,6 @@
             <div slot="right" @click="confirmS"><span>确定</span></div>
         </nav-bar>
         <div class="nick-edit-item">
-<!--            <input type="text" v-model="userName" placeholder="请输入">-->
             <el-input
               type="text"
               placeholder="请输入内容"
@@ -52,8 +51,8 @@
                 };
                 updateUserProfile(data).then(res=>{
                     if (res.status === 201){
-                        this.namenick = res.data.user_name
-                        this.individuleInfo.user_name = res.data.user_name
+                        this.namenick = res.data.user_name;
+                        this.individuleInfo.user_name = res.data.user_name;
                         this.$toast.show('修改成功',3000);
                         setTimeout(()=>{
                             this.$router.replace('/edit/mydata')
