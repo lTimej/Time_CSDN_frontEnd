@@ -13,5 +13,8 @@ export default{
     },
     setPath(state,payloads){
         state.curr_path = payloads
+    },
+    save_all_channels(state,payloads){
+        state.allChannels = payloads
     }
 }

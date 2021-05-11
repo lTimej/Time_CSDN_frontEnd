@@ -26,6 +26,10 @@
     import ScrollX from "components/common/scroll/ScrollX";
     import ScrollHome from "./child/ScrollHome";
     import ArticleList from "./articles/ArticleList";
+
+    import {allChannels} from "network/articles/channels";
+    import {mapActions} from 'vuex'
+
     export default {
         name: "Home",
         data(){
@@ -39,6 +43,18 @@
             Scroll,
             ScrollX,
             ArticleList
+        },
+        mounted() {
+            console.log(11111)
+            this.getChannels();
+        },
+        methods:{
+            getChannels(){
+                allChannels().then(res=>{
+                    console.log(3333,res);
+                    this.$store.dispatch('SaveAllChannels',res.data.data.channels)
+                })
+            }
         }
     }
 </script>
@@ -63,7 +79,7 @@
         height: 44px;
     }
     >>> .contents-x{
-        width: 1000px;
+        width: 1650px;
     }
     .content-x{
         position: absolute;

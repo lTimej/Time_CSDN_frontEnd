@@ -1,59 +1,16 @@
 <template>
         <div class="a">
-            <div class="b" :class="{'cat_active':isActive}">
-                <span>Python</span>
+            <div class="b" :class="{'cat_active':isActive}" v-for="channel in channels">
+                <span>{{channel.channel_name}}</span>
                 <span class="heng" v-show="isActive"></span>
             </div>
-            <div class="b">
-                <span>java</span>
-                <div class="heng"></div>
-            </div>
-            <div class="b">
-                <span>c++</span>
-                <div class="heng"></div>
-            </div>
-            <div class="b">
-                <span>c#</span>
-                <div class="heng"></div>
-            </div>
-            <div class="b">
-                <span>web</span>
-                <div class="heng"></div>
-            </div>
-            <div class="b">
-                <span>docker</span>
-                <div class="heng"></div>
-            </div>
-            <div class="b">
-                <span>python</span>
-                <div class="heng"></div>
-            </div>
-            <div class="b">
-                <span>java</span>
-                <div class="heng"></div>
-            </div>
-            <div class="b">
-                <span>c++</span>
-                <div class="heng"></div>
-            </div>
-            <div class="b">
-                <span>c#</span>
-                <div class="heng"></div>
-            </div>
-            <div class="b">
-                <span>web</span>
-                <div class="heng"></div>
-            </div>
-            <div class="b">
-                <span>docker</span>
-                <div class="heng"></div>
-            </div>
         </div>
-
 </template>
 
 <script>
     import ScrollX from "components/common/scroll/ScrollX";
+    import {mapGetters} from 'vuex'
+
     export default {
         name: "SwipperHome",
         data(){
@@ -65,6 +22,12 @@
             ScrollX
         },
         mounted() {
+
+        },
+        computed:{
+            ...mapGetters({
+                channels:'get_all_channels'
+            })
 
         }
     }
@@ -85,7 +48,7 @@
         display: inline-block;
         margin: 5px 5px;
         overflow: hidden;
-        width: 70px;
+        width: 100px;
         text-align: center;
         /*border-bottom: 3px solid #333;*/
     }
@@ -93,7 +56,7 @@
         display: block;
         width: 25px;
         height: 3px;
-        margin: 0 21px;
+        margin: 0 35px;
         background-color: #333;
     }
     .cat_active{

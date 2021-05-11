@@ -13,5 +13,8 @@ export default {
     },
     SetPath(context,payloads){
         context.commit('setPath',payloads)
+    },
+    SaveAllChannels(context,payloads){
+        context.commit('save_all_channels',payloads)
     }
 }

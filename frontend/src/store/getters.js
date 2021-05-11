@@ -10,5 +10,8 @@ export default {
     },
     get_curr_path(state){
         return state.curr_path
+    },
+    get_all_channels(state){
+        return state.allChannels;
     }
 }
