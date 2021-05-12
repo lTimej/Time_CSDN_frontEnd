@@ -1,21 +1,26 @@
 <template>
         <div class="a">
-            <div class="b" :class="{'cat_active':isActive}" v-for="channel in channels">
+            <div class="b" :class="{'cat_active':channel.id==currIndex}" v-for="channel in channels" @click="changeChannel(channel.id)">
                 <span>{{channel.channel_name}}</span>
-                <span class="heng" v-show="isActive"></span>
+                <span class="heng" v-show="channel.id==currIndex"></span>
             </div>
         </div>
 </template>
 
 <script>
     import ScrollX from "components/common/scroll/ScrollX";
-    import {mapGetters} from 'vuex'
 
     export default {
         name: "SwipperHome",
+        props:{
+            channels:{
+                type:Array,
+                default:[]
+            }
+        },
         data(){
             return{
-                isActive:true
+                currIndex:-1
             }
         },
         components:{
@@ -24,11 +29,11 @@
         mounted() {
 
         },
-        computed:{
-            ...mapGetters({
-                channels:'get_all_channels'
-            })
-
+        methods:{
+            changeChannel(id){
+                this.currIndex = id;
+                this.$emit('changeChannel',id)
+            }
         }
     }
 </script>
@@ -46,11 +51,11 @@
     .b{
         position: relative;
         display: inline-block;
-        margin: 5px 5px;
+        margin: 5px 0;
         overflow: hidden;
         width: 100px;
         text-align: center;
-        /*border-bottom: 3px solid #333;*/
+        right: 50px;
     }
     .heng{
         display: block;

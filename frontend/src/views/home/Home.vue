@@ -11,10 +11,18 @@
             <div slot="right"><i class="el-icon-circle-plus" style="color: red;font-size: 32px;padding: 10px 10px 10px 5px"></i></div>
         </nav-bar>
         <scroll-x class="content-x">
-            <scroll-home />
+            <scroll-home :channels="channels" @changeChannel="changeChannel" />
         </scroll-x>
-        <scroll class="content">
-            <article-list />
+        <div class="c">
+                <i class="el-icon-menu"></i>
+            </div>
+        <scroll
+            class="content"
+            :pull-upload="true"
+            @pullingUp="loadMore"
+            ref="scrollTo"
+        >
+            <article-list :articles="articles" />
 
         </scroll>
     </div>
@@ -29,12 +37,17 @@
 
     import {allChannels} from "network/articles/channels";
     import {mapActions} from 'vuex'
+    import {getChannelArticle} from "network/articles/articles";
 
     export default {
         name: "Home",
         data(){
             return{
-                search:""
+                search:"",
+                channels:[],
+                articles:[],
+                channel_id:1,
+                page:0
             }
         },
         components:{
@@ -45,16 +58,47 @@
             ArticleList
         },
         mounted() {
-            console.log(11111)
+
+        },
+        created() {
             this.getChannels();
         },
         methods:{
             getChannels(){
                 allChannels().then(res=>{
                     console.log(3333,res);
-                    this.$store.dispatch('SaveAllChannels',res.data.data.channels)
+                    this.channels = res.data.data.channels;
                 })
-            }
+            },
+            changeChannel(id){
+                if (id !== this.channel_id){
+                    this.articles = []
+                    this.page = 0
+                }
+                this.channel_id = id;
+                console.log(88888,this.channel_id);
+                this.page += 1;
+                if(id>0){
+                    getChannelArticle(id,this.page,10).then(res=>{
+                        // console.log(res);
+                        console.log("------------->>>",this.channel_id,id)
+                        for(let n of res.data.data.articles){
+                            this.articles.push(n);
+                        }
+
+                        this.$refs.scrollTo.finishPullUp()
+                        this.$refs.scrollTo.refresh()
+
+                    })
+                }
+            },
+            loadMore(){
+                console.log("加载成功")
+                this.changeChannel(this.channel_id);
+            },
+            activated() {//再次进来就回到上次记录的位置
+              this.$refs.scrollTo.refresh()
+            },
         }
     }
 </script>
@@ -79,7 +123,7 @@
         height: 44px;
     }
     >>> .contents-x{
-        width: 1650px;
+        width: 1890px;
     }
     .content-x{
         position: absolute;
@@ -98,5 +142,18 @@
         left: 0;
         right: 0;
         bottom: 49px;
+    }
+    .c{
+        position: fixed;
+        /*display: inline-block;*/
+        margin: 15px 0;
+        width: 30px;
+        height: 30px;
+        top: 44px;
+        right: 0;
+        background-color: #fff;
+    }
+    .c i{
+        font-size: 32px;
     }
 </style>

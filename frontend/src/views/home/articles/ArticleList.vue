@@ -1,153 +1,18 @@
 <template>
     <div class="article-list">
-        <div>
+        <div v-for="article in articles">
             <div class="article-list-item">
-            <h3 class="article-title">大事件，java被超越了，2015年5月TIOBE编程语言排行榜出炉</h3>
-            <div class="article-intro">
-                TIOBE头条TIOBE 5月编程语言排行榜心线出路。前十榜单中，C、Python、Java三大鳌头仍占据前三榜单。去年11月份
+                <h3 class="article-title">{{article.title}}</h3>
+                <div class="article-intro">
+                    TIOBE头条TIOBE 5月编程语言排行榜心线出路。前十榜单中，C、Python、Java三大鳌头仍占据前三榜单。去年11月份
+                </div>
+                <div class="article-info">
+                    <span class="article-c">{{article.user_name}}</span>
+                    <span class="article-c">26942阅读.</span>
+                    <span class="article-c">18评论</span>
+                    <i class="el-icon-more"></i>
+                </div>
             </div>
-            <div class="article-info">
-                <span class="article-c">陈皮的JavaLib</span>
-                <span class="article-c">26942阅读.</span>
-                <span class="article-c">18评论</span>
-                <i class="el-icon-more"></i>
-            </div>
-        </div>
-            <div class="bbr"></div>
-        </div>
-        <div>
-            <div class="article-list-item">
-            <h3 class="article-title">大事件，java被超越了，2015年5月TIOBE编程语言排行榜出炉</h3>
-            <div class="article-intro">
-                TIOBE头条TIOBE 5月编程语言排行榜心线出路。前十榜单中，C、Python、Java三大鳌头仍占据前三榜单。去年11月份
-            </div>
-            <div class="article-info">
-                <span class="article-c">陈皮的JavaLib</span>
-                <span class="article-c">26942阅读.</span>
-                <span class="article-c">18评论</span>
-                <i class="el-icon-more"></i>
-            </div>
-        </div>
-            <div class="bbr"></div>
-        </div>
-        <div>
-            <div class="article-list-item">
-            <h3 class="article-title">大事件，java被超越了，2015年5月TIOBE编程语言排行榜出炉</h3>
-            <div class="article-intro">
-                TIOBE头条TIOBE 5月编程语言排行榜心线出路。前十榜单中，C、Python、Java三大鳌头仍占据前三榜单。去年11月份
-            </div>
-            <div class="article-info">
-                <span class="article-c">陈皮的JavaLib</span>
-                <span class="article-c">26942阅读.</span>
-                <span class="article-c">18评论</span>
-                <i class="el-icon-more"></i>
-            </div>
-        </div>
-            <div class="bbr"></div>
-        </div>
-        <div>
-            <div class="article-list-item">
-            <h3 class="article-title">大事件，java被超越了，2015年5月TIOBE编程语言排行榜出炉</h3>
-            <div class="article-intro">
-                TIOBE头条TIOBE 5月编程语言排行榜心线出路。前十榜单中，C、Python、Java三大鳌头仍占据前三榜单。去年11月份
-            </div>
-            <div class="article-info">
-                <span class="article-c">陈皮的JavaLib</span>
-                <span class="article-c">26942阅读.</span>
-                <span class="article-c">18评论</span>
-                <i class="el-icon-more"></i>
-            </div>
-        </div>
-            <div class="bbr"></div>
-        </div>
-        <div>
-            <div class="article-list-item">
-            <h3 class="article-title">大事件，java被超越了，2015年5月TIOBE编程语言排行榜出炉</h3>
-            <div class="article-intro">
-                TIOBE头条TIOBE 5月编程语言排行榜心线出路。前十榜单中，C、Python、Java三大鳌头仍占据前三榜单。去年11月份
-            </div>
-            <div class="article-info">
-                <span class="article-c">陈皮的JavaLib</span>
-                <span class="article-c">26942阅读.</span>
-                <span class="article-c">18评论</span>
-                <i class="el-icon-more"></i>
-            </div>
-        </div>
-            <div class="bbr"></div>
-        </div>
-        <div>
-            <div class="article-list-item">
-            <h3 class="article-title">大事件，java被超越了，2015年5月TIOBE编程语言排行榜出炉</h3>
-            <div class="article-intro">
-                TIOBE头条TIOBE 5月编程语言排行榜心线出路。前十榜单中，C、Python、Java三大鳌头仍占据前三榜单。去年11月份
-            </div>
-            <div class="article-info">
-                <span class="article-c">陈皮的JavaLib</span>
-                <span class="article-c">26942阅读.</span>
-                <span class="article-c">18评论</span>
-                <i class="el-icon-more"></i>
-            </div>
-        </div>
-            <div class="bbr"></div>
-        </div>
-        <div>
-            <div class="article-list-item">
-            <h3 class="article-title">大事件，java被超越了，2015年5月TIOBE编程语言排行榜出炉</h3>
-            <div class="article-intro">
-                TIOBE头条TIOBE 5月编程语言排行榜心线出路。前十榜单中，C、Python、Java三大鳌头仍占据前三榜单。去年11月份
-            </div>
-            <div class="article-info">
-                <span class="article-c">陈皮的JavaLib</span>
-                <span class="article-c">26942阅读.</span>
-                <span class="article-c">18评论</span>
-                <i class="el-icon-more"></i>
-            </div>
-        </div>
-            <div class="bbr"></div>
-        </div>
-        <div>
-            <div class="article-list-item">
-            <h3 class="article-title">大事件，java被超越了，2015年5月TIOBE编程语言排行榜出炉</h3>
-            <div class="article-intro">
-                TIOBE头条TIOBE 5月编程语言排行榜心线出路。前十榜单中，C、Python、Java三大鳌头仍占据前三榜单。去年11月份
-            </div>
-            <div class="article-info">
-                <span class="article-c">陈皮的JavaLib</span>
-                <span class="article-c">26942阅读.</span>
-                <span class="article-c">18评论</span>
-                <i class="el-icon-more"></i>
-            </div>
-        </div>
-            <div class="bbr"></div>
-        </div>
-        <div>
-            <div class="article-list-item">
-            <h3 class="article-title">大事件，java被超越了，2015年5月TIOBE编程语言排行榜出炉</h3>
-            <div class="article-intro">
-                TIOBE头条TIOBE 5月编程语言排行榜心线出路。前十榜单中，C、Python、Java三大鳌头仍占据前三榜单。去年11月份
-            </div>
-            <div class="article-info">
-                <span class="article-c">陈皮的JavaLib</span>
-                <span class="article-c">26942阅读.</span>
-                <span class="article-c">18评论</span>
-                <i class="el-icon-more"></i>
-            </div>
-        </div>
-            <div class="bbr"></div>
-        </div>
-        <div>
-            <div class="article-list-item">
-            <h3 class="article-title">大事件，java被超越了，2015年5月TIOBE编程语言排行榜出炉</h3>
-            <div class="article-intro">
-                TIOBE头条TIOBE 5月编程语言排行榜心线出路。前十榜单中，C、Python、Java三大鳌头仍占据前三榜单。去年11月份
-            </div>
-            <div class="article-info">
-                <span class="article-c">陈皮的JavaLib</span>
-                <span class="article-c">26942阅读.</span>
-                <span class="article-c">18评论</span>
-                <i class="el-icon-more"></i>
-            </div>
-        </div>
             <div class="bbr"></div>
         </div>
     </div>
@@ -155,7 +20,13 @@
 
 <script>
     export default {
-        name: "ArticleList"
+        name: "ArticleList",
+        props:{
+            articles:{
+                type:Array,
+                default:[]
+            }
+        }
     }
 </script>
 
@@ -184,7 +55,8 @@
         color: #aaaaaa;
     }
     .article-list .article-list-item .article-info i{
-        margin-left: 80px;
+        float: right;
+        right: 10px;
     }
     .article-list .article-list-item .article-info .article-c{
         margin-right: 12px;
