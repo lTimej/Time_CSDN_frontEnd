@@ -13,7 +13,7 @@
         <scroll-x class="content-x">
             <scroll-home :channels="channels" @changeChannel="changeChannel" />
         </scroll-x>
-        <div class="c">
+        <div class="c" @click="editChannel">
                 <i class="el-icon-menu"></i>
             </div>
         <scroll
@@ -92,6 +92,7 @@
                 if(id>0){
                     //获取该频道文章信息
                     getChannelArticle(id,this.page,10).then(res=>{
+                        console.log("---------->",res.data.data.articles);
                         for(let n of res.data.data.articles){
                             this.articles.push(n);
                         }
@@ -110,7 +111,7 @@
                 this.isBottom = true;
                 //可下上拉，架请求
                 if (this.isPull){
-                    this.pullContent = "加载更多！！！"
+                    this.pullContent = "加载更多！！！";
                     setTimeout(()=>{
                         this.changeChannel(this.channel_id);
                         this.isBottom = false;
@@ -125,14 +126,18 @@
             },
             //下拉刷新
             pullingMore(){
-                this.isPullDown = true
+                this.isPullDown = true;
                 setTimeout(()=>{
                     this.isPullDown = false
-                },2000)
+                },2000);
                 this.$refs.scrollTo.finishPullDown();
             },
             activated() {//再次进来就回到上次记录的位置
                 this.$refs.scrollTo.refresh()
+            },
+            //编辑频道
+            editChannel(){
+                this.$router.push('/channel/list')
             },
         }
     }

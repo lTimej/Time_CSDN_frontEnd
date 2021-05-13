@@ -24,6 +24,7 @@ const example = () => import("views/profile/example");
 const NickEdit = () => import("views/profile/homepageChildren/editMyData/NickEdit");
 const AccountAdmin = () => import("views/settings/children/AccountAdmin");
 const UpdatePassword = () => import("views/settings/children/UpdatePassword");
+const ChannelList = () => import("views/home/articles/ChannelList");
 
 const routes = [
     {
@@ -127,6 +128,14 @@ const routes = [
           isShowTabbar:true
         }
     },
+    {
+      name:'频道',
+      component:ChannelList ,
+      path:'/channel/list',
+      meta:{
+          isShowTabbar:true
+        }
+    }
 ];
 
 const router = new VueRouter({

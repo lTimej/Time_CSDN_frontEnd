@@ -8,8 +8,8 @@
                 </div>
                 <div class="article-info">
                     <span class="article-c">{{article.user_name}}</span>
-                    <span class="article-c">26942阅读.</span>
-                    <span class="article-c">18评论</span>
+                    <span class="article-c">{{article.read_num}}</span>
+                    <span class="article-c">{{article.comment_num}}</span>
                     <i class="el-icon-more"></i>
                 </div>
             </div>
