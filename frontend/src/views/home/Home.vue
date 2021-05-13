@@ -19,11 +19,14 @@
         <scroll
             class="content"
             :pull-upload="true"
+            :pull-down-refresh="true"
             @pullingUp="loadMore"
+            @pullingDown="pullingMore"
             ref="scrollTo"
         >
+            <div class="to-update" v-show="isPullDown"><i class="el-icon-loading"></i></div>
             <article-list :articles="articles" />
-
+            <div class="to-bottom" v-show="isBottom"><span>{{pullContent}}</span></div>
         </scroll>
     </div>
 </template>
@@ -47,7 +50,11 @@
                 channels:[],
                 articles:[],
                 channel_id:1,
-                page:0
+                page:0,
+                isPull:true,
+                pullContent:"",
+                isBottom:false,
+                isPullDown:false
             }
         },
         components:{
@@ -64,40 +71,68 @@
             this.getChannels();
         },
         methods:{
+            //获取频道信息
             getChannels(){
                 allChannels().then(res=>{
-                    console.log(3333,res);
                     this.channels = res.data.data.channels;
                 })
             },
+            //切换频道
             changeChannel(id){
+                //切换频道，数据归零
                 if (id !== this.channel_id){
-                    this.articles = []
-                    this.page = 0
+                    this.articles = [];
+                    this.page = 0;
+                     this.isPull = true;
+                     this.isPullDown = false
                 }
                 this.channel_id = id;
-                console.log(88888,this.channel_id);
+                //页数
                 this.page += 1;
                 if(id>0){
+                    //获取该频道文章信息
                     getChannelArticle(id,this.page,10).then(res=>{
-                        // console.log(res);
-                        console.log("------------->>>",this.channel_id,id)
                         for(let n of res.data.data.articles){
                             this.articles.push(n);
                         }
-
-                        this.$refs.scrollTo.finishPullUp()
-                        this.$refs.scrollTo.refresh()
-
+                        //上拉加载更多后，立即刷新
+                        this.$refs.scrollTo.refresh();
+                        //数据加载完成，不在继续请求
+                        if(res.data.data.articles.length ===0){
+                            this.isPull = false;
+                            this.pullContent = "~~~~~~到底了~~~~~~"
+                        }
                     })
                 }
             },
+            //上拉加载更多
             loadMore(){
-                console.log("加载成功")
-                this.changeChannel(this.channel_id);
+                this.isBottom = true;
+                //可下上拉，架请求
+                if (this.isPull){
+                    this.pullContent = "加载更多！！！"
+                    setTimeout(()=>{
+                        this.changeChannel(this.channel_id);
+                        this.isBottom = false;
+                    },1000)
+                }else{
+                    setTimeout(()=>{
+                        this.isBottom = false;
+                    },1000)
+                }
+                //可继续上拉操作
+                this.$refs.scrollTo.finishPullUp();
+            },
+            //下拉刷新
+            pullingMore(){
+                this.isPullDown = true
+                setTimeout(()=>{
+                    this.isPullDown = false
+                },2000)
+                this.$refs.scrollTo.finishPullDown();
             },
             activated() {//再次进来就回到上次记录的位置
-              this.$refs.scrollTo.refresh()
+                this.$refs.scrollTo.refresh()
             },
         }
     }
@@ -155,5 +190,17 @@
     }
     .c i{
         font-size: 32px;
+    }
+    .to-bottom{
+        font-size: 20px;
+        color: #aeaeae;
+        font-weight: 500;
+        text-align: center;
+        /*margin: 10px;*/
+    }
+    .to-update{
+        font-size: 20px;
+        text-align: center;
+        margin-top: 10px;
     }
 </style>

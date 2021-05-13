@@ -23,6 +23,10 @@
       pullUpLoad:{
         type:Boolean,
         default: true
+      },
+      pullDownRefresh:{
+        type:Boolean,
+        default: true
       }
     },
     mounted() {
@@ -30,7 +34,8 @@
       this.scroll = new BScroll(this.$refs.wrapper, {
         click:true,
         probeType: this.probeType,
-        pullUpLoad:this.pullUpLoad
+        pullUpLoad:this.pullUpLoad,
+        pullDownRefresh:this.pullDownRefresh
 
       });
       //监听滚拉位置
@@ -42,6 +47,9 @@
       this.scroll.on("pullingUp",()=>{
         this.$emit("pullingUp")
 
+      });
+      this.scroll.on("pullingDown",()=>{
+        this.$emit("pullingDown")
       })
     },
     methods:{
@@ -51,6 +59,9 @@
       finishPullUp()
       {//科继续上拉更多，默认没有就只能上拉一次
         this.scroll && this.scroll.finishPullUp();
+      },
+      finishPullDown(){
+        this.scroll && this.scroll.finishPullDown();
       },
       refresh()
       {//刷新
