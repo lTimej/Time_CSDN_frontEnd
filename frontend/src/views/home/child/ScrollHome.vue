@@ -12,19 +12,12 @@
 </template>
 
 <script>
-    import ScrollX from "components/common/scroll/ScrollX";
+    import {mapGetters} from 'vuex'
 
     export default {
         name: "SwipperHome",
         props:{
-            myChannels:{
-                type:Array,
-                default:[]
-            },
-            default_channel:{
-                type:Array,
-                default:[]
-            },
+
         },
         data(){
             return{
@@ -32,16 +25,21 @@
             }
         },
         components:{
-            ScrollX
         },
         mounted() {
-            console.log(8888888888,this.default_channel)
+
         },
         methods:{
             changeChannel(id){
                 this.currIndex = id;
                 this.$emit('changeChannel',id)
             }
+        },
+        computed:{
+            ...mapGetters({
+                default_channel:'get_default_channels',
+                myChannels:"get_user_channels"
+            })
         }
     }
 </script>

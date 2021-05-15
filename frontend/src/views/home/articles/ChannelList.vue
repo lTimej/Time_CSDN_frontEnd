@@ -54,11 +54,7 @@
             },
             getAllChannels(){
                 allChannels().then(res=>{
-                    for(let n of res.data.data.channels){
-                        if(n.id>0){
-                            this.channels.push(n);
-                        }
-                    }
+                    this.channels = res.data.data.channels;
                 })
             },
             startEdit(id){
@@ -86,7 +82,6 @@
             //添加频道
             addChannel(index){
                 addUserChannel(this.channels[index].id,this.channels[index].channel_name).then(res=>{
-                    console.log("添加匿名用户",res);
                     if(res.status == 201){
                         this.mychannels.push(this.channels[index]);
                         this.channels.splice(index,1)
@@ -97,13 +92,14 @@
             },
             //取消频道
             cancelChannel(index){
-                console.log(this.mychannels[index]);
                 updateUserChannel(this.mychannels[index].id).then(res=>{
-                    console.log(res);
+                    if(res.status == 201){
+                        this.channels.push(this.mychannels[index]);
+                        this.mychannels.splice(index,1)
+                    }else{
+                        return;
+                    }
                 })
-                this.channels.push(this.mychannels[index]);
-                this.mychannels.splice(index,1)
-
             }
         },
         created() {

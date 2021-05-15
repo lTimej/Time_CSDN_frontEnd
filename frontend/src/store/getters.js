@@ -12,12 +12,12 @@ export default {
         return state.curr_path
     },
     get_all_channels(state){
-        return state.allChannels;
+        return state.allChannels?state.allChannels:[];
     },
     get_default_channels(state){
-        return state.defaultChannels;
+        return state.defaultChannels?state.defaultChannels:[];
     },
     get_user_channels(state){
-        return state.userChannels;
+        return state.userChannels ? state.userChannels:[];
     }
 }

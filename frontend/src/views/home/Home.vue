@@ -11,7 +11,7 @@
             <div slot="right"><i class="el-icon-circle-plus" style="color: red;font-size: 32px;padding: 10px 10px 10px 5px"></i></div>
         </nav-bar>
         <scroll-x class="content-x">
-            <scroll-home :myChannels="myChannels" :default_channel="default_channel" @changeChannel="changeChannel" />
+            <scroll-home @changeChannel="changeChannel" />
         </scroll-x>
         <div class="c" @click="editChannel">
                 <i class="el-icon-menu"></i>
@@ -47,9 +47,6 @@
         data(){
             return{
                 search:"",
-                allChannels:[],
-                myChannels:[],
-                default_channel:[],
                 articles:[],
                 channel_id:1,
                 page:0,
@@ -75,18 +72,10 @@
         methods:{
             //获取频道信息
             getChannels(){
-                allChannels().then(res=>{
-                        this.allChannels = res.data.data.channels;
-                        this.$store.dispatch("SaveAllChannels",res.data.data.channels)
-                    });
                 UserChannel().then(res=>{
-                    console.log("匿名频道",res);
-                    this.myChannels = res.data.data.channels;
                     this.$store.dispatch("SaveUserChannels",res.data.data.channels)
                 });
                 defaultChannels().then(res=>{
-                    console.log(res);
-                    this.default_channel = res.data.data.default_channel;
                     this.$store.dispatch('SaveDefaultChannels',res.data.data.default_channel)
                 })
             },
@@ -105,7 +94,6 @@
                 if(id>0){
                     //获取该频道文章信息
                     getChannelArticle(id,this.page,10).then(res=>{
-                        console.log("---------->",res.data.data.articles);
                         for(let n of res.data.data.articles){
                             this.articles.push(n);
                         }
@@ -145,13 +133,13 @@
                 },2000);
                 this.$refs.scrollTo.finishPullDown();
             },
-            activated() {//再次进来就回到上次记录的位置
-                this.$refs.scrollTo.refresh()
-            },
             //编辑频道
             editChannel(){
                 this.$router.push('/channel/list')
             },
+        },
+        activated() {
+            this.$refs.scrollTo.refresh()
         }
     }
 </script>
