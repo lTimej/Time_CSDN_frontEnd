@@ -13,5 +13,11 @@ export default {
     },
     get_all_channels(state){
         return state.allChannels;
+    },
+    get_default_channels(state){
+        return state.defaultChannels;
+    },
+    get_user_channels(state){
+        return state.userChannels;
     }
 }

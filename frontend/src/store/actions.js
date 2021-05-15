@@ -16,5 +16,11 @@ export default {
     },
     SaveAllChannels(context,payloads){
         context.commit('save_all_channels',payloads)
-    }
+    },
+    SaveDefaultChannels(context,payloads){
+        context.commit('save_default_channels',payloads)
+    },
+    SaveUserChannels(context,payloads){
+        context.commit('save_user_channels',payloads)
+    },
 }

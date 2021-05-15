@@ -10,7 +10,8 @@ const store = new Vuex.Store({
         token:window.localStorage.getItem('token')?window.localStorage.getItem('token'):"",
         refresh_token:window.localStorage.getItem('refresh_token')?window.localStorage.getItem('refresh_token'):"",
         user_individule:"",
-        allChannels:[]
+        allChannels:[],
+        defaultChannel:[]
     },
     mutations:mutations,
     actions:actions,

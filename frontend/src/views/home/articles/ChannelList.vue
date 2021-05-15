@@ -9,14 +9,8 @@
             <div slot="right" class="btn" @click="editConfirm"><el-button type="danger" round size="mini">{{btn}}</el-button></div>
         </nav-bar>
         <div class="my-channel-item">
-            <div class="outer-frame c">
-                <span>关注</span>
-            </div>
-            <div class="outer-frame c">
-                <span>推荐</span>
-            </div>
-            <div class="outer-frame c">
-                <span>热榜</span>
+            <div class="outer-frame c" v-for="channel in defaultChannel">
+                <span>{{channel.channel_name}}</span>
             </div>
             <div class="outer-frame" v-for="(channel,index) in mychannels" @touchstart="startEdit(channel.id)" @touchend="endEdit(channel.id)">
                 <span>{{channel.channel_name}}</span>
@@ -37,14 +31,15 @@
 
 <script>
     import NavBar from "components/common/navbar/NavBar";
-    import {allChannels} from "network/articles/channels";
+    import {allChannels,addUserChannel,updateUserChannel} from "network/articles/channels";
+    import {mapGetters} from 'vuex'
 
     export default {
         name: "ChannelList",
         data(){
             return{
                 btn:"编辑",
-                mychannels:[],
+                // mychannels:[],
                 channels:[],
                 isDelBtn:false,
                 timer:0
@@ -74,27 +69,39 @@
                 },1500)
             },
             endEdit(id){
-                clearTimeout(this.timer)
+                clearTimeout(this.timer);
                 if (this.timer!=0){
+
                 }
             },
             editConfirm(){
                 if(this.btn === '编辑'){
-                    this.isDelBtn = true
+                    this.isDelBtn = true;
                     this.btn = '确定'
                 }else{
-                    this.isDelBtn = false
+                    this.isDelBtn = false;
                     this.btn = '编辑'
                 }
-
             },
+            //添加频道
             addChannel(index){
-                this.mychannels.push(this.channels[index])
-                this.channels.splice(index,1)
+                addUserChannel(this.channels[index].id,this.channels[index].channel_name).then(res=>{
+                    console.log("添加匿名用户",res);
+                    if(res.status == 201){
+                        this.mychannels.push(this.channels[index]);
+                        this.channels.splice(index,1)
+                    }else{
+                        return;
+                    }
+                });
             },
+            //取消频道
             cancelChannel(index){
-                console.log(index);
-                this.channels.push(this.mychannels[index])
+                console.log(this.mychannels[index]);
+                updateUserChannel(this.mychannels[index].id).then(res=>{
+                    console.log(res);
+                })
+                this.channels.push(this.mychannels[index]);
                 this.mychannels.splice(index,1)
 
             }
@@ -102,6 +109,12 @@
         created() {
             this.getAllChannels();
         },
+        computed:{
+            ...mapGetters({
+                defaultChannel:'get_default_channels',
+                mychannels:"get_user_channels"
+            })
+        }
     }
 </script>
 
@@ -142,7 +155,7 @@
         line-height: 40px;
         text-align: center;
         margin:10px 7px;
-        font-size: 13px;
+        font-size: 15px;
         font-weight: 600;
         color: #000000;
     }

@@ -1,6 +1,10 @@
 <template>
-        <div class="a">
-            <div class="b" :class="{'cat_active':channel.id==currIndex}" v-for="channel in channels" @click="changeChannel(channel.id)">
+        <div class="a" style="touch-action: none;">
+            <div class="b" :class="{'cat_active':channel.id==currIndex}" v-for="channel in default_channel" @click="changeChannel(channel.id)">
+                <span>{{channel.channel_name}}</span>
+                <span class="heng" v-show="channel.id==currIndex"></span>
+            </div>
+            <div class="b" :class="{'cat_active':channel.id==currIndex}" v-for="channel in myChannels" @click="changeChannel(channel.id)">
                 <span>{{channel.channel_name}}</span>
                 <span class="heng" v-show="channel.id==currIndex"></span>
             </div>
@@ -13,10 +17,14 @@
     export default {
         name: "SwipperHome",
         props:{
-            channels:{
+            myChannels:{
                 type:Array,
                 default:[]
-            }
+            },
+            default_channel:{
+                type:Array,
+                default:[]
+            },
         },
         data(){
             return{
@@ -27,7 +35,7 @@
             ScrollX
         },
         mounted() {
-
+            console.log(8888888888,this.default_channel)
         },
         methods:{
             changeChannel(id){
@@ -46,7 +54,8 @@
         color: #a4a4a4;
         white-space: nowrap;
         list-style: none;
-        text-align: center;
+        /*text-align: center;*/
+        margin-left: 40px;
     }
     .b{
         position: relative;

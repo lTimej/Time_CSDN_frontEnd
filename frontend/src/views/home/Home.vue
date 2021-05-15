@@ -11,11 +11,11 @@
             <div slot="right"><i class="el-icon-circle-plus" style="color: red;font-size: 32px;padding: 10px 10px 10px 5px"></i></div>
         </nav-bar>
         <scroll-x class="content-x">
-            <scroll-home :channels="channels" @changeChannel="changeChannel" />
+            <scroll-home :myChannels="myChannels" :default_channel="default_channel" @changeChannel="changeChannel" />
         </scroll-x>
         <div class="c" @click="editChannel">
                 <i class="el-icon-menu"></i>
-            </div>
+        </div>
         <scroll
             class="content"
             :pull-upload="true"
@@ -25,7 +25,7 @@
             ref="scrollTo"
         >
             <div class="to-update" v-show="isPullDown"><i class="el-icon-loading"></i></div>
-            <article-list :articles="articles" />
+                <article-list :articles="articles" />
             <div class="to-bottom" v-show="isBottom"><span>{{pullContent}}</span></div>
         </scroll>
     </div>
@@ -38,7 +38,7 @@
     import ScrollHome from "./child/ScrollHome";
     import ArticleList from "./articles/ArticleList";
 
-    import {allChannels} from "network/articles/channels";
+    import {allChannels,defaultChannels,UserChannel} from "network/articles/channels";
     import {mapActions} from 'vuex'
     import {getChannelArticle} from "network/articles/articles";
 
@@ -47,7 +47,9 @@
         data(){
             return{
                 search:"",
-                channels:[],
+                allChannels:[],
+                myChannels:[],
+                default_channel:[],
                 articles:[],
                 channel_id:1,
                 page:0,
@@ -74,7 +76,18 @@
             //获取频道信息
             getChannels(){
                 allChannels().then(res=>{
-                    this.channels = res.data.data.channels;
+                        this.allChannels = res.data.data.channels;
+                        this.$store.dispatch("SaveAllChannels",res.data.data.channels)
+                    });
+                UserChannel().then(res=>{
+                    console.log("匿名频道",res);
+                    this.myChannels = res.data.data.channels;
+                    this.$store.dispatch("SaveUserChannels",res.data.data.channels)
+                });
+                defaultChannels().then(res=>{
+                    console.log(res);
+                    this.default_channel = res.data.data.default_channel;
+                    this.$store.dispatch('SaveDefaultChannels',res.data.data.default_channel)
                 })
             },
             //切换频道
@@ -164,6 +177,7 @@
     }
     >>> .contents-x{
         width: 1890px;
+        /*width: 100vh;*/
     }
     .content-x{
         position: absolute;
@@ -186,7 +200,7 @@
     .c{
         position: fixed;
         /*display: inline-block;*/
-        margin: 15px 0;
+        margin: 12px 0;
         width: 30px;
         height: 30px;
         top: 44px;

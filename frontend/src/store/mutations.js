@@ -16,5 +16,11 @@ export default{
     },
     save_all_channels(state,payloads){
         state.allChannels = payloads
-    }
+    },
+    save_default_channels(state,payloads){
+        state.defaultChannels = payloads
+    },
+    save_user_channels(state,payloads){
+        state.userChannels = payloads
+    },
 }
