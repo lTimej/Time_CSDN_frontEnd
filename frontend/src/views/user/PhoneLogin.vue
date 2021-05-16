@@ -97,6 +97,10 @@
                 }
             }
         },
+        activated() {
+            this.code = ""
+            this.mobile = ""
+        }
     }
 </script>
 

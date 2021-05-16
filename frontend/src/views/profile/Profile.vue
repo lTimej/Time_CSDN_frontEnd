@@ -34,7 +34,7 @@
 
     import Scroll from "components/common/scroll/Scroll";
     export default {
-
+        inject:['reload'],
         name: "Profile",
         data(){
             return{
@@ -86,10 +86,15 @@
             }
         },
         mounted() {
+
+        },
+        created() {
+            //页面打开一次，刷新一次
+
             this.get_user_individule_info();
+
         },
         activated() {
-            //页面打开一次，刷新一次
             this.$refs.scroll.refresh()
         }
     }

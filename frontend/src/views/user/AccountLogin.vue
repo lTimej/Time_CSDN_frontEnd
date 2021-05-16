@@ -8,7 +8,7 @@
         </div>
         <div slot="which_password" class="login-username">
             <div class="login-password">
-                <input type="text" placeholder="密码" style="float: left;height: 50px" v-model="password">
+                <input type="password" placeholder="密码" style="float: left;height: 50px" v-model="password">
                 <span class="pwd_span" v-show="isShowPwdCancel" @click="del_password"><i class="el-icon-circle-close" style="font-size: 18px"></i></span>
                 <span class="forget-pwd">忘记密码？</span>
             </div>

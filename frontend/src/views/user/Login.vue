@@ -37,6 +37,7 @@
     import {mapActions} from 'vuex'
 
     export default {
+        inject:['reload'],
         name: "Login",
         props:{//获取子组件的数据
             username:{//用户名
@@ -82,7 +83,7 @@
                         this.$toast.show('验证码已过期',5000);
                     }else if(res.status=='401'){//验证码输入错误
                         this.$toast.show('验证码输入错误',5000);
-                    }else if(res.status=='402'){//验证码输入错误
+                    }else if(res.status=='402'){//用户名或密码输入错误错误
                         this.$toast.show('用户名或密码输入错误',5000);
                     }else if(res.status=='201'){//登录成功
                         this.$toast.show('登录成功',5000)
@@ -94,6 +95,8 @@
                         this.saveRefreshToken(res.data.refresh_token);
                         //跳转到我的页面
                         this.$router.push('/profile')
+                        this.reload()
+                        // location.href = '/profile'
                     }else {
                         this.$toast.show('用户不存在',5000)
                     }

@@ -49,6 +49,7 @@
 
 <script>
     import SettingsItem from "views/settings/SettingsItem";
+    import {mapGetters} from "vuex";
     export default {
         name: "EditMyDataItem",
         props:{
@@ -68,8 +69,6 @@
                 workTime:'未填写'
             }
         },
-        mounted() {
-        },
         components:{
             SettingsItem
         },
@@ -78,6 +77,7 @@
                 this.$router.push('/edit/nick')
             }
         },
+
     }
 </script>
 

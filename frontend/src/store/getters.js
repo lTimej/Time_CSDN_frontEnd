@@ -9,7 +9,7 @@ export default {
         return state.user_individule;
     },
     get_curr_path(state){
-        return state.curr_path
+        return state.curr_path?state.curr_path:'/my/dynamic'
     },
     get_all_channels(state){
         return state.allChannels?state.allChannels:[];

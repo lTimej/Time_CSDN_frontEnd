@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <keep-alive>
-      <router-view ></router-view>
+      <router-view></router-view>
     </keep-alive>
     <main-tarbar v-if="$route.meta.isShowTabbar!==true"></main-tarbar>
   </div>
@@ -32,7 +32,7 @@ export default {
     //   })
     // }
   },
-  created() {
+  created() {//保存store至sessionStorage中
     if(sessionStorage.getItem('store')){
       this.$store.replaceState(Object.assign({},this.$store.state,JSON.parse(sessionStorage.getItem('store'))))
     }

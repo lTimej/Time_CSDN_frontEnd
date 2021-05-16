@@ -67,7 +67,8 @@
 
         },
         created() {
-            this.getChannels();
+            console.log(33333333333333)
+
         },
         methods:{
             //获取频道信息
@@ -137,9 +138,11 @@
             editChannel(){
                 this.$router.push('/channel/list')
             },
+
         },
         activated() {
             this.$refs.scrollTo.refresh()
+            this.getChannels();
         }
     }
 </script>

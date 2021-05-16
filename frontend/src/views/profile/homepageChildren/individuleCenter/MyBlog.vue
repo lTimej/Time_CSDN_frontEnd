@@ -1,10 +1,10 @@
 <template>
     <div >
-        <div class="my-blog">
+        <div class="my-blog" v-for="myblog in myblogs">
             <div class="my-blog-first">
                 <div class="title">
                     <span class="art-type">原创</span>
-                    <span class="art-title">centos7安装elasticsearch</span>
+                    <span class="art-title">{{myblog.title}}</span>
                 </div>
                 <div class="art-edit"><i class="el-icon-edit"></i></div>
             </div>
@@ -15,143 +15,11 @@
                 </span>
             </div>
             <div class="my-blog-third">
-                <span class="date">04月22日</span>
-                <span class="like"><i class="el-icon-thumb"></i> 赞</span>
-                <span class="view"><i class="el-icon-view"></i> 20</span>
-                <span class="comment"><i class="el-icon-chat-square"></i> 评论</span>
+                <span class="date">{{myblog.create_time}}</span>
+                <span class="like"><i class="el-icon-thumb"></i>{{myblog.like_num}} 赞</span>
+                <span class="view"><i class="el-icon-view"></i> {{myblog.read_num}}</span>
+                <span class="comment"><i class="el-icon-chat-square"></i> {{myblog.comment_num}}评论</span>
                 <span class="more" @click="getMore"><i class="el-icon-more"></i></span>
-            </div>
-        </div>
-        <div class="my-blog">
-            <div class="my-blog-first">
-                <div class="title">
-                    <span class="art-type">原创</span>
-                    <span class="art-title">centos7安装elasticsearch</span>
-                </div>
-                <div class="art-edit"><i class="el-icon-edit"></i></div>
-            </div>
-            <div class="my-blog-second">
-                <span>
-                    一、下载（一下操作均在root下执行）wget https://articlets.elastic.
-                    co/downloads/elasticsearch/elasticsearch
-                </span>
-            </div>
-            <div class="my-blog-third">
-                <span class="date">04月22日</span>
-                <span class="like"><i class="el-icon-thumb"></i> 赞</span>
-                <span class="view"><i class="el-icon-view"></i> 20</span>
-                <span class="comment"><i class="el-icon-chat-square"></i> 评论</span>
-                <span class="more"><i class="el-icon-more"></i></span>
-            </div>
-        </div>
-        <div class="my-blog">
-            <div class="my-blog-first">
-                <div class="title">
-                    <span class="art-type">原创</span>
-                    <span class="art-title">centos7安装elasticsearch</span>
-                </div>
-                <div class="art-edit"><i class="el-icon-edit"></i></div>
-            </div>
-            <div class="my-blog-second">
-                <span>
-                    一、下载（一下操作均在root下执行）wget https://articlets.elastic.
-                    co/downloads/elasticsearch/elasticsearch
-                </span>
-            </div>
-            <div class="my-blog-third">
-                <span class="date">04月22日</span>
-                <span class="like"><i class="el-icon-thumb"></i> 赞</span>
-                <span class="view"><i class="el-icon-view"></i> 20</span>
-                <span class="comment"><i class="el-icon-chat-square"></i> 评论</span>
-                <span class="more"><i class="el-icon-more"></i></span>
-            </div>
-        </div>
-        <div class="my-blog">
-            <div class="my-blog-first">
-                <div class="title">
-                    <span class="art-type">原创</span>
-                    <span class="art-title">centos7安装elasticsearch</span>
-                </div>
-                <div class="art-edit"><i class="el-icon-edit"></i></div>
-            </div>
-            <div class="my-blog-second">
-                <span>
-                    一、下载（一下操作均在root下执行）wget https://articlets.elastic.
-                    co/downloads/elasticsearch/elasticsearch
-                </span>
-            </div>
-            <div class="my-blog-third">
-                <span class="date">04月22日</span>
-                <span class="like"><i class="el-icon-thumb"></i> 赞</span>
-                <span class="view"><i class="el-icon-view"></i> 20</span>
-                <span class="comment"><i class="el-icon-chat-square"></i> 评论</span>
-                <span class="more"><i class="el-icon-more"></i></span>
-            </div>
-        </div>
-        <div class="my-blog">
-            <div class="my-blog-first">
-                <div class="title">
-                    <span class="art-type">原创</span>
-                    <span class="art-title">centos7安装elasticsearch</span>
-                </div>
-                <div class="art-edit"><i class="el-icon-edit"></i></div>
-            </div>
-            <div class="my-blog-second">
-                <span>
-                    一、下载（一下操作均在root下执行）wget https://articlets.elastic.
-                    co/downloads/elasticsearch/elasticsearch
-                </span>
-            </div>
-            <div class="my-blog-third">
-                <span class="date">04月22日</span>
-                <span class="like"><i class="el-icon-thumb"></i> 赞</span>
-                <span class="view"><i class="el-icon-view"></i> 20</span>
-                <span class="comment"><i class="el-icon-chat-square"></i> 评论</span>
-                <span class="more"><i class="el-icon-more"></i></span>
-            </div>
-        </div>
-        <div class="my-blog">
-            <div class="my-blog-first">
-                <div class="title">
-                    <span class="art-type">原创</span>
-                    <span class="art-title">centos7安装elasticsearch</span>
-                </div>
-                <div class="art-edit"><i class="el-icon-edit"></i></div>
-            </div>
-            <div class="my-blog-second">
-                <span>
-                    一、下载（一下操作均在root下执行）wget https://articlets.elastic.
-                    co/downloads/elasticsearch/elasticsearch
-                </span>
-            </div>
-            <div class="my-blog-third">
-                <span class="date">04月22日</span>
-                <span class="like"><i class="el-icon-thumb"></i> 赞</span>
-                <span class="view"><i class="el-icon-view"></i> 20</span>
-                <span class="comment"><i class="el-icon-chat-square"></i> 评论</span>
-                <span class="more"><i class="el-icon-more"></i></span>
-            </div>
-        </div>
-        <div class="my-blog">
-            <div class="my-blog-first">
-                <div class="title">
-                    <span class="art-type">原创</span>
-                    <span class="art-title">centos7安装elasticsearch</span>
-                </div>
-                <div class="art-edit"><i class="el-icon-edit"></i></div>
-            </div>
-            <div class="my-blog-second">
-                <span>
-                    一、下载（一下操作均在root下执行）wget https://articlets.elastic.
-                    co/downloads/elasticsearch/elasticsearch
-                </span>
-            </div>
-            <div class="my-blog-third">
-                <span class="date">04月22日</span>
-                <span class="like"><i class="el-icon-thumb"></i> 赞</span>
-                <span class="view"><i class="el-icon-view"></i> 20</span>
-                <span class="comment"><i class="el-icon-chat-square"></i> 评论</span>
-                <span class="more"><i class="el-icon-more"></i></span>
             </div>
         </div>
     </div>
@@ -161,6 +29,12 @@
     import NavPhoto from "../NavPhoto";
     export default {
         name: "MyBloc",
+        props:{
+            myblogs:{
+                type:Array,
+                default:[]
+            }
+        },
         data(){
             return{
 

@@ -34,6 +34,7 @@
         methods:{
             changeRouter(){
                 // this.$router.push(this.path).catch(()=>{})
+                this.$store.state.curr_path = this.path
                 this.$store.dispatch('SetPath',this.path)
             }
 

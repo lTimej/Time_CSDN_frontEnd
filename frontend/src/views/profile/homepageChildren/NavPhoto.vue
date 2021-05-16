@@ -9,15 +9,21 @@
         </nav-bar>
         <main-tab-control class="tab-control1" v-if="isShowTabControl"/>
         <scroll
-            class="content" :class="{'contents':isChangeContent,'contentss':isChangeContents}"
+            class="content"
+            :class="{'contents':isChangeContent,'contentss':isChangeContents}"
             @scroll="myscroll"
-            ref="scrollTo">
+            ref="scrollTo"
+            :pull-upload="true"
+            :pull-down-refresh="true"
+            @pullingUp="loadMore"
+            @pullingDown="pullingMore"
+        >
             <div class="content-item">
                 <individule-data />
                 <main-tab-control v-show="!isShowTabControl" />
 <!--                <slot></slot>-->
                 <my-dynamic v-show="currPath==='/my/dynamic'" />
-                <my-blog v-show="currPath==='/my/blog'" />
+                <my-blog v-show="currPath==='/my/blog'" :myblogs="myblogs"/>
                 <my-blink v-show="currPath==='/my/blink'" />
                 <my-category v-show="currPath==='/my/category'" />
                 <my-vedio v-show="currPath==='/my/vedio'" />
@@ -42,6 +48,7 @@
     import MyMore from "./individuleCenter/MyMore";
 
     import {mapGetters} from 'vuex'
+    import {getUserArticle} from "network/articles/articles";
 
     import Scroll from "components/common/scroll/Scroll";
 
@@ -61,12 +68,14 @@
               isShowBottom:this.isBottomToast,
               isShowTabControl:false,
               curr_location:0,
+              page:0,
+              myblogs:[]
           };
         },
         components:{
-          NavBar,
-          Scroll,
-          IndividuleData,
+            NavBar,
+            Scroll,
+            IndividuleData,
             MainTabControl,
             BottomToast,
             MyDynamic,
@@ -80,18 +89,31 @@
             back(){
                 this.$router.push('/profile')
             },
-          myscroll(pos){
+            myscroll(pos){
                 //监听content下拉位置，改变导航栏的展现
                   this.isShowTabControl = pos.y<-182;
                   this.isShowNav=pos.y<-110;
                   this.isChangeContent = pos.y<-110;
                   this.isChangeContents = pos.y<-182
-          },
-         cancel(){
+            },
+            cancel(){
              this.isShowBottom = false
-         },
+            },
             get_curr_location(){
                 return this.$refs.scrollTo.getScrollY();
+            },
+            getUserArticle(){
+                this.page += 1;
+                getUserArticle(this.page,10).then(res=>{
+                    console.log(6666,res);
+                    this.myblogs = res.data.data.articles
+                })
+            },
+            loadMore(){
+                console.log('上拉加载更多')
+            },
+            pullingMore(){
+                console.log('下拉刷新')
             }
         },
         computed:{
@@ -101,13 +123,16 @@
             })
         },
 
-        mounted() {
-
+        created() {
+            this.getUserArticle()
         },
+        //进去直接到离开后那个位置
         activated() {
             this.$refs.scrollTo.scrollTo(0,this.curr_location)
+            this.$refs.scrollTo.refresh()
 
         },
+        //离开记住当前y值
         deactivated() {
             this.curr_location = this.$refs.scrollTo.getScrollY();
         }
@@ -149,6 +174,9 @@
         margin-left: 15px;
         font-size: 20px;
         color: #333;
+    }
+    .info-nav img{
+        border-radius: 50%;
     }
     .content{
         position: absolute;
