@@ -19,5 +19,11 @@ export default {
     },
     get_user_channels(state){
         return state.userChannels ? state.userChannels:[];
+    },
+    get_all_article_detail(state){
+        return state.allArticleDetail ? state.allArticleDetail:[]
+    },
+    get_user_article_detail(state){
+        return state.userArticleDetail ? state.userArticleDetail:[]
     }
 }

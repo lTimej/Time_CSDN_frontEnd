@@ -1,6 +1,6 @@
 <template>
     <div >
-        <div class="my-blog" v-for="myblog in myblogs">
+        <div class="my-blog" v-for="(myblog,index) in myblogs" @click="getArticleDetail(index)">
             <div class="my-blog-first">
                 <div class="title">
                     <span class="art-type">原创</span>
@@ -8,10 +8,9 @@
                 </div>
                 <div class="art-edit"><i class="el-icon-edit"></i></div>
             </div>
-            <div class="my-blog-second">
+            <div class="my-blog-second" v-html="myblog.content">
                 <span>
-                    一、下载（一下操作均在root下执行）wget https://articlets.elastic.
-                    co/downloads/elasticsearch/elasticsearch
+                    {{myblog.content}}
                 </span>
             </div>
             <div class="my-blog-third">
@@ -47,6 +46,15 @@
             getMore(){
 
             },
+            getArticleDetail(art_id){
+                this.$router.push({
+                    path:'/user/article/detail',
+                    query:{
+                        aid:art_id
+                    }
+                })
+
+            }
         }
     }
 </script>

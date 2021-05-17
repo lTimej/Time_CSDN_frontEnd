@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+
 //注册
 Vue.use(VueRouter);
 
@@ -25,6 +26,8 @@ const NickEdit = () => import("views/profile/homepageChildren/editMyData/NickEdi
 const AccountAdmin = () => import("views/settings/children/AccountAdmin");
 const UpdatePassword = () => import("views/settings/children/UpdatePassword");
 const ChannelList = () => import("views/home/articles/ChannelList");
+const ArticleDetail = () => import("views/profile/detail/ArticleDetail");
+const AllArticleDetail = () => import("views/home/detail/AllArticleDetail");
 
 const routes = [
     {
@@ -132,6 +135,22 @@ const routes = [
       name:'频道',
       component:ChannelList ,
       path:'/channel/list',
+      meta:{
+          isShowTabbar:true
+        }
+    },
+    {
+      name:'当前文章详情',
+      component:ArticleDetail ,
+      path:'/user/article/detail',
+      meta:{
+          isShowTabbar:true
+        }
+    },
+    {
+      name:'文章详情',
+      component:AllArticleDetail ,
+      path:'/article/detail',
       meta:{
           isShowTabbar:true
         }

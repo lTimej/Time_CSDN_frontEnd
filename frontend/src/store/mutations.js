@@ -23,4 +23,10 @@ export default{
     save_user_channels(state,payloads){
         state.userChannels = payloads
     },
+    save_all_article_detail(state,payloads){
+        state.allArticleDetail = payloads
+    },
+    save_user_article_detail(state,payloads){
+        state.userArticleDetail = payloads
+    }
 }

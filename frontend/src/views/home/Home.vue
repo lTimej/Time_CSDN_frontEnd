@@ -98,6 +98,7 @@
                         for(let n of res.data.data.articles){
                             this.articles.push(n);
                         }
+                        this.$store.dispatch('SaveAllArticleDetail',this.articles)
                         //上拉加载更多后，立即刷新
                         this.$refs.scrollTo.refresh();
                         //数据加载完成，不在继续请求

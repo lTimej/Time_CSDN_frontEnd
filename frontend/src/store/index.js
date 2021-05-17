@@ -11,7 +11,9 @@ const store = new Vuex.Store({
         refresh_token:window.localStorage.getItem('refresh_token')?window.localStorage.getItem('refresh_token'):"",
         user_individule:"",
         allChannels:[],
-        defaultChannel:[]
+        defaultChannel:[],
+        userArticleDetail:[],
+        allArticleDetail:[],
     },
     mutations:mutations,
     actions:actions,

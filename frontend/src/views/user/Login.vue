@@ -37,7 +37,6 @@
     import {mapActions} from 'vuex'
 
     export default {
-        inject:['reload'],
         name: "Login",
         props:{//获取子组件的数据
             username:{//用户名
@@ -95,7 +94,6 @@
                         this.saveRefreshToken(res.data.refresh_token);
                         //跳转到我的页面
                         this.$router.push('/profile')
-                        this.reload()
                         // location.href = '/profile'
                     }else {
                         this.$toast.show('用户不存在',5000)

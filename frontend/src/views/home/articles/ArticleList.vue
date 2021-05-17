@@ -1,6 +1,6 @@
 <template>
     <div class="article-list">
-        <div v-for="article in articles">
+        <div v-for="(article,index) in articles" @click="articleDetail(index)">
             <div class="article-list-item">
                 <h3 class="article-title">{{article.title}}</h3>
                 <div class="article-intro">
@@ -25,6 +25,20 @@
             articles:{
                 type:Array,
                 default:[]
+            }
+        },
+        activated() {
+
+        },
+        methods:{
+            articleDetail(aid){
+                console.log(aid);
+                this.$router.push({
+                    path:'/article/detail',
+                    query:{
+                        aid:aid
+                    }
+                })
             }
         }
     }

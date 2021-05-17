@@ -107,6 +107,13 @@
                 getUserArticle(this.page,10).then(res=>{
                     console.log(6666,res);
                     this.myblogs = res.data.data.articles
+                    for(let i of this.myblogs){
+                        i.head_photo = this.individuleInfo.head_photo
+                        i.user_name = this.individuleInfo.user_name
+                        i.career = this.individuleInfo.career
+                    }
+                    this.$store.dispatch('SaveUserArticleDetail',this.myblogs)
+
                 })
             },
             loadMore(){

@@ -23,4 +23,10 @@ export default {
     SaveUserChannels(context,payloads){
         context.commit('save_user_channels',payloads)
     },
+    SaveAllArticleDetail(context,payloads){
+        context.commit('save_all_article_detail',payloads)
+    },
+    SaveUserArticleDetail(context,payloads){
+        context.commit('save_user_article_detail',payloads)
+    }
 }

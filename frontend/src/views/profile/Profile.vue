@@ -89,12 +89,13 @@
 
         },
         created() {
-            //页面打开一次，刷新一次
 
-            this.get_user_individule_info();
 
         },
         activated() {
+            //页面打开一次，刷新一次
+
+            this.get_user_individule_info();
             this.$refs.scroll.refresh()
         }
     }
