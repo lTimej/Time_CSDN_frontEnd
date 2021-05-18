@@ -8,9 +8,9 @@
                 </div>
                 <div class="art-edit"><i class="el-icon-edit"></i></div>
             </div>
-            <div class="my-blog-second" v-html="myblog.content">
+            <div class="my-blog-second" >
                 <span>
-                    {{myblog.content}}
+                    {{myblog.content | qiepian}}
                 </span>
             </div>
             <div class="my-blog-third">
@@ -53,7 +53,23 @@
                         aid:art_id
                     }
                 })
+            }
+        },
+        activated() {
 
+        },
+        filters:{//详情信息的片段
+            qiepian(value){
+                let re = /<p>(.*)<\/p>/ig;
+                let str = "";
+                let v = "";
+                let i = 1;
+                while (v = re.exec(value)){
+                    if(i===3) break;
+                    str += v[1];
+                    i++;
+                }
+                return str
             }
         }
     }

@@ -278,7 +278,7 @@
             })
         },
         activated() {
-            // console.log(2222223333,this.$refs.scrollTo.getScrollY());
+            console.log(2222223333,this.individuleInfo);
 
         },
         methods:{

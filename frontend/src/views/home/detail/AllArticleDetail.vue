@@ -4,9 +4,16 @@
             <div slot="left" @click="back"><i class="el-icon-arrow-left"></i></div>
             <div slot="right"><i class="el-icon-search"></i></div>
         </nav-bar>
-        <scroll class="content">
+        <scroll
+                class="content"
+                :pull-upload="true"
+                ref="scrollTo"
+        >
             <detail-base-info :article="article[this.$route.query.aid]" />
-            <detail-content :article="article[this.$route.query.aid]" />
+            <detail-content :article="article[this.$route.query.aid]" @finishLoad="finishLoad"/>
+            <article-like />
+            <article-comment />
+            <similar-article />
         </scroll>
     </div>
 </template>
@@ -16,6 +23,9 @@
     import Scroll from "components/common/scroll/Scroll";
     import DetailBaseInfo from "components/contents/Detail/DetailBaseInfo";
     import DetailContent from "components/contents/Detail/DetailContent";
+    import ArticleComment from "./ArticleComment";
+    import ArticleLike from "./ArticleLike";
+    import SimilarArticle from "./SimilarArticle";
     import {mapGetters} from 'vuex'
     export default {
         name: "AllArticleDetail",
@@ -23,7 +33,10 @@
             NavBar,
             Scroll,
             DetailBaseInfo,
-            DetailContent
+            DetailContent,
+            ArticleLike,
+            ArticleComment,
+            SimilarArticle
         },
         computed:{
             ...mapGetters({
@@ -33,6 +46,10 @@
         methods:{
             back(){
                 this.$router.back();
+            },
+            finishLoad(){
+                console.log(11111111555511111111)
+                this.$refs.scrollTo.refresh()
             }
         }
     }
@@ -55,5 +72,9 @@
         left: 0;
         right: 0;
         height: calc(100% - 44px);
+    }
+    .like{
+        height: 100px;
+        background-color: red;
     }
 </style>

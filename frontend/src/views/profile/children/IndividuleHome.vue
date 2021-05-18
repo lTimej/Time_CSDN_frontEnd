@@ -43,6 +43,7 @@
 
             myCenter(){
                 this.$router.push('/myAccount');
+                // location.href = '/myAccount'
             },
 
         },

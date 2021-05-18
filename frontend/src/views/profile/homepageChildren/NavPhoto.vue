@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="bgc-img" v-show="!isShowNav">
-                <img :src="individuleInfo.head_photo">
-                <i class="el-icon-arrow-left" @click="back"></i>
+            <img :src="individuleInfo.head_photo">
+            <i class="el-icon-arrow-left" @click="back"></i>
         </div>
         <nav-bar class="info-nav" v-show="isShowNav">
             <div slot="left" @click="back"><i class="el-icon-arrow-left" style="font-size: 32px;color: #333;"></i><img :src="individuleInfo.head_photo"><span>{{individuleInfo.user_name}}</span></div>
@@ -22,12 +22,12 @@
                 <individule-data />
                 <main-tab-control v-show="!isShowTabControl" />
 <!--                <slot></slot>-->
-                <my-dynamic v-show="currPath==='/my/dynamic'" />
-                <my-blog v-show="currPath==='/my/blog'" :myblogs="myblogs"/>
-                <my-blink v-show="currPath==='/my/blink'" />
-                <my-category v-show="currPath==='/my/category'" />
-                <my-vedio v-show="currPath==='/my/vedio'" />
-                <my-more v-show="currPath==='/my/more'" />
+                <my-dynamic v-show="currPath=='/my/dynamic'" />
+                <my-blog v-show="currPath=='/my/blog'" :myblogs="myblogs"/>
+                <my-blink v-show="currPath=='/my/blink'" />
+                <my-category v-show="currPath=='/my/category'" />
+                <my-vedio v-show="currPath=='/my/vedio'" />
+                <my-more v-show="currPath=='/my/more'" />
             </div>
         </scroll>
         <bottom-toast v-show="isShowBottom" @cancel="cancel" />
@@ -105,7 +105,6 @@
             getUserArticle(){
                 this.page += 1;
                 getUserArticle(this.page,10).then(res=>{
-                    console.log(6666,res);
                     this.myblogs = res.data.data.articles
                     for(let i of this.myblogs){
                         i.head_photo = this.individuleInfo.head_photo
@@ -113,7 +112,6 @@
                         i.career = this.individuleInfo.career
                     }
                     this.$store.dispatch('SaveUserArticleDetail',this.myblogs)
-
                 })
             },
             loadMore(){
@@ -135,6 +133,7 @@
         },
         //进去直接到离开后那个位置
         activated() {
+            console.log(99999,this.currPath);
             this.$refs.scrollTo.scrollTo(0,this.curr_location)
             this.$refs.scrollTo.refresh()
 

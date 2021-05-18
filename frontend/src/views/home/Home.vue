@@ -67,13 +67,13 @@
 
         },
         created() {
-            console.log(33333333333333)
-
+            this.getChannels();
         },
         methods:{
             //获取频道信息
             getChannels(){
                 UserChannel().then(res=>{
+                    console.log(res.data.data.channels);
                     this.$store.dispatch("SaveUserChannels",res.data.data.channels)
                 });
                 defaultChannels().then(res=>{
@@ -143,7 +143,6 @@
         },
         activated() {
             this.$refs.scrollTo.refresh()
-            this.getChannels();
         }
     }
 </script>

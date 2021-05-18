@@ -10,7 +10,8 @@
         name: "TabControlItem",
          props:{
             path:{
-                type:String
+                type:String,
+                default:'/my/dynamic'
             },
             ActiveColor:{
                 type:String,
@@ -24,7 +25,6 @@
         },
         computed:{
             isActive(){
-                // return this.$route.path.indexOf(this.path) !== -1;
                 return this.$store.state.curr_path === this.path
             },
             ActiveStyle(){
@@ -33,10 +33,14 @@
         },
         methods:{
             changeRouter(){
-                // this.$router.push(this.path).catch(()=>{})
                 this.$store.state.curr_path = this.path
                 this.$store.dispatch('SetPath',this.path)
             }
+        },
+        activated() {
+
+        },
+        created() {
 
         }
     }

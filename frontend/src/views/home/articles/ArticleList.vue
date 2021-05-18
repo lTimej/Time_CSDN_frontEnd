@@ -3,8 +3,8 @@
         <div v-for="(article,index) in articles" @click="articleDetail(index)">
             <div class="article-list-item">
                 <h3 class="article-title">{{article.title}}</h3>
-                <div class="article-intro">
-                    TIOBE头条TIOBE 5月编程语言排行榜心线出路。前十榜单中，C、Python、Java三大鳌头仍占据前三榜单。去年11月份
+                <div class="article-intro" >
+                    {{article.content | qiepian}}
                 </div>
                 <div class="article-info">
                     <span class="article-c">{{article.user_name}}</span>
@@ -39,6 +39,21 @@
                         aid:aid
                     }
                 })
+            }
+        },
+        filters:{
+            //详情信息的片段
+            qiepian(value){
+                let re = /<p>(.*)<\/p>/ig;
+                let str = "";
+                let v = "";
+                let i = 1;
+                while (v = re.exec(value)){
+                    if(i===3) break;
+                    str += v[1];
+                    i++;
+                }
+                return str
             }
         }
     }
