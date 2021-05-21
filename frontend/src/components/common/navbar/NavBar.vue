@@ -19,7 +19,7 @@
         line-height: 54px;
         text-align: center;
         /*box-shadow: 0 1px 1px rgba(100,100,100,.1);*/
-        margin: 0 12px;
+        padding: 0 12px;
 
     }
     .left, .right{

@@ -8,13 +8,15 @@
                 class="content"
                 :pull-upload="true"
                 ref="scrollTo"
+                @pullingUp="loadMore"
         >
             <detail-base-info :article="article[this.$route.query.aid]" />
-            <detail-content :article="article[this.$route.query.aid]" @finishLoad="finishLoad"/>
+            <detail-content :article="article[this.$route.query.aid]" />
             <article-like />
-            <article-comment />
+            <article-comment @showMore="showMore"/>
             <similar-article />
         </scroll>
+        <more-comment v-if="moreComment" @cancel="cancel"/>
     </div>
 </template>
 
@@ -26,9 +28,16 @@
     import ArticleComment from "./ArticleComment";
     import ArticleLike from "./ArticleLike";
     import SimilarArticle from "./SimilarArticle";
+    import MoreComment from "./MoreComment";
+    import MoreCommentBak from "./MoreCommentBak";
     import {mapGetters} from 'vuex'
     export default {
         name: "AllArticleDetail",
+        data(){
+            return{
+                moreComment:false
+            }
+        },
         components:{
             NavBar,
             Scroll,
@@ -36,7 +45,9 @@
             DetailContent,
             ArticleLike,
             ArticleComment,
-            SimilarArticle
+            SimilarArticle,
+            MoreComment,
+            MoreCommentBak
         },
         computed:{
             ...mapGetters({
@@ -47,17 +58,32 @@
             back(){
                 this.$router.back();
             },
-            finishLoad(){
-                console.log(11111111555511111111)
+            showMore(){
+                this.moreComment = true
+
+            },
+            cancel(){
+                this.moreComment = false
+            },
+            loadMore(){
+                console.log('上拉加载更多')
                 this.$refs.scrollTo.refresh()
+                this.$refs.scrollTo.finishPullDown();
             }
+        },
+        activated() {
+            this.$refs.scrollTo.refresh()
         }
     }
 </script>
 
 <style scoped>
+    .article-detail{
+        /*background-color: rgba(125, 125, 125, 0.8);*/
+    }
 .article-detail-nav{
         position: fixed;
+         background-color: rgba(245, 245, 245, 0.8);
         left: 0;
         right: 0;
         top: 0;

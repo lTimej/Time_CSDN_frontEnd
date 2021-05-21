@@ -33,6 +33,7 @@
       //实例化对象
       this.scroll = new BScroll(this.$refs.wrapper, {
         click:true,
+        disableTouch: false,
         probeType: this.probeType,
         pullUpLoad:this.pullUpLoad,
         pullDownRefresh:this.pullDownRefresh

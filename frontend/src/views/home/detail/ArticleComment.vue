@@ -1,5 +1,5 @@
 <template>
-    <div class="article-comment" :class="{'page_fixed':isFixed}">
+    <div class="article-comment">
         <div class="article-comment-item">
             <div class="first">
                 <img src="~assets/img/my.jpg">
@@ -100,26 +100,33 @@
                 <span>昨天 11:49</span>
             </div>
         </div>
-        <div class="see-more">
-            <more-comment :isFixed="isFixed"/>
+        <div class="see-more" >
+            <span @click="showMore">查看全部评论(203)</span>
         </div>
+
     </div>
 </template>
 
 <script>
-    import MoreComment from "./MoreComment";
+
 
     export default {
         name: "ArticleComment",
         data(){
             return{
                 // isHowMoreComment:true
-                isFixed:false
+
             }
         },
         components:{
-            MoreComment,
+
             // Scroll
+        },
+        methods:{
+            showMore(){
+                this.$emit('showMore')
+
+            }
         }
     }
 </script>
@@ -127,7 +134,7 @@
 <style scoped>
     .article-comment{
         border-top: 10px solid #e3e3e3;
-        position: relative;
+        /*position: relative;*/
 
         /*height: 100px;*/
     }

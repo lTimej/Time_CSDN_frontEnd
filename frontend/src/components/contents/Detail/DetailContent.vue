@@ -1,5 +1,5 @@
 <template>
-    <div class="detail-content" @load="finishLoad">
+    <div class="detail-content" >
         <div v-html="article.content">
             {{article.content}}
         </div>
@@ -22,16 +22,11 @@
         },
         data(){
             return{
-                counter:0,
-                contentLength:this.article.content.length
+
             }
         },
         methods:{
-            finishLoad(){
-                if(++this.counter===this.contentLength){
-                    this.$emit('finishLoad')
-                }
-            }
+
         },
     }
 </script>
