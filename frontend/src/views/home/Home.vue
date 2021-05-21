@@ -95,6 +95,7 @@
                 if(id>0){
                     //获取该频道文章信息
                     getChannelArticle(id,this.page,10).then(res=>{
+                        console.log(77777777,res);
                         for(let n of res.data.data.articles){
                             this.articles.push(n);
                         }

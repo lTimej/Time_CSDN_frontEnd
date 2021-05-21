@@ -11,7 +11,7 @@
                 <span>{{article[this.$route.query.aid].user_name}}</span>
             </div>
             <div slot="right">
-                <div class="focus">
+                <div class="focus" @click="focus">
                     <span>关注</span>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                 ref="scrollTo"
                 @pullingUp="loadMore"
         >
-            <detail-base-info :article="article[this.$route.query.aid]" />
+            <detail-base-info :article="article[this.$route.query.aid]" @focus="focus"/>
             <detail-content :article="article[this.$route.query.aid]" />
             <article-like />
             <article-comment @showMore="showMore"/>
@@ -43,13 +43,15 @@
     import SimilarArticle from "./SimilarArticle";
     import MoreComment from "./MoreComment";
     import MoreCommentBak from "./MoreCommentBak";
+    import {focusUser} from "network/users/focus";
     import {mapGetters} from 'vuex'
     export default {
         name: "AllArticleDetail",
         data(){
             return{
                 moreComment:false,
-                isShowInfo:false
+                isShowInfo:false,
+                // user_id:this.article[this.$route.query.aid].user_id
             }
         },
         components:{
@@ -85,8 +87,14 @@
                 this.$refs.scrollTo.finishPullDown();
             },
             myscroll(pos){
-                console.log(pos.y);
                 this.isShowInfo = pos.y<-220
+            },
+            focus(){
+                console.log(99999999,this.article[this.$route.query.aid].user_id);
+                let target = this.article[this.$route.query.aid].user_id
+                focusUser(target).then(res=>{
+                    console.log(res);
+                })
             }
         },
         activated() {

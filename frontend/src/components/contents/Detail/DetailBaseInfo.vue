@@ -16,7 +16,7 @@
                 <div>{{article.user_name}}</div>
                 <div>码龄{{article.code_year}}年</div>
             </div>
-            <div class="focus">
+            <div class="focus" @click="focus">
                 <span>关注</span>
             </div>
             <div class="private-letter">
@@ -43,6 +43,11 @@
         },
         activated() {
 
+        },
+        methods:{
+            focus(){
+                this.$emit('focus')
+            }
         }
     }
 </script>

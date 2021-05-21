@@ -11,15 +11,10 @@ const Study = () => import('views/study/Study');
 const Message = () => import('views/message/Message');
 const Profile = () => import('views/profile/Profile');
 const UnloginProfile = () => import('views/profile/UnloginProfile');
-
-// const Login = () => import('views/user/Login');
-
 const PhoneLogin = () => import('views/user/PhoneLogin');
 const AccountLogin = () => import('views/user/AccountLogin');
 const MainSettings = () => import("views/settings/MainSettings") ;
-
 const NavPhoto = () => import("views/profile/homepageChildren/NavPhoto") ;
-
 const EditMyData = () => import("views/profile/homepageChildren/editMyData/EditMyData") ;
 const example = () => import("views/profile/example");
 const NickEdit = () => import("views/profile/homepageChildren/editMyData/NickEdit");
@@ -28,6 +23,7 @@ const UpdatePassword = () => import("views/settings/children/UpdatePassword");
 const ChannelList = () => import("views/home/articles/ChannelList");
 const ArticleDetail = () => import("views/profile/detail/ArticleDetail");
 const AllArticleDetail = () => import("views/home/detail/AllArticleDetail");
+const UserFocusFans = () => import ("views/profile/children/UserFocusFans");
 
 const routes = [
     {
@@ -151,6 +147,14 @@ const routes = [
       name:'文章详情',
       component:AllArticleDetail ,
       path:'/article/detail',
+      meta:{
+          isShowTabbar:true
+        }
+    },
+    {
+      name:'用户关注',
+      component:UserFocusFans,
+      path:'/user/focus',
       meta:{
           isShowTabbar:true
         }
