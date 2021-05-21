@@ -16,7 +16,7 @@
     .navbar{
         display: flex;
         height: 44px;
-        line-height: 54px;
+        line-height: 50px;
         text-align: center;
         /*box-shadow: 0 1px 1px rgba(100,100,100,.1);*/
         padding: 0 12px;

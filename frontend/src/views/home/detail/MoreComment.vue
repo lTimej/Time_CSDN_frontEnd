@@ -7,6 +7,7 @@
         </nav-bar>
         <scroll
             class="content1"
+
             :pull-upload="true"
             :pull-down-refresh="true"
             @pullingUp="loadMore"
@@ -220,6 +221,7 @@
 <script>
     import Scroll from "components/common/scroll/Scroll";
     import NavBar from "components/common/navbar/NavBar";
+
     export default {
         name: "MoreComment",
         props:{
@@ -249,6 +251,7 @@
                 this.$emit('cancel')
                 this.$refs.scrollTo1.finishPullDown();
             },
+
         },
         activated() {
             console.log(1111111115551111)
