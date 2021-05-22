@@ -12,127 +12,25 @@
                 <i class="el-icon-data-analysis"></i>
             </div>
         </nav-bar>
-        <scroll class="content">
-            <div class="user-focus-fans-item">
+        <scroll
+                class="content"
+                ref="scrollTo"
+        >
+            <div class="user-focus-fans-item" v-for="focus in focusList">
                 <div class="head-photo">
-                    <img src="~assets/img/my.jpg">
+                    <img :src="focus.head_photo">
                 </div>
                 <div class="user-info">
-                    <div><span>lTimej</span></div>
-                    <div class="intro"><span>此用户很懒，什么都没有写此用户很懒，什么都没有写此用户很懒，什么都没有写</span></div>
+                    <div><span>{{focus.user_name}}</span></div>
+                    <div class="intro" v-if="focus.introduction"><span>{{focus.introduction}}</span></div>
+                    <div class="intro" v-else><span>此用户很懒，什么都没有写</span></div>
                 </div>
                 <div class="focused">
-                    <span>{{focusAndfans}}</span>
+                    <span v-if="focus.mutual_focus">相互关注</span>
+                    <span v-else>{{focusAndfans}}</span>
                 </div>
             </div>
-            <div class="user-focus-fans-item">
-                <div class="head-photo">
-                    <img src="~assets/img/my.jpg">
-                </div>
-                <div class="user-info">
-                    <div><span>lTimej</span></div>
-                    <div class="intro"><span>此用户很懒，什么都没有写此用户很懒，什么都没有写此用户很懒，什么都没有写</span></div>
-                </div>
-                <div class="focused">
-                    <span>{{focusAndfans}}</span>
-                </div>
-            </div>
-            <div class="user-focus-fans-item">
-                <div class="head-photo">
-                    <img src="~assets/img/my.jpg">
-                </div>
-                <div class="user-info">
-                    <div><span>lTimej</span></div>
-                    <div class="intro"><span>此用户很懒，什么都没有写此用户很懒，什么都没有写此用户很懒，什么都没有写</span></div>
-                </div>
-                <div class="focused">
-                    <span>{{focusAndfans}}</span>
-                </div>
-            </div>
-            <div class="user-focus-fans-item">
-                <div class="head-photo">
-                    <img src="~assets/img/my.jpg">
-                </div>
-                <div class="user-info">
-                    <div><span>lTimej</span></div>
-                    <div class="intro"><span>此用户很懒，什么都没有写此用户很懒，什么都没有写此用户很懒，什么都没有写</span></div>
-                </div>
-                <div class="focused">
-                    <span>{{focusAndfans}}</span>
-                </div>
-            </div>
-            <div class="user-focus-fans-item">
-                <div class="head-photo">
-                    <img src="~assets/img/my.jpg">
-                </div>
-                <div class="user-info">
-                    <div><span>lTimej</span></div>
-                    <div class="intro"><span>此用户很懒，什么都没有写此用户很懒，什么都没有写此用户很懒，什么都没有写</span></div>
-                </div>
-                <div class="focused">
-                    <span>{{focusAndfans}}</span>
-                </div>
-            </div>
-            <div class="user-focus-fans-item">
-                <div class="head-photo">
-                    <img src="~assets/img/my.jpg">
-                </div>
-                <div class="user-info">
-                    <div><span>lTimej</span></div>
-                    <div class="intro"><span>此用户很懒，什么都没有写此用户很懒，什么都没有写此用户很懒，什么都没有写</span></div>
-                </div>
-                <div class="focused">
-                    <span>{{focusAndfans}}</span>
-                </div>
-            </div>
-            <div class="user-focus-fans-item">
-                <div class="head-photo">
-                    <img src="~assets/img/my.jpg">
-                </div>
-                <div class="user-info">
-                    <div><span>lTimej</span></div>
-                    <div class="intro"><span>此用户很懒，什么都没有写此用户很懒，什么都没有写此用户很懒，什么都没有写</span></div>
-                </div>
-                <div class="focused">
-                    <span>{{focusAndfans}}</span>
-                </div>
-            </div>
-            <div class="user-focus-fans-item">
-                <div class="head-photo">
-                    <img src="~assets/img/my.jpg">
-                </div>
-                <div class="user-info">
-                    <div><span>lTimej</span></div>
-                    <div class="intro"><span>此用户很懒，什么都没有写此用户很懒，什么都没有写此用户很懒，什么都没有写</span></div>
-                </div>
-                <div class="focused">
-                    <span>{{focusAndfans}}</span>
-                </div>
-            </div>
-            <div class="user-focus-fans-item">
-                <div class="head-photo">
-                    <img src="~assets/img/my.jpg">
-                </div>
-                <div class="user-info">
-                    <div><span>lTimej</span></div>
-                    <div class="intro"><span>此用户很懒，什么都没有写此用户很懒，什么都没有写此用户很懒，什么都没有写</span></div>
-                </div>
-                <div class="focused">
-                    <span>{{focusAndfans}}</span>
-                </div>
-            </div>
-            <div class="user-focus-fans-item">
-                <div class="head-photo">
-                    <img src="~assets/img/my.jpg">
-                </div>
-                <div class="user-info">
-                    <div><span>lTimej</span></div>
-                    <div class="intro"><span>此用户很懒，什么都没有写此用户很懒，什么都没有写此用户很懒，什么都没有写</span></div>
-                </div>
-                <div class="focused">
-                    <span>{{focusAndfans}}</span>
-                </div>
-            </div>
+
         </scroll>
     </div>
 </template>
@@ -140,8 +38,8 @@
 <script>
     import NavBar from "components/common/navbar/NavBar";
     import Scroll from "components/common/scroll/Scroll";
-    import {userFocus,UserFans} from "network/users/focus";
-    import {userFans} from "../../../network/users/focus";
+    import {userFocus,userFans} from "network/users/focus";
+    import {mapGetters} from 'vuex'
 
     export default {
         name: "UserFocus",
@@ -152,7 +50,8 @@
                 page_num:10,
                 flag:'focus',
                 isClickFocus:true,
-                isClickFans:true
+                isClickFans:true,
+                focusList:[]
             }
         },
         components:{
@@ -163,41 +62,66 @@
             back(){
                 this.$router.back()
             },
+            //请求后端数据
             getUserFocusOrFans(){
                 this.page += 1;
+                //请求关注列表数据
                 if (this.flag === 'focus'){
                     userFocus(this.page,this.page_num).then(res=>{
-                    console.log(res);
+                        this.focusList = res.data.focus;
+                        this.$store.dispatch('SaveFocusList',res.data.focus)
                     })
-                }else{
+                }else{//请求粉丝列表数据
                     userFans(this.page,this.page_num).then(res=>{
-                    console.log(res);
+                        this.focusList = res.data.fans;
+                        this.$store.dispatch('SaveFansList',res.data.fans)
                     })
                 }
             },
+            //点击关注按钮触发
             cFocus(){
+                this.$refs.scrollTo.refresh();
                 if(!this.isClickFocus){
                     return
                 }
+                //初始化
                 this.isClickFocus = false;
                 this.isClickFans = true;
                 this.page = 0;
                 this.flag = 'focus';
-                this.getUserFocusOrFans();
+                //是否刷新store
+                if (this.focuslist.length !=0) {
+                    this.focusList = this.focuslist
+                }
+                else {
+                    this.getUserFocusOrFans();
+                }
             },
+            //点击粉丝按钮触发
             cFans(){
+                this.$refs.scrollTo.refresh();
                 if(!this.isClickFans){
                     return
-                }
+                }//初始化
                 this.isClickFans = false;
                 this.isClickFocus = true;
                 this.page = 0;
                 this.flag = 'fans';
-                this.getUserFocusOrFans();
+
+                if(this.fanslist.length != 0) this.focusList = this.fanslist;
+                else this.getUserFocusOrFans();
             }
         },
-        created() {
-            this.cFocus();
+        activated() {
+            //判断点击关注还是粉丝按钮
+            if(this.$route.params.fid == 0) this.cFocus();
+            else this.cFans();
+        },
+        computed:{
+            ...mapGetters({
+                focuslist:"get_focus_list",
+                fanslist:"get_fans_list"
+            })
         }
     }
 </script>

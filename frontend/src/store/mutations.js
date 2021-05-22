@@ -28,5 +28,12 @@ export default{
     },
     save_user_article_detail(state,payloads){
         state.userArticleDetail = payloads
-    }
+    },
+    save_focus_list(state,payloads){
+        console.log(99999,payloads)
+        state.focusList = payloads
+    },
+    save_fans_list(state,payloads){
+        state.fansList = payloads
+    },
 }

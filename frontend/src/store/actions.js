@@ -28,5 +28,12 @@ export default {
     },
     SaveUserArticleDetail(context,payloads){
         context.commit('save_user_article_detail',payloads)
-    }
+    },
+    SaveFocusList(context,payloads) {
+        console.log(888888,payloads)
+        context.commit("save_focus_list", payloads)
+    },
+    SaveFansList(context,payloads) {
+        context.commit("save_fans_list", payloads)
+    },
 }

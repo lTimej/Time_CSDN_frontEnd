@@ -154,7 +154,7 @@ const routes = [
     {
       name:'用户关注',
       component:UserFocusFans,
-      path:'/user/focus',
+      path:'/user/focus/:fid',
       meta:{
           isShowTabbar:true
         }

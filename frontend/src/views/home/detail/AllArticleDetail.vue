@@ -7,12 +7,12 @@
         <nav-bar class="article-detail-nav-copy" v-show="isShowInfo">
             <div slot="left" @click="back">
                 <i class="el-icon-arrow-left" style="font-size: 32px;color: #333;"></i>
-                <img :src="article[this.$route.query.aid].head_photo">
-                <span>{{article[this.$route.query.aid].user_name}}</span>
+                <img :src="head_photo">
+                <span >{{user_name}}</span>
             </div>
             <div slot="right">
                 <div class="focus" @click="focus">
-                    <span>关注</span>
+                    <span>{{isFocus}}</span>
                 </div>
             </div>
         </nav-bar>
@@ -23,7 +23,7 @@
                 ref="scrollTo"
                 @pullingUp="loadMore"
         >
-            <detail-base-info :article="article[this.$route.query.aid]" @focus="focus"/>
+            <detail-base-info :article="article[this.$route.query.aid]" @focus="focus" :isFocus="isFocus"/>
             <detail-content :article="article[this.$route.query.aid]" />
             <article-like />
             <article-comment @showMore="showMore"/>
@@ -43,7 +43,7 @@
     import SimilarArticle from "./SimilarArticle";
     import MoreComment from "./MoreComment";
     import MoreCommentBak from "./MoreCommentBak";
-    import {focusUser} from "network/users/focus";
+    import {focusUser,cancelFocusUser,isFocusUser} from "network/users/focus";
     import {mapGetters} from 'vuex'
     export default {
         name: "AllArticleDetail",
@@ -51,7 +51,9 @@
             return{
                 moreComment:false,
                 isShowInfo:false,
-                // user_id:this.article[this.$route.query.aid].user_id
+                head_photo:"",
+                user_name:"",
+                isFocus:"关注"
             }
         },
         components:{
@@ -82,7 +84,6 @@
                 this.moreComment = false
             },
             loadMore(){
-                console.log('上拉加载更多')
                 this.$refs.scrollTo.refresh()
                 this.$refs.scrollTo.finishPullDown();
             },
@@ -90,14 +91,41 @@
                 this.isShowInfo = pos.y<-220
             },
             focus(){
-                console.log(99999999,this.article[this.$route.query.aid].user_id);
                 let target = this.article[this.$route.query.aid].user_id
-                focusUser(target).then(res=>{
-                    console.log(res);
+                if(this.isFocus === "关注"){
+                    focusUser(target).then(res=>{
+                        if (res.status === 201){
+                            this.isFocus = "已关注"
+                            this.$store.state.focusList = []
+                            this.$store.state.fansList = []
+                        }
+                    })
+                }else{
+                    cancelFocusUser(target).then(res=>{
+                        if (res.status === 201){
+                            this.isFocus = "关注"
+                            this.$store.state.focusList = []
+                            this.$store.state.fansList = []
+                        }
+                    })
+                }
+            },
+            //判断是否关注
+            getfocusinfo(user_id){
+                isFocusUser(user_id).then(res=>{
+                    if(res.data.isFocusUser) this.isFocus = "已关注"
+                    else this.isFocus = "关注"
                 })
             }
         },
+        created() {
+
+        },
         activated() {
+            this.head_photo = this.article[this.$route.query.aid].head_photo;
+            this.user_name = this.article[this.$route.query.aid].user_name;
+            let user_id = this.article[this.$route.query.aid].user_id;
+            this.getfocusinfo(user_id);
             this.$refs.scrollTo.refresh()
         }
     }

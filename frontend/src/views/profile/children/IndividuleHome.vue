@@ -16,7 +16,7 @@
         </div>
         <div class="indi-home-item">
             <div class="a" @click="toFocus"><p>{{individule_info.focus}}</p><span>关注</span></div>
-            <div class="a"><p>{{individule_info.fans}}</p><span>粉丝</span></div>
+            <div class="a" @click="toFans"><p>{{individule_info.fans}}</p><span>粉丝</span></div>
             <div class="a"><p>{{individule_info.visitor}}</p><span>访问</span></div>
             <div class="a"><p>85+</p><span>排名</span></div>
         </div>
@@ -46,7 +46,10 @@
                 // location.href = '/myAccount'
             },
             toFocus(){
-                this.$router.push('/user/focus')
+                this.$router.push('/user/focus/0')
+            },
+            toFans(){
+                this.$router.push('/user/focus/1')
             }
         },
         mounted() {

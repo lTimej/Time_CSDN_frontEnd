@@ -1,5 +1,5 @@
 <template>
-    <div class="article-list">
+    <div class="article-list" v-cloak>
         <div v-for="(article,index) in articles" @click="articleDetail(index)">
             <div class="article-list-item">
                 <h3 class="article-title">{{article.title}}</h3>

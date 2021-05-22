@@ -17,7 +17,7 @@
                 <div>码龄{{article.code_year}}年</div>
             </div>
             <div class="focus" @click="focus">
-                <span>关注</span>
+                <span>{{isFocus}}</span>
             </div>
             <div class="private-letter">
                 <span>私信</span>
@@ -35,6 +35,12 @@
                 type:Object,
                 default:function () {
                     return {}
+                }
+            },
+            isFocus:{
+                type:String,
+                default:function () {
+                    return "关注"
                 }
             }
         },

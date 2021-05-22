@@ -25,5 +25,12 @@ export default {
     },
     get_user_article_detail(state){
         return state.userArticleDetail ? state.userArticleDetail:[]
+    },
+    get_focus_list(state){
+        return state.focusList ? state.focusList:[]
+    }
+    ,
+    get_fans_list(state){
+        return state.fansList ? state.fansList:[]
     }
 }

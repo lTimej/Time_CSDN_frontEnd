@@ -15,6 +15,8 @@ const store = new Vuex.Store({
         defaultChannels:[],
         userArticleDetail:[],
         allArticleDetail:[],
+        focusList:[],
+        fansList:[]
     },
     mutations:mutations,
     actions:actions,
