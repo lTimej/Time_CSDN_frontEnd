@@ -30,6 +30,7 @@
             <similar-article />
         </scroll>
         <more-comment v-if="moreComment" @cancel="cancel"/>
+        <detail-bottom-bar @writeComment="writeComment" :article="article[this.$route.query.aid]"/>
     </div>
 </template>
 
@@ -44,6 +45,7 @@
     import MoreComment from "./MoreComment";
     import MoreCommentBak from "./MoreCommentBak";
     import {focusUser,cancelFocusUser,isFocusUser} from "network/users/focus";
+    import DetailBottomBar from "./DetailBottomBar";
     import {mapGetters} from 'vuex'
     export default {
         name: "AllArticleDetail",
@@ -65,7 +67,8 @@
             ArticleComment,
             SimilarArticle,
             MoreComment,
-            MoreCommentBak
+            MoreCommentBak,
+            DetailBottomBar
         },
         computed:{
             ...mapGetters({
@@ -82,6 +85,9 @@
             },
             cancel(){
                 this.moreComment = false
+            },
+            writeComment(){
+                this.moreComment = true
             },
             loadMore(){
                 this.$refs.scrollTo.refresh()
@@ -134,6 +140,7 @@
 <style scoped>
     .article-detail{
         /*background-color: rgba(125, 125, 125, 0.8);*/
+        /*position: relative;*/
     }
     .article-detail-nav{
         position: fixed;
@@ -174,7 +181,7 @@
         top: 44px;
         left: 0;
         right: 0;
-        height: calc(100% - 44px);
+        height: calc(100% - 44px - 59px);
     }
     .like{
         height: 100px;

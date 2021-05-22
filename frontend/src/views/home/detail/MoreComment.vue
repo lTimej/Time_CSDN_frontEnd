@@ -215,6 +215,15 @@
                 </div>
             </div>
         </scroll>
+        <div class="input-frame">
+            <el-input
+              type="textarea"
+              :autosize="{ minRows: 2, maxRows: 2}"
+              placeholder="写评论"
+              v-model="textarea">
+            </el-input>
+            <button>发送</button>
+        </div>
     </div>
 </template>
 
@@ -229,7 +238,7 @@
         },
         data() {
           return {
-
+            textarea: ''
           };
         },
         components:{
@@ -329,5 +338,25 @@
         margin: 5px 30px;
         border-bottom: 1px solid lightgray;
         padding-bottom: 10px;
+    }
+    .more-comment .input-frame{
+        position: fixed;
+        border-top: 1px solid #000000;
+        height: 89px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #fff;
+        z-index: 99;
+    }
+    .more-comment .input-frame button{
+        position: fixed;
+        margin: 3px 10px;
+        left: 350px;
+        top: 700px;
+        height: 30px;
+    }
+    .more-comment .input-frame >>> .el-textarea__inner{
+        background-color: #f6f6f6;
     }
 </style>
