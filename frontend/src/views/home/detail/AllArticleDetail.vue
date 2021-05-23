@@ -1,5 +1,5 @@
 <template>
-    <div class="article-detail">
+    <div class="article-detail" v-cloak>
         <nav-bar class="article-detail-nav" v-show="!isShowInfo">
             <div slot="left" @click="back"><i class="el-icon-arrow-left"></i></div>
             <div slot="right"><i class="el-icon-search"></i></div>
@@ -23,7 +23,7 @@
                 ref="scrollTo"
                 @pullingUp="loadMore"
         >
-            <detail-base-info :article="article[this.$route.query.aid]" @focus="focus(user_id)" :isFocus="isFocus"/>
+            <detail-base-info :article="article[this.$route.query.aid]" @focus="focus(user_id)" :isFocus="isFocus" ref="baseInfo"/>
             <detail-content :article="article[this.$route.query.aid]" />
             <article-like />
             <article-comment @showMore="showMore"/>
@@ -31,6 +31,7 @@
         </scroll>
         <more-comment v-if="moreComment" @cancel="cancel"/>
         <detail-bottom-bar @writeComment="writeComment" :article="article[this.$route.query.aid]"/>
+        <auth :drawers="drawers"/>
     </div>
 </template>
 
@@ -46,6 +47,8 @@
     import MoreCommentBak from "./MoreCommentBak";
 
     import DetailBottomBar from "./DetailBottomBar";
+    import Auth from "components/contents/login/Auth";
+
     import {mapGetters} from 'vuex'
     import {clickFocus} from "common/mixins";
 
@@ -59,7 +62,8 @@
                 head_photo:"",
                 user_name:"",
                 isFocus:"关注",
-                user_id:0
+                user_id:0,
+                baseInfo_Y:0
             }
         },
         components:{
@@ -72,13 +76,15 @@
             SimilarArticle,
             MoreComment,
             MoreCommentBak,
-            DetailBottomBar
+            DetailBottomBar,
+            Auth
         },
         computed:{
 
         },
         methods:{
             back(){
+                this.drawers = false
                 this.$router.back();
             },
             showMore(){
@@ -96,7 +102,11 @@
                 this.$refs.scrollTo.finishPullDown();
             },
             myscroll(pos){
-                this.isShowInfo = pos.y<-220
+                console.log(555555,pos)
+                this.isShowInfo = pos.y < this.baseInfo_Y
+                this.drawers = true
+                this.drawers = false
+
             },
         },
         created() {
@@ -108,6 +118,9 @@
             this.user_id = this.article[this.$route.query.aid].user_id;
             this.getfocusinfo(this.user_id);
             this.$refs.scrollTo.refresh()
+            this.drawers = false
+            this.baseInfo_Y = this.$refs.baseInfo.$el.offsetTop - 180 - 44
+            console.log(2222222,this.baseInfo_Y)
         }
     }
 </script>

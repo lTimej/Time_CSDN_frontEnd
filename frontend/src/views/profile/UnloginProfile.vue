@@ -4,14 +4,16 @@
             <img slot="left" src="~assets/img/tabbar/download.png">
             <img src="~assets/img/tabbar/icon-wap-toolbar-menu.png" slot="right" @click="account_setting">
         </nav-bar>
-        <scroll class="content"
+        <scroll
+                class="content"
+                ref="scroll"
         >
             <login-button />
-            <collections />
+            <collections @clickCollection="clickCollection"/>
             <more-serve />
             <div class="la"></div>
-
         </scroll>
+        <auth :drawers="drawers"/>
     </div>
 </template>
 
@@ -21,20 +23,36 @@
     import NavBar from "components/common/navbar/NavBar";
     import LoginButton from "components/contents/profile/LoginButton";
     import MoreServe from "./children/MoreServe";
-
+    import Auth from "components/contents/login/Auth";
     import Collections from "components/contents/profile/Collections";
     export default {
         name: "UnloginProfile",
+        data(){
+            return{
+                drawers:false
+            }
+        },
         components:{
             NavBar,
             LoginButton,
             Collections,
             MoreServe,
-            Scroll
+            Scroll,
+            Auth
         },
         methods:{
             account_setting(){
                 this.$router.push('/account/setting').catch(()=>{})
+            },
+            clickCollection(){
+                this.drawers = false;
+                this.drawers = true
+            }
+        },
+        activated() {
+            this.$refs.scroll.refresh();
+            if (window.localStorage.getItem('token')){
+                this.$router.replace('/profile')
             }
         }
     }

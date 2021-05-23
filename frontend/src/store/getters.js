@@ -28,8 +28,7 @@ export default {
     },
     get_focus_list(state){
         return state.focusList ? state.focusList:[]
-    }
-    ,
+    },
     get_fans_list(state){
         return state.fansList ? state.fansList:[]
     }

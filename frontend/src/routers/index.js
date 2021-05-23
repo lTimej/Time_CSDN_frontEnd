@@ -24,6 +24,7 @@ const ChannelList = () => import("views/home/articles/ChannelList");
 const ArticleDetail = () => import("views/profile/detail/ArticleDetail");
 const AllArticleDetail = () => import("views/home/detail/AllArticleDetail");
 const UserFocusFans = () => import ("views/profile/children/UserFocusFans");
+const MyCollection = () => import("views/profile/MyCollection");
 
 const routes = [
     {
@@ -158,6 +159,14 @@ const routes = [
       meta:{
           isShowTabbar:true
         }
+    },
+    {
+      name:'我的收藏',
+      component:MyCollection,
+      path:'/mycollection',
+      meta:{
+          isShowTabbar:true
+        }
     }
 ];
 
@@ -167,7 +176,6 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to,from,next)=>{
-    // console.log(to)
     // let white_list = ['/unloginprofile','/profile'];
     // if(white_list.indexOf(to.path)!==-1){
     //

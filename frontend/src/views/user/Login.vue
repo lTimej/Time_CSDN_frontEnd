@@ -93,7 +93,8 @@
                         this.saveToken(res.data.token);
                         this.saveRefreshToken(res.data.refresh_token);
                         //跳转到我的页面
-                        this.$router.push('/profile')
+                        // this.$router.push('/profile')
+                        this.$router.back()
                         // location.href = '/profile'
                     }else {
                         this.$toast.show('用户不存在',5000)

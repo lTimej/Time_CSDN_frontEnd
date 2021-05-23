@@ -72,7 +72,6 @@
                 if (this.flag === 'focus'){
                     userFocus(this.page,this.page_num).then(res=>{
                         this.focusList = res.data.focus;
-                        console.log(77778888,this.focusList)
                         this.$store.dispatch('SaveFocusList',res.data.focus)
                     })
                 }else{//请求粉丝列表数据
@@ -85,7 +84,6 @@
             //点击关注按钮触发
             cFocus(){
                 this.$refs.scrollTo.refresh();
-                console.log(111111111111)
                 if(!this.isClickFocus){
                     return
                 }
@@ -116,9 +114,6 @@
                 if(this.fanslist.length != 0) this.focusList = this.fanslist;
                 else this.getUserFocusOrFans();
             },
-            // focus(user_id){
-            //     console.log(666,user_id);
-            // }
         },
         activated() {
             //判断点击关注还是粉丝按钮

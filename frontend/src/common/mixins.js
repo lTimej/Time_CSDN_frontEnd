@@ -2,10 +2,19 @@ import {mapGetters} from "vuex";
 import {focusUser,cancelFocusUser,isFocusUser} from "network/users/focus";
 
 export const clickFocus = {
+    data(){
+        return{
+            drawers:false
+        }
+    },
     methods: {
         focus(user_id,index=-1) {
-            console.log(66666677766666,index)
-            // let target = this.article[this.$route.query.aid].user_id;
+            console.log("-------------adj-----------")
+            if (!window.localStorage.getItem('token')){
+                this.drawers = false
+                this.drawers = true
+                return
+            }
             let backFocus = ""
             if(index !== -1){
                 if (this.focusList[index].flag === "回关"){

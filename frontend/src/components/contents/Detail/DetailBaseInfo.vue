@@ -72,6 +72,7 @@
 <style scoped>
     .base-info{
         margin: 0 10px;
+        height: 180px;
     }
     .article-time{
         color: #b0b0b0;

@@ -9,7 +9,7 @@
              ref="scroll"
             >
             <individule-home :individule_info="individuleInfo" />
-            <collections />
+            <collections @clickCollection="clickCollection"/>
             <creation-center />
             <content-libs />
             <my-curriculum />
@@ -38,7 +38,8 @@
         name: "Profile",
         data(){
             return{
-                individuleInfo:{}
+                individuleInfo:{},
+                drawers:false
             }
         },
         components:{
@@ -49,7 +50,7 @@
             ContentLibs,
             MyCurriculum,
             MoreServe,
-            Scroll
+            Scroll,
         },
         methods:{
             ...mapGetters(['get_user_info']),
@@ -83,7 +84,12 @@
                         this.individuleInfo = res.data
                     }
                 })
+            },
+
+            clickCollection(){
+                this.$router.push('/mycollection')
             }
+
         },
         mounted() {
 
