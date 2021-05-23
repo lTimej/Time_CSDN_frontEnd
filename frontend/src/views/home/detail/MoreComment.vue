@@ -289,7 +289,7 @@
         top: 44px;
         left: 0;
         right: 0;
-        height: calc(100% - 40px);
+        height: calc(100% - 40px - 89px);
         z-index: 99;
     }
     .more-comment-nav{

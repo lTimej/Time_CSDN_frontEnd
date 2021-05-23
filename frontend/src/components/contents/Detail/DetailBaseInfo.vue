@@ -4,7 +4,7 @@
         <div class="article-time">
             <span>{{article.create_time}}</span>
             <span>|</span>
-            <span>预计阅读3分钟</span>
+            <span>预计阅读{{len | readTime}}分钟</span>
             <span>|</span>
             <span>{{article.read_num}}阅读</span>
         </div>
@@ -44,15 +44,26 @@
                 }
             }
         },
+        data(){
+            return {
+                read_time : 0,
+                len:0,
+            }
+        },
         mounted() {
             // console.log(888888,this.article)
         },
         activated() {
-
+            this.len = this.article.content.length
         },
         methods:{
             focus(){
-                this.$emit('focus')
+                this.$emit('focus',this.article.user_id)
+            }
+        },
+        filters:{
+            readTime(value){
+                return Math.round(value/2000)
             }
         }
     }

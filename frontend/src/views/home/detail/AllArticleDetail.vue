@@ -11,7 +11,7 @@
                 <span >{{user_name}}</span>
             </div>
             <div slot="right">
-                <div class="focus" @click="focus">
+                <div class="focus" @click="focus(user_id)">
                     <span>{{isFocus}}</span>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                 ref="scrollTo"
                 @pullingUp="loadMore"
         >
-            <detail-base-info :article="article[this.$route.query.aid]" @focus="focus" :isFocus="isFocus"/>
+            <detail-base-info :article="article[this.$route.query.aid]" @focus="focus(user_id)" :isFocus="isFocus"/>
             <detail-content :article="article[this.$route.query.aid]" />
             <article-like />
             <article-comment @showMore="showMore"/>
@@ -44,18 +44,22 @@
     import SimilarArticle from "./SimilarArticle";
     import MoreComment from "./MoreComment";
     import MoreCommentBak from "./MoreCommentBak";
-    import {focusUser,cancelFocusUser,isFocusUser} from "network/users/focus";
+
     import DetailBottomBar from "./DetailBottomBar";
     import {mapGetters} from 'vuex'
+    import {clickFocus} from "common/mixins";
+
     export default {
         name: "AllArticleDetail",
+        mixins:[clickFocus],
         data(){
             return{
                 moreComment:false,
                 isShowInfo:false,
                 head_photo:"",
                 user_name:"",
-                isFocus:"关注"
+                isFocus:"关注",
+                user_id:0
             }
         },
         components:{
@@ -71,9 +75,7 @@
             DetailBottomBar
         },
         computed:{
-            ...mapGetters({
-                article:'get_all_article_detail'
-            })
+
         },
         methods:{
             back(){
@@ -96,33 +98,6 @@
             myscroll(pos){
                 this.isShowInfo = pos.y<-220
             },
-            focus(){
-                let target = this.article[this.$route.query.aid].user_id
-                if(this.isFocus === "关注"){
-                    focusUser(target).then(res=>{
-                        if (res.status === 201){
-                            this.isFocus = "已关注"
-                            this.$store.state.focusList = []
-                            this.$store.state.fansList = []
-                        }
-                    })
-                }else{
-                    cancelFocusUser(target).then(res=>{
-                        if (res.status === 201){
-                            this.isFocus = "关注"
-                            this.$store.state.focusList = []
-                            this.$store.state.fansList = []
-                        }
-                    })
-                }
-            },
-            //判断是否关注
-            getfocusinfo(user_id){
-                isFocusUser(user_id).then(res=>{
-                    if(res.data.isFocusUser) this.isFocus = "已关注"
-                    else this.isFocus = "关注"
-                })
-            }
         },
         created() {
 
@@ -130,8 +105,8 @@
         activated() {
             this.head_photo = this.article[this.$route.query.aid].head_photo;
             this.user_name = this.article[this.$route.query.aid].user_name;
-            let user_id = this.article[this.$route.query.aid].user_id;
-            this.getfocusinfo(user_id);
+            this.user_id = this.article[this.$route.query.aid].user_id;
+            this.getfocusinfo(this.user_id);
             this.$refs.scrollTo.refresh()
         }
     }

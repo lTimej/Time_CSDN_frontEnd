@@ -16,18 +16,18 @@
                 class="content"
                 ref="scrollTo"
         >
-            <div class="user-focus-fans-item" v-for="focus in focusList">
+            <div class="user-focus-fans-item" v-for="(f,index) in focusList">
                 <div class="head-photo">
-                    <img :src="focus.head_photo">
+                    <img :src="f.head_photo">
                 </div>
                 <div class="user-info">
-                    <div><span>{{focus.user_name}}</span></div>
-                    <div class="intro" v-if="focus.introduction"><span>{{focus.introduction}}</span></div>
+                    <div><span>{{f.user_name}}</span></div>
+                    <div class="intro" v-if="f.introduction"><span>{{f.introduction}}</span></div>
                     <div class="intro" v-else><span>此用户很懒，什么都没有写</span></div>
                 </div>
-                <div class="focused">
-                    <span v-if="focus.mutual_focus">相互关注</span>
-                    <span v-else>{{focusAndfans}}</span>
+                <div class="focused" @click="focus(f.user_id,index)">
+                    <span v-if="f.mutual_focus">相互关注</span>
+                    <span v-else>{{f.flag}}</span>
                 </div>
             </div>
 
@@ -40,12 +40,15 @@
     import Scroll from "components/common/scroll/Scroll";
     import {userFocus,userFans} from "network/users/focus";
     import {mapGetters} from 'vuex'
+    import {clickFocus} from "common/mixins";
 
     export default {
-        name: "UserFocus",
+        name: "UserFocusFans",
+        mixins:[clickFocus],
         data(){
             return{
-                focusAndfans:'已关注',
+                isFocus:'已关注',
+                user_id:0,
                 page:0,
                 page_num:10,
                 flag:'focus',
@@ -69,6 +72,7 @@
                 if (this.flag === 'focus'){
                     userFocus(this.page,this.page_num).then(res=>{
                         this.focusList = res.data.focus;
+                        console.log(77778888,this.focusList)
                         this.$store.dispatch('SaveFocusList',res.data.focus)
                     })
                 }else{//请求粉丝列表数据
@@ -81,6 +85,7 @@
             //点击关注按钮触发
             cFocus(){
                 this.$refs.scrollTo.refresh();
+                console.log(111111111111)
                 if(!this.isClickFocus){
                     return
                 }
@@ -110,12 +115,16 @@
 
                 if(this.fanslist.length != 0) this.focusList = this.fanslist;
                 else this.getUserFocusOrFans();
-            }
+            },
+            // focus(user_id){
+            //     console.log(666,user_id);
+            // }
         },
         activated() {
             //判断点击关注还是粉丝按钮
             if(this.$route.params.fid == 0) this.cFocus();
             else this.cFans();
+            this.$refs.scrollTo.refresh();
         },
         computed:{
             ...mapGetters({
@@ -194,7 +203,7 @@
         margin: 10px 0;
         border: 1px solid lightgray;
         border-radius: 20px;
-        width: 60px;
+        width: 70px;
         height: 20px;
         line-height: 20px;
         text-align: center;
