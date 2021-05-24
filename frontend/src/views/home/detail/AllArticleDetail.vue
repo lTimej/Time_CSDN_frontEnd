@@ -102,7 +102,6 @@
                 this.$refs.scrollTo.finishPullDown();
             },
             myscroll(pos){
-                console.log(555555,pos)
                 this.isShowInfo = pos.y < this.baseInfo_Y
                 this.drawers = true
                 this.drawers = false
@@ -120,7 +119,6 @@
             this.$refs.scrollTo.refresh()
             this.drawers = false
             this.baseInfo_Y = this.$refs.baseInfo.$el.offsetTop - 180 - 44
-            console.log(2222222,this.baseInfo_Y)
         }
     }
 </script>

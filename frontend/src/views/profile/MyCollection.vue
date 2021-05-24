@@ -1,7 +1,7 @@
 <template>
     <div class="my-collection">
         <nav-bar class="my-collection-nav">
-            <div slot="left"><i class="el-icon-arrow-left"></i></div>
+            <div slot="left" @click="back"><i class="el-icon-arrow-left"></i></div>
             <div slot="center"><span>收藏夹</span></div>
             <div slot="right"><i class="el-icon-search"></i><span>新建</span></div>
         </nav-bar>
@@ -220,6 +220,9 @@
             },
             isCancel(){
 
+            },
+            back(){
+                this.$router.back()
             }
 
         }
