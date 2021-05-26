@@ -11,21 +11,24 @@
                 <div class="icon"><i class="el-icon-chat-line-square"></i></div>
                 <div class="text"><span>评论</span></div>
                 <div class="number">
-                    <span>{{article.comment_num}}</span>
+                    <span>0</span>
                 </div>
             </div>
             <div class="collection c" @click="toCollection">
-                <div class="icon"><i class="el-icon-star-off"></i></div>
+                <div class="icon">
+                    <i class="el-icon-star-off" v-if="!status.iscollection"></i>
+                    <i class="el-icon-star-on" v-else style="color: orange"></i>
+                </div>
                 <div class="text"><span>收藏</span></div>
-                <div class="number">
-                    <span>{{article.collection_num}}</span>
+                <div class="number" v-show="status.collection_num !== 0">
+                    <span>{{status.collection_num}}</span>
                 </div>
             </div>
-            <div class="like c">
+            <div class="like c" @click="toLike">
                 <div class="icon"><i class="el-icon-thumb"></i></div>
                 <div class="text"><span>点赞</span></div>
                 <div class="number">
-                    <span>{{article.like_num}}</span>
+                    <span>0</span>
                 </div>
             </div>
             <div class="share c">
@@ -37,16 +40,20 @@
 </template>
 
 <script>
-    import {userArticleCollection} from "network/articles/collection";
-
     export default {
         name: "DetailBottomBar",
         props:{
-            article:{
+            status:{
                 type:Object,
                 default:function (){
                     return {}
                 }
+            }
+        },
+        data(){
+            return{
+                collectionNum:this.status.collection_num,
+                isZero:false ? this.status.collection_num === '0' : true
             }
         },
         methods:{
@@ -54,10 +61,10 @@
                 this.$emit('writeComment')
             },
             toCollection(){
-                console.log(444,this.article.art_id);
-                userArticleCollection(this.article.art_id).then(res=>{
-                    console.log(3333,res);
-                })
+                this.$emit('toCollection',this.status.aid)
+            },
+            toLike(){
+                this.$emit('toLike',this.status)
             }
         }
     }

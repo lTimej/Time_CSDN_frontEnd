@@ -92,6 +92,7 @@
                         window.localStorage.setItem('refresh_token',res.data.refresh_token);
                         this.saveToken(res.data.token);
                         this.saveRefreshToken(res.data.refresh_token);
+
                         //跳转到我的页面
                         // this.$router.push('/profile')
                         this.$router.back()

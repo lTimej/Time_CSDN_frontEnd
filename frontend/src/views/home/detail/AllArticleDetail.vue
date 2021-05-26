@@ -30,8 +30,14 @@
             <similar-article />
         </scroll>
         <more-comment v-if="moreComment" @cancel="cancel"/>
-        <detail-bottom-bar @writeComment="writeComment" :article="article[this.$route.query.aid]"/>
+        <detail-bottom-bar
+                @writeComment="writeComment"
+                :status="status"
+                @toCollection="toCollection"
+                @toLike="toLike"
+        />
         <auth :drawers="drawers"/>
+        <collection-toast :isShow="isShow" @cancelShow="cancelShow" @qxCollection="qxCollection"/>
     </div>
 </template>
 
@@ -45,25 +51,35 @@
     import SimilarArticle from "./SimilarArticle";
     import MoreComment from "./MoreComment";
     import MoreCommentBak from "./MoreCommentBak";
+    import CollectionToast from "components/contents/collectionToast/CollectionToast";
 
     import DetailBottomBar from "./DetailBottomBar";
     import Auth from "components/contents/login/Auth";
 
     import {mapGetters} from 'vuex'
     import {clickFocus} from "common/mixins";
+    import {userArticleCollection,cancelUserArticleCollection} from "network/articles/collection";
+    import {getArticleStatus} from "network/articles/articles";
 
     export default {
         name: "AllArticleDetail",
         mixins:[clickFocus],
         data(){
             return{
+                isShow:false,
                 moreComment:false,
                 isShowInfo:false,
                 head_photo:"",
                 user_name:"",
                 isFocus:"关注",
                 user_id:0,
-                baseInfo_Y:0
+                baseInfo_Y:0,
+                status:{
+                    isfocus:false,
+                    iscollection:false,
+                    collection_num:0,
+                    aid:-1
+                }
             }
         },
         components:{
@@ -77,7 +93,8 @@
             MoreComment,
             MoreCommentBak,
             DetailBottomBar,
-            Auth
+            Auth,
+            CollectionToast
         },
         computed:{
 
@@ -107,6 +124,48 @@
                 this.drawers = false
 
             },
+            toCollection(aid){
+                if (!window.localStorage.getItem('token')){
+                    this.drawers = false
+                    this.drawers = true
+                    return
+                }
+                if(this.status.iscollection){
+                    this.isShow = true;
+                    return;
+                }
+                userArticleCollection(aid).then(res=>{
+                    if (res.status == 201){
+                        this.$toast.show("收藏成功",3000)
+                        this.getArticleStatus()
+                    }
+                })
+            },
+            toLike(status){
+                console.log(888,status);
+            },
+            getArticleStatus(){
+                let aid = this.article[this.$route.query.aid].art_id
+                let uid = this.article[this.$route.query.aid].user_id
+                getArticleStatus(aid,uid).then(res=>{
+                    this.status.isfocus = res.data.data.isfocus
+                    this.status.iscollection = res.data.data.iscollection
+                    this.status.collection_num = res.data.data.collection_num
+                    this.status.aid = res.data.data.aid
+                })
+            },
+            cancelShow(){
+                this.isShow = false
+            },
+            qxCollection(){
+                console.log(666,this.status.aid)
+                cancelUserArticleCollection(this.status.aid).then(res=>{
+                    if (res.status === 201){
+                        this.isShow = false
+                        this.getArticleStatus();
+                    }
+                })
+            }
         },
         created() {
 
@@ -118,7 +177,8 @@
             this.getfocusinfo(this.user_id);
             this.$refs.scrollTo.refresh()
             this.drawers = false
-            this.baseInfo_Y = this.$refs.baseInfo.$el.offsetTop - 180 - 44
+            this.baseInfo_Y = this.$refs.baseInfo.$el.offsetTop - 180 - 44;
+            this.getArticleStatus();
         }
     }
 </script>

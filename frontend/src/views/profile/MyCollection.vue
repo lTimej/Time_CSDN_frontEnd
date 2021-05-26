@@ -7,11 +7,11 @@
         </nav-bar>
         <scroll class="content">
             <div class="collection-num">
-                <span>105条内容</span>
+                <span>{{collection_num}}条内容</span>
             </div>
-            <div class="my-collection-item">
+            <div class="my-collection-item" v-for="collection in collections" @click="toCollectionDetail(collection.art_id)">
                 <div class="title">
-                    <span>Mysql数据库面试题(2020最新版)</span>
+                    <span>{{collection.title}}</span>
                 </div>
                 <div class="article-intro">
                     <span>文章目录数据库基础知识为什么要使用数据库什么是SQL</span>
@@ -19,212 +19,81 @@
                 <div class="author-name">
                     <span>博客</span>
                     <span class="dot">.</span>
-                    <span>lTimej</span>
-                    <i class="el-icon-more" @click="open"></i>
-                </div>
-            </div>
-            <div class="my-collection-item">
-                <div class="title">
-                    <span>Mysql数据库面试题(2020最新版)</span>
-                </div>
-                <div class="article-intro">
-                    <span>文章目录数据库基础知识为什么要使用数据库什么是SQL</span>
-                </div>
-                <div class="author-name">
-                    <span>博客</span>
-                    <span class="dot">.</span>
-                    <span>lTimej</span>
-                    <i class="el-icon-more" @click="open"></i>
-                </div>
-            </div>
-            <div class="my-collection-item">
-                <div class="title">
-                    <span>Mysql数据库面试题(2020最新版)</span>
-                </div>
-                <div class="article-intro">
-                    <span>文章目录数据库基础知识为什么要使用数据库什么是SQL</span>
-                </div>
-                <div class="author-name">
-                    <span>博客</span>
-                    <span class="dot">.</span>
-                    <span>lTimej</span>
-                    <i class="el-icon-more" @click="open"></i>
-                </div>
-            </div>
-            <div class="my-collection-item">
-                <div class="title">
-                    <span>Mysql数据库面试题(2020最新版)</span>
-                </div>
-                <div class="article-intro">
-                    <span>文章目录数据库基础知识为什么要使用数据库什么是SQL</span>
-                </div>
-                <div class="author-name">
-                    <span>博客</span>
-                    <span class="dot">.</span>
-                    <span>lTimej</span>
-                    <i class="el-icon-more" @click="open"></i>
-                </div>
-            </div>
-            <div class="my-collection-item">
-                <div class="title">
-                    <span>Mysql数据库面试题(2020最新版)</span>
-                </div>
-                <div class="article-intro">
-                    <span>文章目录数据库基础知识为什么要使用数据库什么是SQL</span>
-                </div>
-                <div class="author-name">
-                    <span>博客</span>
-                    <span class="dot">.</span>
-                    <span>lTimej</span>
-                    <i class="el-icon-more" @click="open"></i>
-                </div>
-            </div>
-            <div class="my-collection-item">
-                <div class="title">
-                    <span>Mysql数据库面试题(2020最新版)</span>
-                </div>
-                <div class="article-intro">
-                    <span>文章目录数据库基础知识为什么要使用数据库什么是SQL</span>
-                </div>
-                <div class="author-name">
-                    <span>博客</span>
-                    <span class="dot">.</span>
-                    <span>lTimej</span>
-                    <i class="el-icon-more" @click="open"></i>
-                </div>
-            </div>
-            <div class="my-collection-item">
-                <div class="title">
-                    <span>Mysql数据库面试题(2020最新版)</span>
-                </div>
-                <div class="article-intro">
-                    <span>文章目录数据库基础知识为什么要使用数据库什么是SQL</span>
-                </div>
-                <div class="author-name">
-                    <span>博客</span>
-                    <span class="dot">.</span>
-                    <span>lTimej</span>
-                    <i class="el-icon-more" @click="open"></i>
-                </div>
-            </div>
-            <div class="my-collection-item">
-                <div class="title">
-                    <span>Mysql数据库面试题(2020最新版)</span>
-                </div>
-                <div class="article-intro">
-                    <span>文章目录数据库基础知识为什么要使用数据库什么是SQL</span>
-                </div>
-                <div class="author-name">
-                    <span>博客</span>
-                    <span class="dot">.</span>
-                    <span>lTimej</span>
-                    <i class="el-icon-more" @click="open"></i>
-                </div>
-            </div>
-            <div class="my-collection-item">
-                <div class="title">
-                    <span>Mysql数据库面试题(2020最新版)</span>
-                </div>
-                <div class="article-intro">
-                    <span>文章目录数据库基础知识为什么要使用数据库什么是SQL</span>
-                </div>
-                <div class="author-name">
-                    <span>博客</span>
-                    <span class="dot">.</span>
-                    <span>lTimej</span>
-                    <i class="el-icon-more" @click="open"></i>
-                </div>
-            </div>
-            <div class="my-collection-item">
-                <div class="title">
-                    <span>Mysql数据库面试题(2020最新版)</span>
-                </div>
-                <div class="article-intro">
-                    <span>文章目录数据库基础知识为什么要使用数据库什么是SQL</span>
-                </div>
-                <div class="author-name">
-                    <span>博客</span>
-                    <span class="dot">.</span>
-                    <span>lTimej</span>
-                    <i class="el-icon-more" @click="open"></i>
-                </div>
-            </div>
-            <div class="my-collection-item">
-                <div class="title">
-                    <span>Mysql数据库面试题(2020最新版)</span>
-                </div>
-                <div class="article-intro">
-                    <span>文章目录数据库基础知识为什么要使用数据库什么是SQL</span>
-                </div>
-                <div class="author-name">
-                    <span>博客</span>
-                    <span class="dot">.</span>
-                    <span>lTimej</span>
-                    <i class="el-icon-more" @click="open"></i>
-                </div>
-            </div>
-            <div class="my-collection-item">
-                <div class="title">
-                    <span>Mysql数据库面试题(2020最新版)</span>
-                </div>
-                <div class="article-intro">
-                    <span>文章目录数据库基础知识为什么要使用数据库什么是SQL</span>
-                </div>
-                <div class="author-name">
-                    <span>博客</span>
-                    <span class="dot">.</span>
-                    <span>lTimej</span>
-                    <i class="el-icon-more" @click="open"></i>
+                    <span>{{collection.user_name}}</span>
+                    <i class="el-icon-more" @click="open(collection.art_id)"></i>
                 </div>
             </div>
         </scroll>
-        <div class="tan" v-if="isShow" @click.stop="cancel" >
-            <div class="tan-item" @click.stop="isCancel">
-                <div class="title">
-                    <span>是否取消收藏？</span>
-                </div>
-                <div class="y-or-n">
-                    <span class="y" @click.stop="cf" >确定</span>
-                    <span class="n" @click="cancel">取消</span>
-                </div>
-            </div>
-        </div>
+        <collection-toast :isShow="isShow" @cancelShow="cancelShow" @qxCollection="qxCollection"/>
     </div>
 </template>
 
 <script>
     import NavBar from "components/common/navbar/NavBar";
     import Scroll from "components/common/scroll/Scroll";
+    import {getUserArticleCollection} from "network/articles/collection";
+    import {mapGetters} from 'vuex'
+    import CollectionToast from "components/contents/collectionToast/CollectionToast";
+    import {cancelUserArticleCollection} from "network/articles/collection";
+
     export default {
         name: "MyCollection",
         data(){
             return{
-                isShow:false
+                isShow:false,
+                page:0,
+                page_num:10,
+                collections:[],
+                collection_num:0,
+                aid:-1
             }
 
         },
         components:{
             NavBar,
-            Scroll
+            Scroll,
+            CollectionToast
         },
         methods: {
-            open(){
+            open(aid){
                 this.isShow = true
-            },
-            cf(){
-                console.log(111111111111)
-            },
-            cancel(){
-                this.isShow = false
-                console.log(33333333333333)
-            },
-            isCancel(){
-
+                this.aid = aid
             },
             back(){
                 this.$router.back()
+            },
+            getCollection(){
+                this.page += 1;
+                getUserArticleCollection(1,this.page_num).then(res=>{
+                    this.collection_num = res.data.data.total_num
+                    this.collections = res.data.data.collections
+                })
+            },
+            toCollectionDetail(aid){
+                console.log(777,aid);
+            },
+            cancelShow(){
+                this.isShow= false
+            },
+            qxCollection(){
+                console.log(3333,this.aid)
+                cancelUserArticleCollection(this.aid).then(res=>{
+                    if (res.status === 201){
+                        this.isShow = false
+                        this.getCollection();
+                        this.$toast.show("取消收藏",5000)
+                    }
+                })
             }
+        },
+        activated() {
+            this.getCollection();
 
+        },
+        computed:{
+            ...mapGetters({
+                allArticleDetail:'get_all_article_detail'
+            })
         }
     }
 </script>
@@ -291,29 +160,5 @@
         font-size: 18px;
         font-weight: 600;
     }
-    .tan{
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(186, 186, 186, 0.68);
-        z-index: 99;
-    }
-    .tan .tan-item{
-        width: 200px;
-        height: 120px;
-        background-color: #fff;
-        margin: 300px 100px;
-        line-height: 50px;
-        text-align: center;
-    }
-    .tan .tan-item .title{
-        font-size: 16px;
-        font-weight: 600;
-    }
-    .tan .tan-item .y-or-n{
-        font-size: 16px;
-    }
-    .tan .tan-item .y{
-        padding-right: 20px;
-    }
+
 </style>

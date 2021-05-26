@@ -4,12 +4,11 @@ import {focusUser,cancelFocusUser,isFocusUser} from "network/users/focus";
 export const clickFocus = {
     data(){
         return{
-            drawers:false
+            drawers:false,
         }
     },
     methods: {
         focus(user_id,index=-1) {
-            console.log("-------------adj-----------")
             if (!window.localStorage.getItem('token')){
                 this.drawers = false
                 this.drawers = true
@@ -17,6 +16,7 @@ export const clickFocus = {
             }
             let backFocus = ""
             if(index !== -1){
+                this.isFocus = this.focusList[index].flag
                 if (this.focusList[index].flag === "回关"){
                     backFocus = "回关"
                 }
@@ -30,6 +30,7 @@ export const clickFocus = {
                         }else{
                             if(index !== -1) this.focusList[index].flag = "已关注"
                         }
+                        // if(this.focusList[index].mutual_focus) this.focusList[index].flag = "相互关注"
                         this.$store.state.focusList = [];
                         this.$store.state.fansList = []
                     }
@@ -37,7 +38,7 @@ export const clickFocus = {
             } else if(this.isFocus === "已关注"){
                 cancelFocusUser(user_id).then(res => {
                     if (res.status === 201) {
-                        this.isFocus = "关注";
+                        this.isFocus = '关注'
                         if(index !== -1) {
                             this.focusList[index].mutual_focus = false
                             this.focusList[index].flag = "关注"

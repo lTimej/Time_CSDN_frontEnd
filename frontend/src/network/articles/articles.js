@@ -22,3 +22,14 @@ export function getUserArticle(page,page_num) {
         }
     })
 }
+//文章浏览状态
+export function getArticleStatus(aid,uid) {
+    return requests({
+        url:'/v1/article/status',
+        method:'get',
+        params:{
+            aid:aid,
+            uid:uid
+        }
+    })
+}
