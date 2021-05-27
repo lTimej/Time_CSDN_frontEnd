@@ -1,5 +1,5 @@
 <template>
-    <div class="user-focus-fans">
+    <div class="user-focus-fans" v-cloak>
         <nav-bar class="user-focus-fans-nav">
             <div slot="left" @click="back">
                 <i class="el-icon-arrow-left"></i>
@@ -117,9 +117,14 @@
         },
         activated() {
             //判断点击关注还是粉丝按钮
-            if(this.$route.params.fid == 0) this.cFocus();
-            else this.cFans();
             this.$refs.scrollTo.refresh();
+            if(this.$route.params.fid === '0'){
+                this.cFocus();
+            }
+            else {
+                this.cFans();
+            }
+
         },
         computed:{
             ...mapGetters({

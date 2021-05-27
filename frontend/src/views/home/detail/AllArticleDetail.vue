@@ -36,7 +36,7 @@
                 @toCollection="toCollection"
                 @toLike="toLike"
         />
-        <auth :drawers="drawers"/>
+        <auth :drawers="drawers" @cancelAuth="cancelAuth" @changeLogin="changeLogin"/>
         <collection-toast :isShow="isShow" @cancelShow="cancelShow" @qxCollection="qxCollection"/>
     </div>
 </template>
@@ -115,8 +115,8 @@
                 this.moreComment = true
             },
             loadMore(){
-                this.$refs.scrollTo.refresh()
                 this.$refs.scrollTo.finishPullDown();
+                this.$refs.scrollTo.refresh();
             },
             myscroll(pos){
                 this.isShowInfo = pos.y < this.baseInfo_Y
@@ -124,12 +124,24 @@
                 this.drawers = false
 
             },
+            //取消登录认证
+            cancelAuth(){
+                this.drawers = false
+            },
+            //切换认证登录方式
+            changeLogin(){
+                this.drawers = !this.drawers
+                this.$router.push('/login/account')
+            },
+            //收藏
             toCollection(aid){
+                //判断是否登录
                 if (!window.localStorage.getItem('token')){
                     this.drawers = false
                     this.drawers = true
                     return
                 }
+                //如果已收藏则直接返回
                 if(this.status.iscollection){
                     this.isShow = true;
                     return;
@@ -144,6 +156,7 @@
             toLike(status){
                 console.log(888,status);
             },
+            //获取当前用户对当前文章的一种动作
             getArticleStatus(){
                 let aid = this.article[this.$route.query.aid].art_id
                 let uid = this.article[this.$route.query.aid].user_id
@@ -154,15 +167,17 @@
                     this.status.aid = res.data.data.aid
                 })
             },
+            //不显示是否取消收藏页面
             cancelShow(){
                 this.isShow = false
             },
+            //取消收藏
             qxCollection(){
-                console.log(666,this.status.aid)
                 cancelUserArticleCollection(this.status.aid).then(res=>{
                     if (res.status === 201){
                         this.isShow = false
                         this.getArticleStatus();
+                        this.$toast.show("取消收藏",5000)
                     }
                 })
             }
@@ -175,10 +190,10 @@
             this.user_name = this.article[this.$route.query.aid].user_name;
             this.user_id = this.article[this.$route.query.aid].user_id;
             this.getfocusinfo(this.user_id);
-            this.$refs.scrollTo.refresh()
-            this.drawers = false
+            this.drawers = false;
             this.baseInfo_Y = this.$refs.baseInfo.$el.offsetTop - 180 - 44;
             this.getArticleStatus();
+            this.$refs.scrollTo.refresh();
         }
     }
 </script>

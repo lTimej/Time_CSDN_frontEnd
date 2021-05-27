@@ -30,7 +30,7 @@ export const clickFocus = {
                         }else{
                             if(index !== -1) this.focusList[index].flag = "已关注"
                         }
-                        // if(this.focusList[index].mutual_focus) this.focusList[index].flag = "相互关注"
+                        console.log(3)
                         this.$store.state.focusList = [];
                         this.$store.state.fansList = []
                     }

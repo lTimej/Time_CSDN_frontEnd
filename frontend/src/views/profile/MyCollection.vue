@@ -55,13 +55,16 @@
             CollectionToast
         },
         methods: {
+            //打开是否取消收藏页面
             open(aid){
                 this.isShow = true
                 this.aid = aid
             },
+            //返回
             back(){
                 this.$router.back()
             },
+            //获取收藏信息
             getCollection(){
                 this.page += 1;
                 getUserArticleCollection(1,this.page_num).then(res=>{
@@ -69,12 +72,15 @@
                     this.collections = res.data.data.collections
                 })
             },
+            //跳转收藏文章详情页
             toCollectionDetail(aid){
-                console.log(777,aid);
+                console.log(778887,aid);
             },
+            //不显示是否取消收藏页面
             cancelShow(){
                 this.isShow= false
             },
+            //取消收藏
             qxCollection(){
                 console.log(3333,this.aid)
                 cancelUserArticleCollection(this.aid).then(res=>{

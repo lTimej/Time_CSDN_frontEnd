@@ -52,7 +52,6 @@
         },
         data() {
           return {
-            drawer: this.drawers,
               accept:false,
               isAccept:false
           };
@@ -62,13 +61,10 @@
                 done();
             },
             cancelAuth(){
-                this.drawers = false
+                this.$emit('cancelAuth')
             },
             changeLogin(){
-                console.log(2222,this.drawers)
-                this.drawers = !this.drawers
-                console.log(2222,this.drawers)
-                this.$router.push('/login/account')
+                this.$emit('changeLogin')
             },
              //同意按钮
             change_accept(){
