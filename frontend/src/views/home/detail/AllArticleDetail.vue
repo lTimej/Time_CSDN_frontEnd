@@ -60,6 +60,7 @@
     import {clickFocus} from "common/mixins";
     import {userArticleCollection,cancelUserArticleCollection} from "network/articles/collection";
     import {getArticleStatus} from "network/articles/articles";
+    import {userArticleLike,cancelUserArticleLike} from "network/articles/like";
 
     export default {
         name: "AllArticleDetail",
@@ -74,12 +75,7 @@
                 isFocus:"关注",
                 user_id:0,
                 baseInfo_Y:0,
-                status:{
-                    isfocus:false,
-                    iscollection:false,
-                    collection_num:0,
-                    aid:-1
-                }
+                status:{}
             }
         },
         components:{
@@ -153,18 +149,44 @@
                     }
                 })
             },
-            toLike(status){
-                console.log(888,status);
+            toLike(aid){
+                //判断是否登录
+                if (!window.localStorage.getItem('token')){
+                    this.drawers = false
+                    this.drawers = true
+                    return
+                }
+                //如果已收藏则直接返回
+                console.log(555555,this.status.islike)
+                if(this.status.islike){
+                    cancelUserArticleLike(aid).then(res=>{
+                        if (res.status == 201){
+                            this.$toast.show("取消点赞",3000)
+                            this.getArticleStatus()
+                        }else{
+                            this.$toast.show("取消失败",3000)
+                        }
+                    })
+                }else{
+                    userArticleLike(aid).then(res=>{
+                        if (res.status == 201){
+                            this.$toast.show("点赞成功",3000)
+                            this.getArticleStatus()
+                        }else{
+                            this.$toast.show("点赞失败",3000)
+                        }
+                    })
+                }
+
             },
             //获取当前用户对当前文章的一种动作
             getArticleStatus(){
+                console.log("我进来了---------------")
                 let aid = this.article[this.$route.query.aid].art_id
                 let uid = this.article[this.$route.query.aid].user_id
                 getArticleStatus(aid,uid).then(res=>{
-                    this.status.isfocus = res.data.data.isfocus
-                    this.status.iscollection = res.data.data.iscollection
-                    this.status.collection_num = res.data.data.collection_num
-                    this.status.aid = res.data.data.aid
+                    console.log(999,res);
+                    this.status = res.data.data
                 })
             },
             //不显示是否取消收藏页面

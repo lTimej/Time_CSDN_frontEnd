@@ -25,10 +25,13 @@
                 </div>
             </div>
             <div class="like c" @click="toLike">
-                <div class="icon"><i class="el-icon-thumb"></i></div>
+                <div class="icon">
+                    <i class="el-icon-thumb" v-if="!status.islike"></i>
+                    <i class="el-icon-thumb" v-else style="color: orange;"></i>
+                </div>
                 <div class="text"><span>点赞</span></div>
-                <div class="number">
-                    <span>0</span>
+                <div class="number" v-show="status.like_num !== 0">
+                    <span>{{status.like_num}}</span>
                 </div>
             </div>
             <div class="share c">
@@ -52,8 +55,7 @@
         },
         data(){
             return{
-                collectionNum:this.status.collection_num,
-                isZero:false ? this.status.collection_num === '0' : true
+
             }
         },
         methods:{
@@ -64,7 +66,7 @@
                 this.$emit('toCollection',this.status.aid)
             },
             toLike(){
-                this.$emit('toLike',this.status)
+                this.$emit('toLike',this.status.aid)
             }
         }
     }
