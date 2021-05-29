@@ -20,14 +20,14 @@
         >
             <div class="content-item">
                 <individule-data />
-                <main-tab-control v-show="!isShowTabControl" />
+                <main-tab-control v-show="!isShowTabControl" @changeRouter="changeRouter"/>
 <!--                <slot></slot>-->
-                <my-dynamic v-show="currPath=='/my/dynamic'" />
-                <my-blog v-show="currPath=='/my/blog'" :myblogs="myblogs"/>
-                <my-blink v-show="currPath=='/my/blink'" />
-                <my-category v-show="currPath=='/my/category'" />
-                <my-vedio v-show="currPath=='/my/vedio'" />
-                <my-more v-show="currPath=='/my/more'" />
+                <my-dynamic v-show="index===1" />
+                <my-blog v-show="index===2" :myblogs="myblogs"/>
+                <my-blink v-show="index===3" />
+                <my-category v-show="index===4" />
+                <my-vedio v-show="index===5" />
+                <my-more v-show="index===6" />
             </div>
         </scroll>
         <bottom-toast v-show="isShowBottom" @cancel="cancel" />
@@ -69,7 +69,8 @@
               isShowTabControl:false,
               curr_location:0,
               page:0,
-              myblogs:[]
+              myblogs:[],
+              index:1
           };
         },
         components:{
@@ -119,12 +120,14 @@
             },
             pullingMore(){
                 console.log('下拉刷新')
+            },
+            changeRouter(index){
+                this.index = index
             }
         },
         computed:{
             ...mapGetters({
                 individuleInfo:'get_user_info',
-                currPath:'get_curr_path',
             })
         },
 
@@ -133,7 +136,6 @@
         },
         //进去直接到离开后那个位置
         activated() {
-            console.log(99999,this.currPath);
             this.$refs.scrollTo.scrollTo(0,this.curr_location)
             this.$refs.scrollTo.refresh()
 

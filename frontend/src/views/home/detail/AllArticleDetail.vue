@@ -157,7 +157,6 @@
                     return
                 }
                 //如果已收藏则直接返回
-                console.log(555555,this.status.islike)
                 if(this.status.islike){
                     cancelUserArticleLike(aid).then(res=>{
                         if (res.status == 201){
@@ -167,17 +166,16 @@
                             this.$toast.show("取消失败",3000)
                         }
                     })
-                }else{
-                    userArticleLike(aid).then(res=>{
-                        if (res.status == 201){
-                            this.$toast.show("点赞成功",3000)
-                            this.getArticleStatus()
-                        }else{
-                            this.$toast.show("点赞失败",3000)
-                        }
-                    })
+                    return
                 }
-
+                userArticleLike(aid).then(res=>{
+                    if (res.status == 201){
+                        this.$toast.show("点赞成功",3000)
+                        this.getArticleStatus()
+                    }else{
+                        this.$toast.show("点赞失败",3000)
+                    }
+                })
             },
             //获取当前用户对当前文章的一种动作
             getArticleStatus(){

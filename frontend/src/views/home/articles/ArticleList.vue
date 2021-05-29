@@ -7,9 +7,11 @@
                     {{article.content | qiepian}}
                 </div>
                 <div class="article-info">
-                    <span class="article-c">{{article.user_name}}</span>
-                    <span class="article-c">{{article.read_num}}</span>
-                    <span class="article-c">{{article.comment_num}}</span>
+                    <span >{{article.user_name}}</span>
+                    <span class="article-c">.</span>
+                    <span >{{article.read_num}}阅读</span>
+                    <span class="article-c">.</span>
+                    <span >{{article.comment_num}}评论</span>
                     <i class="el-icon-more"></i>
                 </div>
             </div>
@@ -32,7 +34,7 @@
         },
         methods:{
             articleDetail(aid){
-                console.log(aid);
+                console.log(aid,"---------------------",this.articles[aid].art_id);
                 this.$router.push({
                     path:'/article/detail',
                     query:{
@@ -88,7 +90,7 @@
         right: 10px;
     }
     .article-list .article-list-item .article-info .article-c{
-        margin-right: 12px;
+        margin:0 6px;
     }
     .bbr{
 
