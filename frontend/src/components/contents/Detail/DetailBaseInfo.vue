@@ -1,12 +1,12 @@
 <template>
-    <div class="base-info">
+    <div class="base-info" v-cloak>
         <h2>{{article.title}}</h2>
         <div class="article-time">
             <span>{{article.create_time}}</span>
             <span>|</span>
             <span>预计阅读{{len | readTime}}分钟</span>
             <span>|</span>
-            <span>{{article.read_num}}阅读</span>
+            <span>{{read_num}}阅读</span>
         </div>
         <div class="author-info">
             <div class="head-photo">
@@ -41,6 +41,12 @@
                 type:String,
                 default:function () {
                     return "关注"
+                }
+            },
+            read_num:{
+                type:Number,
+                default:function () {
+                    return 0
                 }
             }
         },

@@ -23,7 +23,7 @@
                 ref="scrollTo"
                 @pullingUp="loadMore"
         >
-            <detail-base-info :article="article[this.$route.query.aid]" @focus="focus(user_id)" :isFocus="isFocus" ref="baseInfo"/>
+            <detail-base-info :article="article[this.$route.query.aid]" @focus="focus(user_id)" :isFocus="isFocus" ref="baseInfo" :read_num="status.read_num"/>
             <detail-content :article="article[this.$route.query.aid]" />
             <article-like />
             <article-comment @showMore="showMore"/>
@@ -179,7 +179,6 @@
             },
             //获取当前用户对当前文章的一种动作
             getArticleStatus(){
-                console.log("我进来了---------------")
                 let aid = this.article[this.$route.query.aid].art_id
                 let uid = this.article[this.$route.query.aid].user_id
                 getArticleStatus(aid,uid).then(res=>{

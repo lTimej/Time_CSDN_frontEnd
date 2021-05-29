@@ -21,6 +21,8 @@
 </template>
 
 <script>
+    import {userArticleRead} from "network/articles/read";
+
     export default {
         name: "ArticleList",
         props:{
@@ -34,7 +36,9 @@
         },
         methods:{
             articleDetail(aid){
-                console.log(aid,"---------------------",this.articles[aid].art_id);
+                userArticleRead(this.articles[aid].art_id).then(res=>{
+                    console.log(6667777,res);
+                })
                 this.$router.push({
                     path:'/article/detail',
                     query:{
