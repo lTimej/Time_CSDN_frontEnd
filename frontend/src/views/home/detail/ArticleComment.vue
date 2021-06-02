@@ -1,107 +1,27 @@
 <template>
     <div class="article-comment">
-        <div class="article-comment-item">
+        <div class="article-comment-item" v-for="comment in comments">
             <div class="first">
-                <img src="~assets/img/my.jpg">
-                <span class="name">lTimej</span>
+                <img :src="comment.head_photo">
+                <span class="name">{{comment.user_name}}</span>
                 <span><i class="el-icon-s-opportunity" style="color: red"></i></span>
-                <span class="code-year">码龄1年</span>
+                <span class="code-year">码龄{{comment.code_year}}年</span>
                 <div class="like">
                     <i class="el-icon-thumb"></i>
-                    <span>100</span>
+                    <span>{{comment.like_num}}</span>
                 </div>
             </div>
             <div class="second">
                 <span>
-                    介绍的很棒，感谢作者提供的分享，我的博客中也有很多计算机专业知识
+                    {{comment.content}}
                 </span>
             </div>
             <div class="third">
-                <span>昨天 11:49</span>
-            </div>
-        </div>
-        <div class="article-comment-item">
-            <div class="first">
-                <img src="~assets/img/my.jpg">
-                <span class="name">lTimej</span>
-                <span><i class="el-icon-s-opportunity" style="color: red"></i></span>
-                <span class="code-year">码龄1年</span>
-                <div class="like">
-                    <i class="el-icon-thumb"></i>
-                    <span>100</span>
-                </div>
-            </div>
-            <div class="second">
-                <span>
-                    介绍的很棒，感谢作者提供的分享，我的博客中也有很多计算机专业知识
-                </span>
-            </div>
-            <div class="third">
-                <span>昨天 11:49</span>
-            </div>
-        </div>
-        <div class="article-comment-item">
-            <div class="first">
-                <img src="~assets/img/my.jpg">
-                <span class="name">lTimej</span>
-                <span><i class="el-icon-s-opportunity" style="color: red"></i></span>
-                <span class="code-year">码龄1年</span>
-                <div class="like">
-                    <i class="el-icon-thumb"></i>
-                    <span>100</span>
-                </div>
-            </div>
-            <div class="second">
-                <span>
-                    介绍的很棒，感谢作者提供的分享，我的博客中也有很多计算机专业知识
-                </span>
-            </div>
-            <div class="third">
-                <span>昨天 11:49</span>
-            </div>
-        </div>
-        <div class="article-comment-item">
-            <div class="first">
-                <img src="~assets/img/my.jpg">
-                <span class="name">lTimej</span>
-                <span><i class="el-icon-s-opportunity" style="color: red"></i></span>
-                <span class="code-year">码龄1年</span>
-                <div class="like">
-                    <i class="el-icon-thumb"></i>
-                    <span>100</span>
-                </div>
-            </div>
-            <div class="second">
-                <span>
-                    介绍的很棒，感谢作者提供的分享，我的博客中也有很多计算机专业知识
-                </span>
-            </div>
-            <div class="third">
-                <span>昨天 11:49</span>
-            </div>
-        </div>
-        <div class="article-comment-item">
-            <div class="first">
-                <img src="~assets/img/my.jpg">
-                <span class="name">lTimej</span>
-                <span><i class="el-icon-s-opportunity" style="color: red"></i></span>
-                <span class="code-year">码龄1年</span>
-                <div class="like">
-                    <i class="el-icon-thumb"></i>
-                    <span>100</span>
-                </div>
-            </div>
-            <div class="second">
-                <span>
-                    介绍的很棒，感谢作者提供的分享，我的博客中也有很多计算机专业知识
-                </span>
-            </div>
-            <div class="third">
-                <span>昨天 11:49</span>
+                <span>{{comment.ctime}}</span>
             </div>
         </div>
         <div class="see-more" >
-            <span @click="showMore">查看全部评论(203)</span>
+            <span @click="showMore">查看全部评论({{comment_num}})</span>
         </div>
 
     </div>
@@ -109,9 +29,24 @@
 
 <script>
 
-
     export default {
         name: "ArticleComment",
+        props:{
+            article:{
+                type:Object,
+                default :function () {
+                    return {}
+                }
+            },
+            comments:{
+                type:Array,
+                default:[]
+            },
+            comment_num:{
+                type:Number,
+                default:0
+            }
+        },
         data(){
             return{
                 // isHowMoreComment:true
@@ -127,6 +62,9 @@
                 this.$emit('showMore')
 
             }
+        },
+        activated() {
+
         }
     }
 </script>

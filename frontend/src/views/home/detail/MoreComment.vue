@@ -3,226 +3,46 @@
 
         <nav-bar class="more-comment-nav">
             <div slot="left" @click="cancel"><i class="el-icon-close"></i></div>
-            <div slot="center" class="title"><span>全部203条评论</span></div>
+            <div slot="center" class="title"><span>全部{{comment_num}}条评论</span></div>
         </nav-bar>
         <scroll
             class="content1"
-
             :pull-upload="true"
             :pull-down-refresh="true"
             @pullingUp="loadMore"
             @pullingDown="pullingMore"
             ref="scrollTo1"
         >
-            <div class="article-comment-item">
-                <div class="first">
-                    <img src="~assets/img/my.jpg">
-                    <span class="name">lTimej</span>
-                    <span><i class="el-icon-s-opportunity" style="color: red"></i></span>
-                    <span class="code-year">码龄1年</span>
-                    <div class="like">
-                        <i class="el-icon-thumb"></i>
-                        <span>100</span>
-                    </div>
-                </div>
-                <div class="second">
-                    <span>
-                        介绍的很棒，感谢作者提供的分享，我的博客中也有很多计算机专业知识
-                    </span>
-                </div>
-                <div class="third">
-                    <span>昨天 11:49</span>
+        <div class="article-comment-item" v-for="comment in comments" @click="innerComment(comment.comment_id)">
+            <div class="first">
+                <img :src="comment.head_photo">
+                <span class="name">{{comment.user_name}}</span>
+                <span><i class="el-icon-s-opportunity" style="color: red"></i></span>
+                <span class="code-year">码龄{{comment.code_year}}年</span>
+                <div class="like">
+                    <i class="el-icon-thumb"></i>
+                    <span>{{comment.like_num}}</span>
                 </div>
             </div>
-            <div class="article-comment-item">
-                <div class="first">
-                    <img src="~assets/img/my.jpg">
-                    <span class="name">lTimej</span>
-                    <span><i class="el-icon-s-opportunity" style="color: red"></i></span>
-                    <span class="code-year">码龄1年</span>
-                    <div class="like">
-                        <i class="el-icon-thumb"></i>
-                        <span>100</span>
-                    </div>
-                </div>
-                <div class="second">
-                    <span>
-                        介绍的很棒，感谢作者提供的分享，我的博客中也有很多计算机专业知识
-                    </span>
-                </div>
-                <div class="third">
-                    <span>昨天 11:49</span>
-                </div>
+            <div class="second">
+                <span>
+                    {{comment.content}}
+                </span>
             </div>
-            <div class="article-comment-item">
-                <div class="first">
-                    <img src="~assets/img/my.jpg">
-                    <span class="name">lTimej</span>
-                    <span><i class="el-icon-s-opportunity" style="color: red"></i></span>
-                    <span class="code-year">码龄1年</span>
-                    <div class="like">
-                        <i class="el-icon-thumb"></i>
-                        <span>100</span>
-                    </div>
-                </div>
-                <div class="second">
-                    <span>
-                        介绍的很棒，感谢作者提供的分享，我的博客中也有很多计算机专业知识
-                    </span>
-                </div>
-                <div class="third">
-                    <span>昨天 11:49</span>
-                </div>
+            <div class="third">
+                <span>{{comment.ctime}}</span>
             </div>
-            <div class="article-comment-item">
-                <div class="first">
-                    <img src="~assets/img/my.jpg">
-                    <span class="name">lTimej</span>
-                    <span><i class="el-icon-s-opportunity" style="color: red"></i></span>
-                    <span class="code-year">码龄1年</span>
-                    <div class="like">
-                        <i class="el-icon-thumb"></i>
-                        <span>100</span>
-                    </div>
-                </div>
-                <div class="second">
-                    <span>
-                        介绍的很棒，感谢作者提供的分享，我的博客中也有很多计算机专业知识
-                    </span>
-                </div>
-                <div class="third">
-                    <span>昨天 11:49</span>
-                </div>
-            </div>
-            <div class="article-comment-item">
-                <div class="first">
-                    <img src="~assets/img/my.jpg">
-                    <span class="name">lTimej</span>
-                    <span><i class="el-icon-s-opportunity" style="color: red"></i></span>
-                    <span class="code-year">码龄1年</span>
-                    <div class="like">
-                        <i class="el-icon-thumb"></i>
-                        <span>100</span>
-                    </div>
-                </div>
-                <div class="second">
-                    <span>
-                        介绍的很棒，感谢作者提供的分享，我的博客中也有很多计算机专业知识
-                    </span>
-                </div>
-                <div class="third">
-                    <span>昨天 11:49</span>
-                </div>
-            </div>
-            <div class="article-comment-item">
-                <div class="first">
-                    <img src="~assets/img/my.jpg">
-                    <span class="name">lTimej</span>
-                    <span><i class="el-icon-s-opportunity" style="color: red"></i></span>
-                    <span class="code-year">码龄1年</span>
-                    <div class="like">
-                        <i class="el-icon-thumb"></i>
-                        <span>100</span>
-                    </div>
-                </div>
-                <div class="second">
-                    <span>
-                        介绍的很棒，感谢作者提供的分享，我的博客中也有很多计算机专业知识
-                    </span>
-                </div>
-                <div class="third">
-                    <span>昨天 11:49</span>
-                </div>
-            </div>
-            <div class="article-comment-item">
-                <div class="first">
-                    <img src="~assets/img/my.jpg">
-                    <span class="name">lTimej</span>
-                    <span><i class="el-icon-s-opportunity" style="color: red"></i></span>
-                    <span class="code-year">码龄1年</span>
-                    <div class="like">
-                        <i class="el-icon-thumb"></i>
-                        <span>100</span>
-                    </div>
-                </div>
-                <div class="second">
-                    <span>
-                        介绍的很棒，感谢作者提供的分享，我的博客中也有很多计算机专业知识
-                    </span>
-                </div>
-                <div class="third">
-                    <span>昨天 11:49</span>
-                </div>
-            </div>
-            <div class="article-comment-item">
-                <div class="first">
-                    <img src="~assets/img/my.jpg">
-                    <span class="name">lTimej</span>
-                    <span><i class="el-icon-s-opportunity" style="color: red"></i></span>
-                    <span class="code-year">码龄1年</span>
-                    <div class="like">
-                        <i class="el-icon-thumb"></i>
-                        <span>100</span>
-                    </div>
-                </div>
-                <div class="second">
-                    <span>
-                        介绍的很棒，感谢作者提供的分享，我的博客中也有很多计算机专业知识
-                    </span>
-                </div>
-                <div class="third">
-                    <span>昨天 11:49</span>
-                </div>
-            </div>
-            <div class="article-comment-item">
-                <div class="first">
-                    <img src="~assets/img/my.jpg">
-                    <span class="name">lTimej</span>
-                    <span><i class="el-icon-s-opportunity" style="color: red"></i></span>
-                    <span class="code-year">码龄1年</span>
-                    <div class="like">
-                        <i class="el-icon-thumb"></i>
-                        <span>100</span>
-                    </div>
-                </div>
-                <div class="second">
-                    <span>
-                        介绍的很棒，感谢作者提供的分享，我的博客中也有很多计算机专业知识
-                    </span>
-                </div>
-                <div class="third">
-                    <span>昨天 11:49</span>
-                </div>
-            </div>
-            <div class="article-comment-item">
-                <div class="first">
-                    <img src="~assets/img/my.jpg">
-                    <span class="name">lTimej</span>
-                    <span><i class="el-icon-s-opportunity" style="color: red"></i></span>
-                    <span class="code-year">码龄1年</span>
-                    <div class="like">
-                        <i class="el-icon-thumb"></i>
-                        <span>100</span>
-                    </div>
-                </div>
-                <div class="second">
-                    <span>
-                        介绍的很棒，感谢作者提供的分享，我的博客中也有很多计算机专业知识
-                    </span>
-                </div>
-                <div class="third">
-                    <span>昨天 11:49</span>
-                </div>
-            </div>
+        </div   >
         </scroll>
         <div class="input-frame">
             <el-input
               type="textarea"
               :autosize="{ minRows: 2, maxRows: 2}"
               placeholder="写评论"
+              @focus="ifLogin"
               v-model="textarea">
             </el-input>
-            <button>发送</button>
+            <button @click="toComment">发送</button>
         </div>
     </div>
 </template>
@@ -230,11 +50,25 @@
 <script>
     import Scroll from "components/common/scroll/Scroll";
     import NavBar from "components/common/navbar/NavBar";
+    import {userArticleComment} from "network/articles/comments";
 
     export default {
         name: "MoreComment",
         props:{
-
+            article:{
+                type:Object,
+                default:function () {
+                    return {}
+                }
+            },
+            comments:{
+                type:Array,
+                default:[]
+            },
+            comment_num:{
+                type:Number,
+                default:0
+            }
         },
         data() {
           return {
@@ -260,10 +94,32 @@
                 this.$emit('cancel')
                 this.$refs.scrollTo1.finishPullDown();
             },
+            ifLogin(){
+                if(!window.localStorage.getItem('token')){
+                    this.$router.push('/login/account')
+                }
+            },
+            toComment(){
+                if (this.textarea === ""){
+                    this.$toast.show("评论内容不为空",3000)
+                    return;
+                }
+                let article_id = this.article.art_id
+                userArticleComment(article_id,this.textarea).then(res=>{
+                    if (res.status==201){
+                        this.$toast.show("评论成功",3000)
+                        this.textarea = ""
+                        this.$emit("getComment")
+                    }
+                })
+
+            },
+            innerComment(comment_id){
+                console.log(comment_id);
+            }
 
         },
         activated() {
-            console.log(1111111115551111)
             this.$refs.scrollTo1.refresh()
         }
 

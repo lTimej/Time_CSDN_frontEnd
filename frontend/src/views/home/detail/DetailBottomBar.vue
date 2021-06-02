@@ -7,11 +7,11 @@
             </div>
         </div>
         <div class="bottom-bar-right">
-            <div class="comment c">
+            <div class="comment c" @click="toMoreComment">
                 <div class="icon"><i class="el-icon-chat-line-square"></i></div>
                 <div class="text"><span>评论</span></div>
-                <div class="number">
-                    <span>0</span>
+                <div class="number" v-show="comment_num!==0">
+                    <span>{{comment_num}}</span>
                 </div>
             </div>
             <div class="collection c" @click="toCollection">
@@ -51,6 +51,10 @@
                 default:function (){
                     return {}
                 }
+            },
+            comment_num:{
+                type:Number,
+                default:0
             }
         },
         data(){
@@ -67,6 +71,9 @@
             },
             toLike(){
                 this.$emit('toLike',this.status.aid)
+            },
+            toMoreComment(){
+                this.$emit('toMoreComment')
             }
         }
     }

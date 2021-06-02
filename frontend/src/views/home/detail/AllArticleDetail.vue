@@ -26,18 +26,36 @@
             <detail-base-info :article="article[this.$route.query.aid]" @focus="focus(user_id)" :isFocus="isFocus" ref="baseInfo" :read_num="status.read_num"/>
             <detail-content :article="article[this.$route.query.aid]" />
             <article-like />
-            <article-comment @showMore="showMore"/>
+            <article-comment
+                    @showMore="showMore"
+                    :article="article[this.$route.query.aid]"
+                    :comments="comments"
+                    :comment_num="comment_num"
+            />
             <similar-article />
         </scroll>
-        <more-comment v-if="moreComment" @cancel="cancel"/>
+        <more-comment
+                v-if="moreComment"
+                @cancel="cancel"
+                :article="article[this.$route.query.aid]"
+                :comments="comments"
+                @getComment="getComment"
+                :comment_num="comment_num"
+        />
         <detail-bottom-bar
                 @writeComment="writeComment"
                 :status="status"
                 @toCollection="toCollection"
                 @toLike="toLike"
+                :comment_num="comment_num"
+                @toMoreComment="toMoreComment"
         />
         <auth :drawers="drawers" @cancelAuth="cancelAuth" @changeLogin="changeLogin"/>
-        <collection-toast :isShow="isShow" @cancelShow="cancelShow" @qxCollection="qxCollection"/>
+        <collection-toast
+                :isShow="isShow"
+                @cancelShow="cancelShow"
+                @qxCollection="qxCollection"
+        />
     </div>
 </template>
 
@@ -61,6 +79,7 @@
     import {userArticleCollection,cancelUserArticleCollection} from "network/articles/collection";
     import {getArticleStatus} from "network/articles/articles";
     import {userArticleLike,cancelUserArticleLike} from "network/articles/like";
+    import {getuserArticleSectorComment} from "network/articles/comments";
 
     export default {
         name: "AllArticleDetail",
@@ -75,7 +94,9 @@
                 isFocus:"关注",
                 user_id:0,
                 baseInfo_Y:0,
-                status:{}
+                status:{},
+                comments:[],
+                comment_num:0
             }
         },
         components:{
@@ -106,6 +127,7 @@
             },
             cancel(){
                 this.moreComment = false
+                this.getSectorComment()
             },
             writeComment(){
                 this.moreComment = true
@@ -190,6 +212,7 @@
             cancelShow(){
                 this.isShow = false
             },
+
             //取消收藏
             qxCollection(){
                 cancelUserArticleCollection(this.status.aid).then(res=>{
@@ -199,10 +222,21 @@
                         this.$toast.show("取消收藏",5000)
                     }
                 })
+            },
+            getSectorComment(){
+                let article_id = this.article[this.$route.query.aid].art_id;
+                getuserArticleSectorComment('a',article_id).then(res=>{
+                    console.log(666666666,res);
+                    this.comments = res.data.data.comments;
+                    this.comment_num = res.data.data.total_num;
+                })
+            },
+            getComment(){
+                this.getSectorComment();
+            },
+            toMoreComment(){
+                this.moreComment = true
             }
-        },
-        created() {
-
         },
         activated() {
             this.head_photo = this.article[this.$route.query.aid].head_photo;
@@ -213,6 +247,7 @@
             this.baseInfo_Y = this.$refs.baseInfo.$el.offsetTop - 180 - 44;
             this.getArticleStatus();
             this.$refs.scrollTo.refresh();
+            this.getSectorComment()
         }
     }
 </script>
