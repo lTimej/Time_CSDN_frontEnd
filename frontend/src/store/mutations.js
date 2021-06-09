@@ -36,4 +36,7 @@ export default{
     save_fans_list(state,payloads){
         state.fansList = payloads
     },
+    save_comment_list(state,payloads){
+        state.comments = payloads
+    }
 }

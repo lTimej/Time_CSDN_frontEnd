@@ -31,5 +31,8 @@ export default {
     },
     get_fans_list(state){
         return state.fansList ? state.fansList:[]
+    },
+    get_comments_list(state){
+        return state.comments ? state.comments:[]
     }
 }

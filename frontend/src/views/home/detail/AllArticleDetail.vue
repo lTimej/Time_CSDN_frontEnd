@@ -39,6 +39,7 @@
                 @cancel="cancel"
                 :article="article[this.$route.query.aid]"
                 :comments="comments"
+                :commentss="commentss"
                 @getComment="getComment"
                 :comment_num="comment_num"
         />
@@ -79,7 +80,7 @@
     import {userArticleCollection,cancelUserArticleCollection} from "network/articles/collection";
     import {getArticleStatus} from "network/articles/articles";
     import {userArticleLike,cancelUserArticleLike} from "network/articles/like";
-    import {getuserArticleSectorComment} from "network/articles/comments";
+    import {getuserArticleSectorComment,getuserArticleCommentComment} from "network/articles/comments";
 
     export default {
         name: "AllArticleDetail",
@@ -96,7 +97,9 @@
                 baseInfo_Y:0,
                 status:{},
                 comments:[],
-                comment_num:0
+                commentss:[],
+                comment_num:0,
+                comment2_id:0,
             }
         },
         components:{
@@ -119,6 +122,7 @@
         methods:{
             back(){
                 this.drawers = false
+                this.moreComment = false
                 this.$router.back();
             },
             showMore(){
@@ -212,7 +216,6 @@
             cancelShow(){
                 this.isShow = false
             },
-
             //取消收藏
             qxCollection(){
                 cancelUserArticleCollection(this.status.aid).then(res=>{
@@ -226,17 +229,30 @@
             getSectorComment(){
                 let article_id = this.article[this.$route.query.aid].art_id;
                 getuserArticleSectorComment('a',article_id).then(res=>{
-                    console.log(666666666,res);
                     this.comments = res.data.data.comments;
                     this.comment_num = res.data.data.total_num;
+                    this.getCommentComment();
                 })
+            },
+            getCommentComment(){
+                for(let comment of this.comments){
+                    getuserArticleCommentComment('c',comment.comment_id).then(res=>{
+                        console.log("进来了",res);
+                        comment.cComments = res.data.data.comments
+                    })
+                }
+                this.commentss = this.comments
+                this.$refs.scrollTo.refresh()
+                // this.$store.dispatch('SaveCommentList',this.comments)
             },
             getComment(){
                 this.getSectorComment();
+                this.getCommentComment();
+                this.$refs.scrollTo.refresh()
             },
             toMoreComment(){
                 this.moreComment = true
-            }
+            },
         },
         activated() {
             this.head_photo = this.article[this.$route.query.aid].head_photo;
@@ -247,7 +263,9 @@
             this.baseInfo_Y = this.$refs.baseInfo.$el.offsetTop - 180 - 44;
             this.getArticleStatus();
             this.$refs.scrollTo.refresh();
-            this.getSectorComment()
+            // this.getSectorComment()
+            // this.getCommentComment();
+            this.getComment();
         }
     }
 </script>

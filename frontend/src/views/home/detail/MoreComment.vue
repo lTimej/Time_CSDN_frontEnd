@@ -12,29 +12,57 @@
             @pullingUp="loadMore"
             @pullingDown="pullingMore"
             ref="scrollTo1"
+
         >
-        <div class="article-comment-item" v-for="comment in comments" @click="innerComment(comment.comment_id)">
-            <div class="first">
-                <img :src="comment.head_photo">
-                <span class="name">{{comment.user_name}}</span>
-                <span><i class="el-icon-s-opportunity" style="color: red"></i></span>
-                <span class="code-year">码龄{{comment.code_year}}年</span>
-                <div class="like">
-                    <i class="el-icon-thumb"></i>
-                    <span>{{comment.like_num}}</span>
+        <div v-for="comment in commentss">
+            <div class="article-comment-item" @click="secontComment(comment.comment_id)">
+                <div class="first">
+                    <img :src="comment.head_photo">
+                    <span class="name">{{comment.user_name}}</span>
+                    <span><i class="el-icon-s-opportunity" style="color: red"></i></span>
+                    <span class="code-year">码龄{{comment.code_year}}年</span>
+                    <div class="like">
+                        <i class="el-icon-thumb"></i>
+                        <span>{{comment.like_num}}</span>
+                    </div>
                 </div>
+                <div class="second">
+                    <span>
+                        {{comment.content}}
+                    </span>
+                </div>
+                <div class="third">
+                    <span>{{comment.ctime}}</span>
+                </div>
+            </div   >
+            <div class="second-comment" v-for="cComment in comment.cComments">
+                <div class="article-comment-item" >
+                    <div class="first">
+                        <img :src="cComment.head_photo">
+                        <span class="name">{{cComment.user_name}}</span>
+                        <span><i class="el-icon-s-opportunity" style="color: red"></i></span>
+                        <span class="code-year">码龄{{cComment.code_year}}年</span>
+                        <div class="like">
+                            <i class="el-icon-thumb"></i>
+                            <span>{{cComment.like_num}}</span>
+                        </div>
+                    </div>
+                    <div class="second">
+                        <span>
+                            {{cComment.content}}
+                        </span>
+                    </div>
+                    <div class="third">
+                        <span>{{cComment.ctime}}</span>
+                    </div>
+                </div   >
             </div>
-            <div class="second">
-                <span>
-                    {{comment.content}}
-                </span>
-            </div>
-            <div class="third">
-                <span>{{comment.ctime}}</span>
-            </div>
-        </div   >
+        </div>
         </scroll>
-        <div class="input-frame">
+        <div class="first-comment" v-show="!isComment" @click="firstComment">
+            <el-input v-model="first_comment" placeholder="写评论"></el-input>
+        </div>
+        <div class="input-frame" v-show="isComment">
             <el-input
               type="textarea"
               :autosize="{ minRows: 2, maxRows: 2}"
@@ -42,7 +70,8 @@
               @focus="ifLogin"
               v-model="textarea">
             </el-input>
-            <button @click="toComment">发送</button>
+            <button class="send" @click="toComment">发送</button>
+            <button class="cancel" @click="toCancel">取消</button>
         </div>
     </div>
 </template>
@@ -51,6 +80,7 @@
     import Scroll from "components/common/scroll/Scroll";
     import NavBar from "components/common/navbar/NavBar";
     import {userArticleComment} from "network/articles/comments";
+    // import {mapGetters} from 'vuex'
 
     export default {
         name: "MoreComment",
@@ -65,14 +95,24 @@
                 type:Array,
                 default:[]
             },
+            commentss:{
+                type:Array,
+                default:function () {
+                    return []
+                }
+            },
             comment_num:{
                 type:Number,
                 default:0
-            }
+            },
         },
         data() {
           return {
-            textarea: ''
+            textarea: '',
+              first_comment:'',
+              isComment:false,
+              aid:0,
+              cid:0
           };
         },
         components:{
@@ -85,13 +125,13 @@
             },
              //上拉加载更多
             loadMore(){
-                this.$refs.scrollTo1.refresh()
+                this.$refs.scrollTo1.refresh();
                 //可继续上拉操作
                 this.$refs.scrollTo1.finishPullUp();
             },
             //下拉刷新
             pullingMore(){
-                this.$emit('cancel')
+                this.$emit('cancel');
                 this.$refs.scrollTo1.finishPullDown();
             },
             ifLogin(){
@@ -101,28 +141,50 @@
             },
             toComment(){
                 if (this.textarea === ""){
-                    this.$toast.show("评论内容不为空",3000)
+                    this.$toast.show("评论内容不为空",3000);
                     return;
                 }
-                let article_id = this.article.art_id
-                userArticleComment(article_id,this.textarea).then(res=>{
+                userArticleComment(this.aid,this.cid,this.textarea).then(res=>{
                     if (res.status==201){
-                        this.$toast.show("评论成功",3000)
-                        this.textarea = ""
+                        this.$toast.show("评论成功",3000);
+                        this.textarea = "";
+                        //刷新初始化数据
+                        this.isComment = false;
+                        this.aid = 0;
+                        this.cid = 0;
                         this.$emit("getComment")
+                        console.log("评论成功",this.comments)
+                        this.$refs.scrollTo1.refresh();
                     }
                 })
 
             },
-            innerComment(comment_id){
-                console.log(comment_id);
+            firstComment(){
+                this.aid  = this.article.art_id;
+                this.cid = null;
+                this.isComment = true;
+            },
+            secontComment(cid){
+                this.aid  = this.article.art_id;
+                this.cid = cid;
+                this.isComment = true;
+            },
+            toCancel(){
+                console.log("==========>",this.commentss);
+                this.isComment = false;
+                this.aid = 0;
+                this.cid = 0;
             }
-
         },
         activated() {
-            this.$refs.scrollTo1.refresh()
-        }
-
+            this.$refs.scrollTo1.refresh();
+            console.log("/////////////",this.commentss)
+        },
+        // computed:{
+        //     ...mapGetters({
+        //         comments:'get_comments_list'
+        //     })
+        // }
     }
 </script>
 
@@ -188,12 +250,13 @@
         padding-right: 10px;
     }
     .article-comment-item .second {
-        margin: 5px 30px;
+        margin: 5px 40px;
     }
     .article-comment-item .third {
-        margin: 5px 30px;
-        border-bottom: 1px solid lightgray;
+        margin: 5px 40px;
+        /*border-bottom: 1px solid lightgray;*/
         padding-bottom: 10px;
+        color: #b8b8b8;
     }
     .more-comment .input-frame{
         position: fixed;
@@ -205,7 +268,24 @@
         background-color: #fff;
         z-index: 99;
     }
-    .more-comment .input-frame button{
+    .more-comment .first-comment{
+        position: fixed;
+        width: 400px;
+        left: 0;
+        right: 0;
+        bottom: 10px;
+        /*background-color: #fff;*/
+        margin-left: 5px;
+        z-index: 99;
+    }
+    .more-comment .input-frame .send{
+        position: fixed;
+        margin: 3px 10px;
+        left: 300px;
+        top: 700px;
+        height: 30px;
+    }
+    .more-comment .input-frame .cancel{
         position: fixed;
         margin: 3px 10px;
         left: 350px;
@@ -214,5 +294,8 @@
     }
     .more-comment .input-frame >>> .el-textarea__inner{
         background-color: #f6f6f6;
+    }
+    .second-comment{
+        margin-left: 40px;
     }
 </style>

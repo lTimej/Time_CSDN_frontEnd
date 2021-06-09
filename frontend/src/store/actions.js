@@ -36,4 +36,7 @@ export default {
     SaveFansList(context,payloads) {
         context.commit("save_fans_list", payloads)
     },
+    SaveCommentList(context,payloads){
+        context.commit("save_comment_list",payloads)
+    }
 }
