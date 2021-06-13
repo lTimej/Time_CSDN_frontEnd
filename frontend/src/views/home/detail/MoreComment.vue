@@ -1,6 +1,5 @@
 <template>
-    <div class="more-comment">
-
+    <div class="more-comment" v-cloak>
         <nav-bar class="more-comment-nav">
             <div slot="left" @click="cancel"><i class="el-icon-close"></i></div>
             <div slot="center" class="title"><span>全部{{comment_num}}条评论</span></div>
@@ -12,9 +11,8 @@
             @pullingUp="loadMore"
             @pullingDown="pullingMore"
             ref="scrollTo1"
-
         >
-        <div v-for="comment in commentss">
+        <div v-for="comment in comments">
             <div class="article-comment-item" @click="secontComment(comment.comment_id)">
                 <div class="first">
                     <img :src="comment.head_photo">
@@ -80,7 +78,7 @@
     import Scroll from "components/common/scroll/Scroll";
     import NavBar from "components/common/navbar/NavBar";
     import {userArticleComment} from "network/articles/comments";
-    // import {mapGetters} from 'vuex'
+    import {mapGetters} from 'vuex'
 
     export default {
         name: "MoreComment",
@@ -95,12 +93,6 @@
                 type:Array,
                 default:[]
             },
-            commentss:{
-                type:Array,
-                default:function () {
-                    return []
-                }
-            },
             comment_num:{
                 type:Number,
                 default:0
@@ -112,7 +104,8 @@
               first_comment:'',
               isComment:false,
               aid:0,
-              cid:0
+              cid:0,
+              commentss:[]
           };
         },
         components:{
@@ -125,6 +118,8 @@
             },
              //上拉加载更多
             loadMore(){
+                console.log('上拉加载更多');
+                this.$emit('loadMore',);
                 this.$refs.scrollTo1.refresh();
                 //可继续上拉操作
                 this.$refs.scrollTo1.finishPullUp();
@@ -152,12 +147,13 @@
                         this.isComment = false;
                         this.aid = 0;
                         this.cid = 0;
-                        this.$emit("getComment")
-                        console.log("评论成功",this.comments)
-                        this.$refs.scrollTo1.refresh();
+                        this.$emit("getComment");
+                    }else if(res.status === 400){
+                        this.$toast.show("已评论过",5000)
+                    }else if(res.status === 401){
+                        this.$toast.show("已评论过",5000)
                     }
                 })
-
             },
             firstComment(){
                 this.aid  = this.article.art_id;
@@ -170,7 +166,7 @@
                 this.isComment = true;
             },
             toCancel(){
-                console.log("==========>",this.commentss);
+                console.log(333333333333,this.comments);
                 this.isComment = false;
                 this.aid = 0;
                 this.cid = 0;
@@ -178,20 +174,15 @@
         },
         activated() {
             this.$refs.scrollTo1.refresh();
-            console.log("/////////////",this.commentss)
         },
-        // computed:{
-        //     ...mapGetters({
-        //         comments:'get_comments_list'
-        //     })
-        // }
     }
 </script>
 
 <style scoped>
     .more-comment{
         position: fixed;
-        height: calc(100% - 40px);
+        border-top: 1px solid lightgray;
+        height: calc(100% - 80px);
         width: 100%;
         background-color: #ffffff;
         bottom: 0;

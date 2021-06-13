@@ -2,7 +2,6 @@ import {requests} from "../requests";
 
 //评论
 export function userArticleComment(aid,cid,content) {
-    console.log(3333333,cid);
     return requests({
         url:'/v1/article/comment',
         method:'post',
@@ -14,13 +13,14 @@ export function userArticleComment(aid,cid,content) {
     })
 }
 //查看部分评论
-export function getuserArticleSectorComment(type,source,limit=5) {
+export function getuserArticleSectorComment(type,article_id,offset,limit) {
     return requests({
         url:'/v1/article/comment',
         method:'get',
         params:{
             type:type,
-            source:source,
+            article_id:article_id,
+            offset:offset,
             limit:limit
         }
     })

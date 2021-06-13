@@ -39,9 +39,9 @@
                 @cancel="cancel"
                 :article="article[this.$route.query.aid]"
                 :comments="comments"
-                :commentss="commentss"
-                @getComment="getComment"
+                @loadMore="loadMore1"
                 :comment_num="comment_num"
+                @getComment="getComment"
         />
         <detail-bottom-bar
                 @writeComment="writeComment"
@@ -100,6 +100,9 @@
                 commentss:[],
                 comment_num:0,
                 comment2_id:0,
+                limit:0,
+                f:true,
+                len:0
             }
         },
         components:{
@@ -116,13 +119,10 @@
             Auth,
             CollectionToast
         },
-        computed:{
-
-        },
         methods:{
             back(){
-                this.drawers = false
-                this.moreComment = false
+                this.drawers = false;
+                this.moreComment = false;
                 this.$router.back();
             },
             showMore(){
@@ -130,7 +130,7 @@
 
             },
             cancel(){
-                this.moreComment = false
+                this.moreComment = false;
                 this.getSectorComment()
             },
             writeComment(){
@@ -141,10 +141,9 @@
                 this.$refs.scrollTo.refresh();
             },
             myscroll(pos){
-                this.isShowInfo = pos.y < this.baseInfo_Y
-                this.drawers = true
-                this.drawers = false
-
+                this.isShowInfo = pos.y < this.baseInfo_Y;
+                this.drawers = true;
+                this.drawers = false;
             },
             //取消登录认证
             cancelAuth(){
@@ -152,15 +151,15 @@
             },
             //切换认证登录方式
             changeLogin(){
-                this.drawers = !this.drawers
+                this.drawers = !this.drawers;
                 this.$router.push('/login/account')
             },
             //收藏
             toCollection(aid){
                 //判断是否登录
                 if (!window.localStorage.getItem('token')){
-                    this.drawers = false
-                    this.drawers = true
+                    this.drawers = false;
+                    this.drawers = true;
                     return
                 }
                 //如果已收藏则直接返回
@@ -169,8 +168,8 @@
                     return;
                 }
                 userArticleCollection(aid).then(res=>{
-                    if (res.status == 201){
-                        this.$toast.show("收藏成功",3000)
+                    if (res.status === 201){
+                        this.$toast.show("收藏成功",3000);
                         this.getArticleStatus()
                     }
                 })
@@ -178,24 +177,24 @@
             toLike(aid){
                 //判断是否登录
                 if (!window.localStorage.getItem('token')){
-                    this.drawers = false
-                    this.drawers = true
+                    this.drawers = false;
+                    this.drawers = true;
                     return
                 }
                 //如果已收藏则直接返回
                 if(this.status.islike){
                     cancelUserArticleLike(aid).then(res=>{
-                        if (res.status == 201){
-                            this.$toast.show("取消点赞",3000)
+                        if (res.status === 201){
+                            this.$toast.show("取消点赞",3000);
                             this.getArticleStatus()
                         }else{
                             this.$toast.show("取消失败",3000)
                         }
-                    })
+                    });
                     return
                 }
                 userArticleLike(aid).then(res=>{
-                    if (res.status == 201){
+                    if (res.status === 201){
                         this.$toast.show("点赞成功",3000)
                         this.getArticleStatus()
                     }else{
@@ -205,10 +204,9 @@
             },
             //获取当前用户对当前文章的一种动作
             getArticleStatus(){
-                let aid = this.article[this.$route.query.aid].art_id
-                let uid = this.article[this.$route.query.aid].user_id
+                let aid = this.article[this.$route.query.aid].art_id;
+                let uid = this.article[this.$route.query.aid].user_id;
                 getArticleStatus(aid,uid).then(res=>{
-                    console.log(999,res);
                     this.status = res.data.data
                 })
             },
@@ -220,35 +218,48 @@
             qxCollection(){
                 cancelUserArticleCollection(this.status.aid).then(res=>{
                     if (res.status === 201){
-                        this.isShow = false
+                        this.isShow = false;
                         this.getArticleStatus();
                         this.$toast.show("取消收藏",5000)
                     }
                 })
             },
             getSectorComment(){
+                if(!this.f){
+                    return
+                }
+                this.limit += 5;
+                let time1 = Date.parse(new Date())/1000;
                 let article_id = this.article[this.$route.query.aid].art_id;
-                getuserArticleSectorComment('a',article_id).then(res=>{
+                getuserArticleSectorComment('a',article_id,time1,this.limit).then(res=>{
+                    if(res.status === 201){
+                        if(res.data.data.comments.length === this.len){
+                        this.f = false;
+                        return
+                    }
+                    this.f= true;
+                    this.len = res.data.data.comments.length;
                     this.comments = res.data.data.comments;
                     this.comment_num = res.data.data.total_num;
-                    this.getCommentComment();
+                    }
                 })
             },
-            getCommentComment(){
-                for(let comment of this.comments){
-                    getuserArticleCommentComment('c',comment.comment_id).then(res=>{
-                        console.log("进来了",res);
-                        comment.cComments = res.data.data.comments
-                    })
-                }
-                this.commentss = this.comments
-                this.$refs.scrollTo.refresh()
-                // this.$store.dispatch('SaveCommentList',this.comments)
-            },
+            // getCommentComment(){
+            //     for(let comment of this.comments){
+            //         getuserArticleCommentComment('c',comment.comment_id).then(res=>{
+            //             comment.cComments = res.data.data.comments
+            //         })
+            //     }
+            //     this.$store.dispatch('SaveCommentList',this.comments)
+            // },
             getComment(){
+                this.f = true;
+                this.limit = 0;
                 this.getSectorComment();
-                this.getCommentComment();
-                this.$refs.scrollTo.refresh()
+                // this.getCommentComment();
+            },
+            loadMore1(){
+                this.getSectorComment()
             },
             toMoreComment(){
                 this.moreComment = true
@@ -263,17 +274,19 @@
             this.baseInfo_Y = this.$refs.baseInfo.$el.offsetTop - 180 - 44;
             this.getArticleStatus();
             this.$refs.scrollTo.refresh();
-            // this.getSectorComment()
-            // this.getCommentComment();
             this.getComment();
-        }
+        },
+        // computed:{
+        //     ...mapGetters({
+        //         lcomments:'get_comments_list'
+        //     })
+        // }
     }
 </script>
 
 <style scoped>
     .article-detail{
-        /*background-color: rgba(125, 125, 125, 0.8);*/
-        /*position: relative;*/
+
     }
     .article-detail-nav{
         position: fixed;
