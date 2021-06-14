@@ -1,6 +1,6 @@
 <template>
     <div class="article-comment">
-        <div class="article-comment-item" v-for="comment in comments">
+        <div class="article-comment-item" v-for="comment in comments.slice(0,6)">
             <div class="first">
                 <img :src="comment.head_photo">
                 <span class="name">{{comment.user_name}}</span>
@@ -53,19 +53,12 @@
 
             }
         },
-        components:{
-
-            // Scroll
-        },
         methods:{
             showMore(){
                 this.$emit('showMore')
 
             }
         },
-        activated() {
-
-        }
     }
 </script>
 

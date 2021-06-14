@@ -56,9 +56,6 @@
                 len:0,
             }
         },
-        mounted() {
-            // console.log(888888,this.article)
-        },
         activated() {
             this.len = this.article.content.length
         },

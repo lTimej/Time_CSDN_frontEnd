@@ -25,7 +25,11 @@
         >
             <detail-base-info :article="article[this.$route.query.aid]" @focus="focus(user_id)" :isFocus="isFocus" ref="baseInfo" :read_num="status.read_num"/>
             <detail-content :article="article[this.$route.query.aid]" />
-            <article-like />
+            <article-like
+                :likers="likers"
+                @toLike="toLike"
+                :status="status"
+            />
             <article-comment
                     @showMore="showMore"
                     :article="article[this.$route.query.aid]"
@@ -79,7 +83,7 @@
     import {clickFocus} from "common/mixins";
     import {userArticleCollection,cancelUserArticleCollection} from "network/articles/collection";
     import {getArticleStatus} from "network/articles/articles";
-    import {userArticleLike,cancelUserArticleLike} from "network/articles/like";
+    import {userArticleLike,cancelUserArticleLike,articleLike} from "network/articles/like";
     import {getuserArticleSectorComment,getuserArticleCommentComment} from "network/articles/comments";
 
     export default {
@@ -102,7 +106,8 @@
                 comment2_id:0,
                 limit:0,
                 f:true,
-                len:0
+                len:0,
+                likers:[]
             }
         },
         components:{
@@ -232,31 +237,22 @@
                 let time1 = Date.parse(new Date())/1000;
                 let article_id = this.article[this.$route.query.aid].art_id;
                 getuserArticleSectorComment('a',article_id,time1,this.limit).then(res=>{
-                    if(res.status === 201){
-                        if(res.data.data.comments.length === this.len){
-                        this.f = false;
-                        return
-                    }
                     this.f= true;
                     this.len = res.data.data.comments.length;
                     this.comments = res.data.data.comments;
                     this.comment_num = res.data.data.total_num;
+                    if(res.status === 201){
+                        if(res.data.data.comments.length === this.len){
+                            this.f = false;
+                            return;
+                        }
                     }
                 })
             },
-            // getCommentComment(){
-            //     for(let comment of this.comments){
-            //         getuserArticleCommentComment('c',comment.comment_id).then(res=>{
-            //             comment.cComments = res.data.data.comments
-            //         })
-            //     }
-            //     this.$store.dispatch('SaveCommentList',this.comments)
-            // },
             getComment(){
                 this.f = true;
                 this.limit = 0;
                 this.getSectorComment();
-                // this.getCommentComment();
             },
             loadMore1(){
                 this.getSectorComment()
@@ -264,6 +260,14 @@
             toMoreComment(){
                 this.moreComment = true
             },
+            getArticleLikeNum(){
+                let aid = this.article[this.$route.query.aid].art_id;
+                console.log(8885888,aid)
+                articleLike(aid).then(res=>{
+                    console.log(22222222,res);
+                    this.likers = res.data.data.users_info
+                })
+            }
         },
         activated() {
             this.head_photo = this.article[this.$route.query.aid].head_photo;
@@ -275,12 +279,8 @@
             this.getArticleStatus();
             this.$refs.scrollTo.refresh();
             this.getComment();
+            this.getArticleLikeNum()
         },
-        // computed:{
-        //     ...mapGetters({
-        //         lcomments:'get_comments_list'
-        //     })
-        // }
     }
 </script>
 

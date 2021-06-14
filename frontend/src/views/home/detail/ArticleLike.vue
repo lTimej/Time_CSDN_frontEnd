@@ -1,43 +1,48 @@
 <template>
     <div class="article-like">
         <div class="user-photo">
-            <span>
-                <img src="~assets/img/my.jpg">
-            </span>
-            <span>
-                <img src="~assets/img/my.jpg">
-            </span>
-            <span>
-                <img src="~assets/img/my.jpg">
-            </span>
-            <span>
-                <img src="~assets/img/my.jpg">
-            </span>
-            <span>
-                <img src="~assets/img/my.jpg">
-            </span>
-            <span>
-                <img src="~assets/img/my.jpg">
-            </span>
-            <span>
-                <img src="~assets/img/my.jpg">
-            </span>
-            <span>
-                <img src="~assets/img/my.jpg">
+            <span v-for="liker in likers">
+                <img :src="liker.head_photo">
             </span>
         </div>
         <div class="text">
-            <span>39人表示赞同博主</span>
+            <span>{{len}}人表示赞同博主</span>
         </div>
-        <div class="article-like-item">
-            <i class="el-icon-thumb"></i>
+        <div class="article-like-item" @click="toLike" :class="{isActiveLike:status.islike}">
+            <i class="el-icon-thumb" v-if="!status.islike" style="color: lightgray;"></i>
+            <i class="el-icon-thumb" v-else style="color: white;"></i>
         </div>
     </div>
 </template>
 
 <script>
+
+
     export default {
-        name: "ArticleLike"
+        name: "ArticleLike",
+        props:{
+            likers:{
+                type:Array,
+                default:[]
+            },
+            status:{
+                type:Object,
+                default:function (){
+                    return {}
+                }
+            },
+        },
+        data(){
+            return{
+                len:this.likers.length
+            }
+        },
+        methods:{
+            toLike(){
+                console.log(88888999888,this.likers[0].aid)
+                this.$emit('toLike',this.likers[0].aid)
+            },
+        }
     }
 </script>
 
@@ -75,5 +80,8 @@
         height: 20px;
         border-radius: 50%;
         flex: 1;
+    }
+    .isActiveLike{
+        background-color: rgba(255, 0, 0, 0.93);
     }
 </style>

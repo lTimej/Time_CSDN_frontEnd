@@ -105,7 +105,7 @@
         margin: 10px 10px;
         border: 1px solid lightgray;
         border-radius: 39px;
-        background-color: lightgray;
+        background-color: #efefef;
         padding: 0 5px;
     }
     .bottom-bar .bottom-bar-right .c{

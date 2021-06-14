@@ -118,7 +118,6 @@
             },
              //上拉加载更多
             loadMore(){
-                console.log('上拉加载更多');
                 this.$emit('loadMore',);
                 this.$refs.scrollTo1.refresh();
                 //可继续上拉操作
@@ -166,7 +165,6 @@
                 this.isComment = true;
             },
             toCancel(){
-                console.log(333333333333,this.comments);
                 this.isComment = false;
                 this.aid = 0;
                 this.cid = 0;

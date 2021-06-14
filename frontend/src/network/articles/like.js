@@ -19,3 +19,13 @@ export function cancelUserArticleLike(aid) {
         }
     })
 }
+//获取点赞人数点赞
+export function articleLike(aid) {
+    return requests({
+        url:'/v1/article/likes',
+        method:'get',
+        params:{
+            aid:aid
+        }
+    })
+}
