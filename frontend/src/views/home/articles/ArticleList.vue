@@ -29,6 +29,10 @@
             articles:{
                 type:Array,
                 default:[]
+            },
+            aid:{
+                type:Number,
+                default:0
             }
         },
         activated() {
@@ -37,7 +41,7 @@
         methods:{
             articleDetail(aid){
                 userArticleRead(this.articles[aid].art_id).then(res=>{
-                    console.log(6667777,res);
+                    // console.log(6667777,res);
                 })
                 this.$router.push({
                     path:'/article/detail',

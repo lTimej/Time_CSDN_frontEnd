@@ -6,7 +6,7 @@
             </span>
         </div>
         <div class="text">
-            <span>{{len}}人表示赞同博主</span>
+            <span>{{likers.length}}人表示赞同博主</span>
         </div>
         <div class="article-like-item" @click="toLike" :class="{isActiveLike:status.islike}">
             <i class="el-icon-thumb" v-if="!status.islike" style="color: lightgray;"></i>
@@ -31,6 +31,10 @@
                     return {}
                 }
             },
+            aid:{
+                type:Number,
+                default:0
+            }
         },
         data(){
             return{
@@ -39,8 +43,8 @@
         },
         methods:{
             toLike(){
-                console.log(88888999888,this.likers[0].aid)
-                this.$emit('toLike',this.likers[0].aid)
+                console.log(88888999888,this.aid)
+                this.$emit('toLike',this.aid)
             },
         }
     }

@@ -1,12 +1,12 @@
 <template>
     <div class="article-comment">
-        <div class="article-comment-item" v-for="comment in comments.slice(0,6)">
+        <div class="article-comment-item" v-for="(comment,index) in comments.slice(0,5)">
             <div class="first">
                 <img :src="comment.head_photo">
                 <span class="name">{{comment.user_name}}</span>
                 <span><i class="el-icon-s-opportunity" style="color: red"></i></span>
                 <span class="code-year">码龄{{comment.code_year}}年</span>
-                <div class="like">
+                <div class="like" @click="toCommentLike(comment.comment_id,index)">
                     <i class="el-icon-thumb"></i>
                     <span>{{comment.like_num}}</span>
                 </div>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-
+    import {commentLike,commentDislike} from "network/articles/like";
     export default {
         name: "ArticleComment",
         props:{
@@ -56,7 +56,24 @@
         methods:{
             showMore(){
                 this.$emit('showMore')
-
+            },
+            toCommentLike(cid,index){
+                console.log(cid);
+                if (!this.comments[index].comment_is_like){
+                        commentLike(cid).then(res=>{
+                            console.log("===add===>>",res);
+                            // this.$emit("getComment");
+                            this.comments[index].comment_is_like = true
+                            this.comments[index].like_num += 1
+                        })
+                    }else{
+                        commentDislike(cid).then(res=>{
+                            console.log("===sub===>>",res);
+                            // this.$emit("getComment");
+                            this.comments[index].comment_is_like = false
+                            this.comments[index].like_num -= 1
+                        })
+                    }
             }
         },
     }
@@ -65,9 +82,6 @@
 <style scoped>
     .article-comment{
         border-top: 10px solid #e3e3e3;
-        /*position: relative;*/
-
-        /*height: 100px;*/
     }
     .article-comment-item{
         margin: 10px 10px;

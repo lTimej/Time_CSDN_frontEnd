@@ -12,14 +12,14 @@
             @pullingDown="pullingMore"
             ref="scrollTo1"
         >
-        <div v-for="comment in comments">
+        <div v-for="(comment,index) in comments">
             <div class="article-comment-item" @click="secontComment(comment.comment_id)">
                 <div class="first">
                     <img :src="comment.head_photo">
                     <span class="name">{{comment.user_name}}</span>
                     <span><i class="el-icon-s-opportunity" style="color: red"></i></span>
                     <span class="code-year">码龄{{comment.code_year}}年</span>
-                    <div class="like">
+                    <div class="like" @click="toCommentLike(comment.comment_id,index,-1,'first')">
                         <i class="el-icon-thumb"></i>
                         <span>{{comment.like_num}}</span>
                     </div>
@@ -33,14 +33,14 @@
                     <span>{{comment.ctime}}</span>
                 </div>
             </div   >
-            <div class="second-comment" v-for="cComment in comment.cComments">
+            <div class="second-comment" v-for="(cComment,indey) in comment.cComments">
                 <div class="article-comment-item" >
                     <div class="first">
                         <img :src="cComment.head_photo">
                         <span class="name">{{cComment.user_name}}</span>
                         <span><i class="el-icon-s-opportunity" style="color: red"></i></span>
                         <span class="code-year">码龄{{cComment.code_year}}年</span>
-                        <div class="like">
+                        <div class="like" @click="toCommentLike(cComment.comment_id,index,indey,'second')">
                             <i class="el-icon-thumb"></i>
                             <span>{{cComment.like_num}}</span>
                         </div>
@@ -78,6 +78,7 @@
     import Scroll from "components/common/scroll/Scroll";
     import NavBar from "components/common/navbar/NavBar";
     import {userArticleComment} from "network/articles/comments";
+    import {commentLike,commentDislike} from "network/articles/like";
     import {mapGetters} from 'vuex'
 
     export default {
@@ -168,6 +169,45 @@
                 this.isComment = false;
                 this.aid = 0;
                 this.cid = 0;
+            },
+            toCommentLike(cid,index,indey,p){
+                if(p==='first'){
+                    console.log(this.comments)
+                    console.log(cid,this.comments[index].comment_id,this.comments[index].comment_is_like);
+                    if (!this.comments[index].comment_is_like){
+                        commentLike(cid).then(res=>{
+                            console.log("===add===>>",res);
+                            // this.$emit("getComment");
+                            this.comments[index].comment_is_like = true
+                            this.comments[index].like_num += 1
+                        })
+                    }else{
+                        commentDislike(cid).then(res=>{
+                            console.log("===sub===>>",res);
+                            // this.$emit("getComment");
+                            this.comments[index].comment_is_like = false
+                            this.comments[index].like_num -= 1
+                        })
+                    }
+                }else{
+                    console.log(this.comments[index].cComments[indey].comment_id);
+                    if (!this.comments[index].cComments[indey].comment_is_like){
+                        commentLike(cid).then(res=>{
+                            console.log("===add===>>",res);
+                            // this.$emit("getComment");
+                            this.comments[index].cComments[indey].comment_is_like = true
+                            this.comments[index].cComments[indey].like_num += 1
+                        })
+                    }else{
+                        commentDislike(cid).then(res=>{
+                            console.log("===sub===>>",res);
+                            // this.$emit("getComment");
+                            this.comments[index].cComments[indey].comment_is_like = false
+                            this.comments[index].cComments[indey].like_num -= 1
+                        })
+                    }
+                }
+                console.log(cid,index);
             }
         },
         activated() {

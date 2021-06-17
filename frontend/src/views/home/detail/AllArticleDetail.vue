@@ -29,6 +29,7 @@
                 :likers="likers"
                 @toLike="toLike"
                 :status="status"
+                :aid="aid"
             />
             <article-comment
                     @showMore="showMore"
@@ -107,7 +108,8 @@
                 limit:0,
                 f:true,
                 len:0,
-                likers:[]
+                likers:[],
+                aid:0
             }
         },
         components:{
@@ -181,6 +183,7 @@
             },
             toLike(aid){
                 //判断是否登录
+                console.log2222222222,(aid);
                 if (!window.localStorage.getItem('token')){
                     this.drawers = false;
                     this.drawers = true;
@@ -191,7 +194,8 @@
                     cancelUserArticleLike(aid).then(res=>{
                         if (res.status === 201){
                             this.$toast.show("取消点赞",3000);
-                            this.getArticleStatus()
+                            this.getArticleStatus();
+                            this.getArticleLikeNum()
                         }else{
                             this.$toast.show("取消失败",3000)
                         }
@@ -202,6 +206,7 @@
                     if (res.status === 201){
                         this.$toast.show("点赞成功",3000)
                         this.getArticleStatus()
+                        this.getArticleLikeNum()
                     }else{
                         this.$toast.show("点赞失败",3000)
                     }
@@ -230,6 +235,7 @@
                 })
             },
             getSectorComment(){
+                console.log(this.f)
                 if(!this.f){
                     return
                 }
@@ -237,8 +243,8 @@
                 let time1 = Date.parse(new Date())/1000;
                 let article_id = this.article[this.$route.query.aid].art_id;
                 getuserArticleSectorComment('a',article_id,time1,this.limit).then(res=>{
+                    console.log("---------====>>>",res,this.len);
                     this.f= true;
-                    this.len = res.data.data.comments.length;
                     this.comments = res.data.data.comments;
                     this.comment_num = res.data.data.total_num;
                     if(res.status === 201){
@@ -246,6 +252,7 @@
                             this.f = false;
                             return;
                         }
+                        this.len = res.data.data.comments.length;
                     }
                 })
             },
@@ -255,6 +262,7 @@
                 this.getSectorComment();
             },
             loadMore1(){
+                console.log("加载更多")
                 this.getSectorComment()
             },
             toMoreComment(){
@@ -262,9 +270,7 @@
             },
             getArticleLikeNum(){
                 let aid = this.article[this.$route.query.aid].art_id;
-                console.log(8885888,aid)
                 articleLike(aid).then(res=>{
-                    console.log(22222222,res);
                     this.likers = res.data.data.users_info
                 })
             }
@@ -273,6 +279,7 @@
             this.head_photo = this.article[this.$route.query.aid].head_photo;
             this.user_name = this.article[this.$route.query.aid].user_name;
             this.user_id = this.article[this.$route.query.aid].user_id;
+            this.aid =this.article[this.$route.query.aid].art_id;
             this.getfocusinfo(this.user_id);
             this.drawers = false;
             this.baseInfo_Y = this.$refs.baseInfo.$el.offsetTop - 180 - 44;

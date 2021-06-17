@@ -29,3 +29,23 @@ export function articleLike(aid) {
         }
     })
 }
+//评论点赞
+export function commentLike(cid) {
+    return requests({
+        url:'/v1/comment/like',
+        method:'post',
+        data:{
+            cid:cid
+        }
+    })
+}
+//评论点赞
+export function commentDislike(cid) {
+    return requests({
+        url:'/v1/comment/like',
+        method:'delete',
+        data:{
+            cid:cid
+        }
+    })
+}
