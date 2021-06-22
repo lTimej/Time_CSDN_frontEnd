@@ -17,7 +17,6 @@
 
 <script>
 
-
     export default {
         name: "ArticleLike",
         props:{
@@ -43,7 +42,6 @@
         },
         methods:{
             toLike(){
-                console.log(88888999888,this.aid)
                 this.$emit('toLike',this.aid)
             },
         }

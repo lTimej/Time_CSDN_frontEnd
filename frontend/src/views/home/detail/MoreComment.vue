@@ -172,42 +172,34 @@
             },
             toCommentLike(cid,index,indey,p){
                 if(p==='first'){
-                    console.log(this.comments)
-                    console.log(cid,this.comments[index].comment_id,this.comments[index].comment_is_like);
                     if (!this.comments[index].comment_is_like){
                         commentLike(cid).then(res=>{
-                            console.log("===add===>>",res);
                             // this.$emit("getComment");
                             this.comments[index].comment_is_like = true
                             this.comments[index].like_num += 1
                         })
                     }else{
                         commentDislike(cid).then(res=>{
-                            console.log("===sub===>>",res);
                             // this.$emit("getComment");
                             this.comments[index].comment_is_like = false
                             this.comments[index].like_num -= 1
                         })
                     }
                 }else{
-                    console.log(this.comments[index].cComments[indey].comment_id);
                     if (!this.comments[index].cComments[indey].comment_is_like){
                         commentLike(cid).then(res=>{
-                            console.log("===add===>>",res);
                             // this.$emit("getComment");
                             this.comments[index].cComments[indey].comment_is_like = true
                             this.comments[index].cComments[indey].like_num += 1
                         })
                     }else{
                         commentDislike(cid).then(res=>{
-                            console.log("===sub===>>",res);
                             // this.$emit("getComment");
                             this.comments[index].cComments[indey].comment_is_like = false
                             this.comments[index].cComments[indey].like_num -= 1
                         })
                     }
                 }
-                console.log(cid,index);
             }
         },
         activated() {

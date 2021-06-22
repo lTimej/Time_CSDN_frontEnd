@@ -25,6 +25,8 @@ const ArticleDetail = () => import("views/profile/detail/ArticleDetail");
 const AllArticleDetail = () => import("views/home/detail/AllArticleDetail");
 const UserFocusFans = () => import ("views/profile/children/UserFocusFans");
 const MyCollection = () => import("views/profile/MyCollection");
+const Search = () => import ("views/search/Search");
+const AllSearch = () => import ("views/search/AllSearch");
 
 const routes = [
     {
@@ -164,6 +166,22 @@ const routes = [
       name:'我的收藏',
       component:MyCollection,
       path:'/mycollection',
+      meta:{
+          isShowTabbar:true
+        }
+    },
+    {
+      name:'搜索',
+      component:Search,
+      path:'/search',
+      meta:{
+          isShowTabbar:true
+        }
+    },
+    {
+      name:'搜索内容',
+      component:AllSearch,
+      path:'/allsearch',
       meta:{
           isShowTabbar:true
         }

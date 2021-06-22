@@ -5,9 +5,12 @@ import store from "./store";
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import VueTouch from 'vue-touch'
+import SocketIOConfig from "common/socketIoConfig";
 
 import toast from 'components/contents/toast'
 Vue.config.productionTip = false
+
+Vue.use(SocketIOConfig)
 
 Vue.use(toast)
 Vue.use(ElementUI);

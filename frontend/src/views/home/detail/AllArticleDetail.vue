@@ -183,7 +183,6 @@
             },
             toLike(aid){
                 //判断是否登录
-                console.log2222222222,(aid);
                 if (!window.localStorage.getItem('token')){
                     this.drawers = false;
                     this.drawers = true;
@@ -235,7 +234,6 @@
                 })
             },
             getSectorComment(){
-                console.log(this.f)
                 if(!this.f){
                     return
                 }
@@ -243,7 +241,6 @@
                 let time1 = Date.parse(new Date())/1000;
                 let article_id = this.article[this.$route.query.aid].art_id;
                 getuserArticleSectorComment('a',article_id,time1,this.limit).then(res=>{
-                    console.log("---------====>>>",res,this.len);
                     this.f= true;
                     this.comments = res.data.data.comments;
                     this.comment_num = res.data.data.total_num;
@@ -262,7 +259,6 @@
                 this.getSectorComment();
             },
             loadMore1(){
-                console.log("加载更多")
                 this.getSectorComment()
             },
             toMoreComment(){

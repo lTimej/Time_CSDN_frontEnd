@@ -58,17 +58,14 @@
                 this.$emit('showMore')
             },
             toCommentLike(cid,index){
-                console.log(cid);
                 if (!this.comments[index].comment_is_like){
                         commentLike(cid).then(res=>{
-                            console.log("===add===>>",res);
                             // this.$emit("getComment");
                             this.comments[index].comment_is_like = true
                             this.comments[index].like_num += 1
                         })
                     }else{
                         commentDislike(cid).then(res=>{
-                            console.log("===sub===>>",res);
                             // this.$emit("getComment");
                             this.comments[index].comment_is_like = false
                             this.comments[index].like_num -= 1

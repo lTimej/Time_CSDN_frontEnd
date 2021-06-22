@@ -1,33 +1,35 @@
 <template>
     <div class="home">
         <nav-bar class="home-nav">
-            <div slot="left">
+            <div slot="left" @click="toSearch">
                 <el-input
                     placeholder="推荐内容"
                     prefix-icon="el-icon-search"
                     v-model="search">
                 </el-input>
             </div>
-            <div slot="right"><i class="el-icon-circle-plus" style="color: red;font-size: 32px;padding: 10px 10px 10px 5px"></i></div>
+            <div  slot="right"><i class="el-icon-circle-plus" style="color: red;font-size: 32px;padding: 10px 10px 10px 5px"></i></div>
         </nav-bar>
-        <scroll-x class="content-x">
-            <scroll-home @changeChannel="changeChannel" />
-        </scroll-x>
-        <div class="c" @click="editChannel">
-                <i class="el-icon-menu"></i>
+        <div>
+            <scroll-x class="content-x">
+                <scroll-home @changeChannel="changeChannel" />
+            </scroll-x>
+            <div class="c" @click="editChannel">
+                    <i class="el-icon-menu"></i>
+            </div>
+            <scroll
+                class="content"
+                :pull-upload="true"
+                :pull-down-refresh="true"
+                @pullingUp="loadMore"
+                @pullingDown="pullingMore"
+                ref="scrollTo"
+            >
+                <div class="to-update" v-show="isPullDown"><i class="el-icon-loading"></i></div>
+                    <article-list :articles="articles" />
+                <div class="to-bottom" v-show="isBottom"><span>{{pullContent}}</span></div>
+            </scroll>
         </div>
-        <scroll
-            class="content"
-            :pull-upload="true"
-            :pull-down-refresh="true"
-            @pullingUp="loadMore"
-            @pullingDown="pullingMore"
-            ref="scrollTo"
-        >
-            <div class="to-update" v-show="isPullDown"><i class="el-icon-loading"></i></div>
-                <article-list :articles="articles" />
-            <div class="to-bottom" v-show="isBottom"><span>{{pullContent}}</span></div>
-        </scroll>
     </div>
 </template>
 
@@ -37,6 +39,7 @@
     import ScrollX from "components/common/scroll/ScrollX";
     import ScrollHome from "./child/ScrollHome";
     import ArticleList from "./articles/ArticleList";
+    import AllSearch from "../search/Search";
 
     import {allChannels,defaultChannels,UserChannel} from "network/articles/channels";
     import {mapActions} from 'vuex'
@@ -53,7 +56,8 @@
                 isPull:true,
                 pullContent:"",
                 isBottom:false,
-                isPullDown:false
+                isPullDown:false,
+                is_search_history:false
             }
         },
         components:{
@@ -61,7 +65,8 @@
             ScrollHome,
             Scroll,
             ScrollX,
-            ArticleList
+            ArticleList,
+            AllSearch
         },
         mounted() {
 
@@ -139,6 +144,9 @@
             editChannel(){
                 this.$router.push('/channel/list')
             },
+            toSearch(){
+                this.$router.push('/search')
+            },
 
         },
         activated() {
@@ -165,6 +173,7 @@
         width: 360px;
         border-radius: 30px;
         height: 44px;
+        background-color: #f2f2f2;
     }
     >>> .contents-x{
         width: 1890px;
