@@ -24,7 +24,7 @@
             >
                 <div class="to-update" v-show="isPullDown"><i class="el-icon-loading"></i></div>
                     <article-list :articles="articles" />
-                <div class="to-bottom" v-show="isBottom"><span>{{pullContent}}</span></div>
+                <div class="to-bottom" v-show="isRefresh"><span>{{pullContent}}</span></div>
             </scroll>
         </div>
     </div>
@@ -37,6 +37,7 @@
     import SearchHome from "./SearchHome";
     import ArticleList from "../home/articles/ArticleList";
     import AllSearch from "../search/Search";
+    import {userSearch} from "network/search/search";
 
     export default {
         name: "AllSearch",
@@ -46,11 +47,12 @@
                 articles:[],
                 channel_id:1,
                 page:0,
-                isPull:true,
                 pullContent:"",
                 isBottom:false,
                 isPullDown:false,
-                is_search_history:false
+                is_search_history:false,
+                keyword:"",
+                isRefresh:false
             }
         },
         components:{
@@ -70,27 +72,70 @@
         methods:{
             //上拉加载更多
             loadMore(){
-
+                this.isRefresh = true
+                if (!this.isBottom){//没加载到底，可以继续上拉
+                    this.pullContent = "加载更多！！！";
+                    setTimeout(()=>{
+                        this.getSearchContent(true)
+                        this.isRefresh = false
+                    },1000)
+                }else{//加载完成奴在上拉
+                    this.pullContent = "已到底部";
+                    setTimeout(()=>{
+                        this.isRefresh = false
+                    },1000)
+                }
+                //可无限上拉
+                this.$refs.scrollTo.finishPullUp();
+                //刷新页面
+                this.$refs.scrollTo.refresh()
             },
             //下拉刷新
             pullingMore(){
+                //可下上拉，架请求
+                this.isPullDown = true;
+                setTimeout(()=>{
+                    this.isPullDown = false
+                },2000);
+                this.$refs.scrollTo.finishPullDown();
 
             },
+            //返回上页
             cancelSearch(){
                 this.$router.back()
+            },
+            //获取搜索文章列表
+            getSearchContent(isRefresh=false){
+                if(!isRefresh){//判断是否是上拉加载，搜索加载的，重置文章数组，和页数
+                    this.articles = []
+                    this.page = 0;
+                }
+                //加载到底部不在请求
+                if(this.isBottom){
+                    return;
+                }
+                //加载一次，页面+1
+                this.page += 1;
+                //请求后端，获取文章列表
+                userSearch(this.keyword,this.page,10).then(res=>{
+                    this.articles.push(...res.data.articles);
+                    //
+                    if(this.articles.length === res.data.total_num){
+                        this.isBottom = true
+                    }
+                    this.$refs.scrollTo.refresh()
+                })
             }
         },
         activated() {
-            this.$refs.scrollTo.refresh()
+            this.keyword = this.$route.query.ky;
+            this.search = this.keyword;
+            this.getSearchContent();
         }
     }
 </script>
 
 <style scoped>
-    .home{
-        /*height: 100vh;*/
-        /*position: relative;*/
-    }
     .home-nav{
         color: #fff;
         position: fixed;
@@ -126,7 +171,8 @@
         top: 86px;
         left: 0;
         right: 0;
-        bottom: 49px;
+        height: calc(100% - 106px);
+        /*bottom: 49px;*/
     }
     .c{
         position: fixed;

@@ -24,81 +24,12 @@
                     <span class="title">历史搜索</span>
                     <div class="cl">
                         <span>清空全部历史</span>
-                        <i class="el-icon-delete"></i>
+                        <i class="el-icon-delete" @click="clearHistory"></i>
                     </div>
                 </div>
                 <div class="search-content">
-                    <span class="search-content-item">
-                        <span>mysql</span>
-                    </span>
-                    <span class="search-content-item">
-                        <span>mysql安装教程</span>
-                    </span>
-                    <span class="search-content-item">
-                        <span>docker</span>
-                    </span>
-                    <span class="search-content-item">
-                        <span>mysql</span>
-                    </span>
-                    <span class="search-content-item">
-                        <span>mysql安装教程</span>
-                    </span>
-                    <span class="search-content-item">
-                        <span>docker</span>
-                    </span>
-                    <span class="search-content-item">
-                        <span>mysql</span>
-                    </span>
-                    <span class="search-content-item">
-                        <span>mysql安装教fgsdfsfsdfsfsd程</span>
-                    </span>
-                    <span class="search-content-item">
-                        <span>docker</span>
-                    </span>
-                    <span class="search-content-item">
-                        <span>mysql安装教程</span>
-                    </span>
-                    <span class="search-content-item">
-                        <span>docker</span>
-                    </span>
-                    <span class="search-content-item">
-                        <span>mysql</span>
-                    </span>
-                    <span class="search-content-item">
-                        <span>mysql安装教fgsdfsfsdfsfsd程</span>
-                    </span>
-                    <span class="search-content-item">
-                        <span>docker</span>
-                    </span>
-                    <span class="search-content-item">
-                        <span>mysql安装教程</span>
-                    </span>
-                    <span class="search-content-item">
-                        <span>docker</span>
-                    </span>
-                    <span class="search-content-item">
-                        <span>mysql</span>
-                    </span>
-                    <span class="search-content-item">
-                        <span>mysql安装教fgsdfsfsdfsfsd程</span>
-                    </span>
-                    <span class="search-content-item">
-                        <span>docker</span>
-                    </span>
-                    <span class="search-content-item">
-                        <span>mysql安装教程</span>
-                    </span>
-                    <span class="search-content-item">
-                        <span>docker</span>
-                    </span>
-                    <span class="search-content-item">
-                        <span>mysql</span>
-                    </span>
-                    <span class="search-content-item">
-                        <span>mysql安装教fgsdfsfsdfsfsd程</span>
-                    </span>
-                    <span class="search-content-item">
-                        <span>docker</span>
+                    <span class="search-content-item" v-for="history in histories" @click="scSearch(history)">
+                        <span>{{history}}</span>
                     </span>
                 </div>
             </div>
@@ -117,38 +48,6 @@
                         <span class="numb n3">3</span>
                         <span class="hot-title">神奇的sdadsdddwd浏览器插件</span>
                     </div>
-                    <div class="hot-search-item">
-                        <span class="numb n">4</span>
-                        <span class="hot-title">神奇的浏dsasdasdasd览器插件</span>
-                    </div>
-                    <div class="hot-search-item">
-                        <span class="numb n">5</span>
-                        <span class="hot-title">神奇的浏dsasdasdasd览器插件</span>
-                    </div>
-                    <div class="hot-search-item">
-                        <span class="numb n">6</span>
-                        <span class="hot-title">神奇的浏dsasdasdasd览器插件</span>
-                    </div>
-                    <div class="hot-search-item">
-                        <span class="numb n">7</span>
-                        <span class="hot-title">神奇的浏dsasdasdasd览器插件</span>
-                    </div>
-                    <div class="hot-search-item">
-                        <span class="numb n">8</span>
-                        <span class="hot-title">神奇的浏dsasdasdasd览器插件</span>
-                    </div>
-                    <div class="hot-search-item">
-                        <span class="numb n">9</span>
-                        <span class="hot-title">神奇的浏dsasdasdasd览器插件</span>
-                    </div>
-                    <div class="hot-search-item">
-                        <span class="numb n">10</span>
-                        <span class="hot-title">神奇的浏dsasdasdasd览器插件</span>
-                    </div>
-                    <div class="hot-search-item">
-                        <span class="numb n">11</span>
-                        <span class="hot-title">神奇的浏dsasdasdasd览器插件</span>
-                    </div>
                 </div>
             </div>
         </scroll>
@@ -161,12 +60,15 @@
 <script>
     import Scroll from "components/common/scroll/Scroll";
     import NavBar from "components/common/navbar/NavBar";
+    import {userSearchHistory,clearUserSearchHistory} from "network/search/search";
+
     export default {
         name: "AllSearch",
         data(){
             return {
                 search:"",
-                isBtn:false
+                isBtn:false,
+                histories:[]
             }
         },
         components:{
@@ -189,15 +91,46 @@
                 this.isBtn = false;
             },
             cSearch(){
-                console.log(222222222,this.search)
-                this.$router.push('/allsearch')
+                if(!this.search){
+                    this.$toast.show("搜索不为空",3000)
+                    return
+                }
+                this.$router.push({
+                    path:'/allsearch',
+                    query:{
+                        ky:this.search
+                    }
+                })
+                this.isBtn = false;
+            },
+            scSearch(history){
+                this.$router.push({
+                    path:'/allsearch',
+                    query:{
+                        ky:history
+                    }
+                })
+                this.isBtn = false;
             },
             loadMore(){
                 this.isBtn = false;
             },
             pullingMore(){
                 this.isBtn = false;
+            },
+            getSearchHistory(){
+                userSearchHistory().then(res=>{
+                    this.histories = res.data.data.keywords
+                })
+            },
+            clearHistory(){
+                clearUserSearchHistory().then(res=>{
+                    this.getSearchHistory()
+                })
             }
+        },
+        activated() {
+            this.getSearchHistory()
         }
     }
 </script>
@@ -229,7 +162,7 @@
 
     }
     .search-history .search-history-title{
-        margin-top: 50px;
+        margin-top: 20px;
         height: 30px;
         line-height: 30px;
     }
