@@ -5,52 +5,58 @@
                 <el-input
                     placeholder="推荐内容"
                     prefix-icon="el-icon-search"
+                    @input="onChange"
                     v-model="search">
                 </el-input>
                 <i class="el-icon-error cancel-content" v-show="search!==''" @click="toCancelContent"></i>
             </div>
             <div slot="right" @click="cancelSearch"><span style="color: #333;font-size: 20px;margin-left: 1px">取消</span></div>
         </nav-bar>
-        <scroll
+        <div v-show="!isSuggest">
+            <scroll
                 class="content"
                 :pull-upload="true"
                 :pull-down-refresh="true"
                 @pullingUp="loadMore"
                 @pullingDown="pullingMore"
                 ref="scrollTo"
-        >
-            <div class="search-history" @click="canc">
-                <div class="search-history-title">
-                    <span class="title">历史搜索</span>
-                    <div class="cl">
-                        <span>清空全部历史</span>
-                        <i class="el-icon-delete" @click="clearHistory"></i>
+            >
+                <div class="search-history" @click="canc">
+                    <div class="search-history-title">
+                        <span class="title">历史搜索</span>
+                        <div class="cl">
+                            <span>清空全部历史</span>
+                            <i class="el-icon-delete" @click="clearHistory"></i>
+                        </div>
+                    </div>
+                    <div class="search-content">
+                        <span class="search-content-item" v-for="history in histories" @click="scSearch(history)">
+                            <span>{{history}}</span>
+                        </span>
                     </div>
                 </div>
-                <div class="search-content">
-                    <span class="search-content-item" v-for="history in histories" @click="scSearch(history)">
-                        <span>{{history}}</span>
-                    </span>
-                </div>
-            </div>
-            <div class="search-recommend" @click="canc">
-                <h3>热搜</h3>
-                <div class="hot-search">
-                    <div class="hot-search-item">
-                        <span class="numb n1">1</span>
-                        <span class="hot-title">神奇的浏览器插件</span>
-                    </div>
-                    <div class="hot-search-item">
-                        <span class="numb n2">2</span>
-                        <span class="hot-title">神奇的浏览器插件</span>
-                    </div>
-                    <div class="hot-search-item">
-                        <span class="numb n3">3</span>
-                        <span class="hot-title">神奇的sdadsdddwd浏览器插件</span>
+                <div class="search-recommend" @click="canc">
+                    <h3>热搜</h3>
+                    <div class="hot-search">
+                        <div class="hot-search-item">
+                            <span class="numb n1">1</span>
+                            <span class="hot-title">神奇的浏览器插件</span>
+                        </div>
+                        <div class="hot-search-item">
+                            <span class="numb n2">2</span>
+                            <span class="hot-title">神奇的浏览器插件</span>
+                        </div>
+                        <div class="hot-search-item">
+                            <span class="numb n3">3</span>
+                            <span class="hot-title">神奇的sdadsdddwd浏览器插件</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </scroll>
+            </scroll>
+        </div>
+        <div v-show="isSuggest">
+            <search-suggest :searchs="searchs"/>
+        </div>
         <div class="btn" v-show="isBtn">
             <div @click="cSearch">确定</div>
         </div>
@@ -60,7 +66,8 @@
 <script>
     import Scroll from "components/common/scroll/Scroll";
     import NavBar from "components/common/navbar/NavBar";
-    import {userSearchHistory,clearUserSearchHistory} from "network/search/search";
+    import SearchSuggest from "./SearchSuggest";
+    import {userSearchHistory,clearUserSearchHistory,searchSuggest} from "network/search/search";
 
     export default {
         name: "AllSearch",
@@ -68,12 +75,15 @@
             return {
                 search:"",
                 isBtn:false,
-                histories:[]
+                histories:[],
+                isSuggest:false,
+                searchs:[]
             }
         },
         components:{
             Scroll,
-            NavBar
+            NavBar,
+            SearchSuggest
         },
         methods:{
             cancelSearch(){
@@ -81,7 +91,6 @@
                 this.$router.back()
             },
             toCancelContent(){
-                console.log(1111111)
                 this.search = ""
             },
             toSearch(){
@@ -92,7 +101,7 @@
             },
             cSearch(){
                 if(!this.search){
-                    this.$toast.show("搜索不为空",3000)
+                    this.$toast.show("搜索不为空",3000);
                     return
                 }
                 this.$router.push({
@@ -100,16 +109,17 @@
                     query:{
                         ky:this.search
                     }
-                })
+                });
                 this.isBtn = false;
             },
             scSearch(history){
+                this.search = history;
                 this.$router.push({
                     path:'/allsearch',
                     query:{
                         ky:history
                     }
-                })
+                });
                 this.isBtn = false;
             },
             loadMore(){
@@ -127,10 +137,19 @@
                 clearUserSearchHistory().then(res=>{
                     this.getSearchHistory()
                 })
+            },
+            onChange(e){
+                if(this.search){
+                    this.isSuggest = true
+                }
+                searchSuggest(this.search).then(res=>{
+                    this.searchs = res.data.searchs
+                })
             }
         },
         activated() {
-            this.getSearchHistory()
+            this.getSearchHistory();
+            this.isSuggest = false
         }
     }
 </script>

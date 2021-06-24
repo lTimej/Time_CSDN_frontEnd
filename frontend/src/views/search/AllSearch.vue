@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <nav-bar class="home-nav">
-            <div slot="left">
+            <div slot="left" @click="cancelSearch">
                 <el-input
                     placeholder="推荐内容"
                     prefix-icon="el-icon-search"
@@ -107,7 +107,7 @@
             //获取搜索文章列表
             getSearchContent(isRefresh=false){
                 if(!isRefresh){//判断是否是上拉加载，搜索加载的，重置文章数组，和页数
-                    this.articles = []
+                    this.articles = [];
                     this.page = 0;
                 }
                 //加载到底部不在请求

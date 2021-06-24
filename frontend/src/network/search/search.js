@@ -26,3 +26,13 @@ export function clearUserSearchHistory() {
         method:'delete'
     })
 }
+//搜索建议
+export function searchSuggest(keyword) {
+    return requests({
+        url:'/v1/search/suggest',
+        method:'get',
+        params:{
+            keyword:keyword
+        }
+    })
+}
