@@ -55,9 +55,9 @@
             </scroll>
         </div>
         <div v-show="isSuggest">
-            <search-suggest :searchs="searchs"/>
+            <search-suggest :searchs="searchs" @equalSear="equalSear"/>
         </div>
-        <div class="btn" v-show="isBtn">
+        <div class="btn" v-if="search!==''">
             <div @click="cSearch">确定</div>
         </div>
     </div>
@@ -86,6 +86,9 @@
             SearchSuggest
         },
         methods:{
+            equalSear(search){
+                this.search = search
+            },
             cancelSearch(){
                 this.isBtn = false;
                 this.$router.back()

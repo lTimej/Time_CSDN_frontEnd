@@ -150,7 +150,9 @@
 
         },
         activated() {
+            this.$store.dispatch('SaveAllArticleDetail',this.articles)
             this.$refs.scrollTo.refresh()
+            console.log("////////////////",this.articles);
         }
     }
 </script>

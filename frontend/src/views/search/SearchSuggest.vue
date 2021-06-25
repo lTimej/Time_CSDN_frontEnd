@@ -1,9 +1,9 @@
 <template>
     <div class="search-suggest">
         <scroll class="content">
-            <div class="search-suggest-item" v-for="search in searchs" @click="toSearch(search)">
-                <div class="s"><span>{{search}}</span></div>
-                <div class="ss"><i class="el-icon-top-left"></i></div>
+            <div class="search-suggest-item" v-for="search in searchs" >
+                <div class="s" @click="toSearch(search)"><span>{{search}}</span></div>
+                <div class="ss" @click="equalSear(search)"><i class="el-icon-top-left"></i></div>
                 <div class="x"></div>
             </div>
             <div class="add">
@@ -36,6 +36,9 @@
                         ky:search
                     }
                 })
+            },
+            equalSear(search){
+                this.$emit('equalSear',search)
             }
         }
     }

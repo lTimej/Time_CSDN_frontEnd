@@ -119,7 +119,7 @@
                 //请求后端，获取文章列表
                 userSearch(this.keyword,this.page,10).then(res=>{
                     this.articles.push(...res.data.articles);
-                    //
+                    this.$store.dispatch('SaveAllArticleDetail',this.articles)
                     if(this.articles.length === res.data.total_num){
                         this.isBottom = true
                     }

@@ -1,12 +1,17 @@
 <template>
-    <div class="settings">
-        <nav-bar class="settings-nav">
-            <div slot="left" @click="back"><i class="el-icon-arrow-left" style="font-size: 24px"></i></div>
-            <div slot="center">设置</div>
-        </nav-bar>
-        <scroll class="content">
-            <slot></slot>
-        </scroll>
+    <div :class="{'veil':value}">
+        <div class="settings">
+            <nav-bar class="settings-nav">
+                <div slot="left" @click="back"><i class="el-icon-arrow-left" style="font-size: 24px"></i></div>
+                <div slot="center">设置</div>
+            </nav-bar>
+            <scroll class="content">
+                <slot></slot>
+            </scroll>
+        </div>
+<!--                <div class="veil" v-if="value">-->
+
+<!--            </div>-->
     </div>
 </template>
 
@@ -17,6 +22,12 @@
 
     export default {
         name: "Settings",
+        props:{
+            value:{
+                type:Boolean,
+                default:false
+            }
+        },
         components:{
             NavBar,
             Scroll,
@@ -34,7 +45,7 @@
 <style scoped>
     .settings{
         position: relative;
-        z-index: 100;
+        /*z-index: 99;*/
         /*background-color: gray;*/
         height: 100vh;
     }
@@ -44,7 +55,7 @@
         left: 0;
         right: 0;
         top: 0;
-        z-index: 99;
+        /*z-index: 98;*/
     }
     .content{
         overflow: hidden;
@@ -55,6 +66,14 @@
         left: 0;
         right: 0;
         background-color: #f6f6f6;
-        z-index: 98;
+        /*z-index: 97;*/
+    }
+    .veil{
+        /*position: absolute;*/
+        width: 100%;
+        height: 100%;
+        /*background-color: red;*/
+        opacity: .5;
+        z-index: 100;
     }
 </style>

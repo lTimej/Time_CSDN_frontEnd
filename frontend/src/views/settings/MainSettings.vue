@@ -1,5 +1,5 @@
 <template>
-    <settings class="setting">
+    <settings class="setting" :value="value">
         <settings-item>
             <div slot="left">消息设置</div>
             <i class="el-icon-arrow-right" slot="right"></i>
@@ -60,6 +60,7 @@
         </settings-item>
 
     </settings>
+
 </template>
 
 <script>
@@ -102,5 +103,4 @@
   .account-manage{
       margin: 20px 0;
   }
-
 </style>
