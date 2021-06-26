@@ -17,10 +17,10 @@
                 ref="scrollTo"
         >
             <div class="user-focus-fans-item" v-for="(f,index) in focusList">
-                <div class="head-photo">
+                <div class="head-photo" @click="toProfile(f.user_id)">
                     <img :src="f.head_photo">
                 </div>
-                <div class="user-info">
+                <div class="user-info" @click="toProfile(f.user_id)">
                     <div><span>{{f.user_name}}</span></div>
                     <div class="intro" v-if="f.introduction"><span>{{f.introduction}}</span></div>
                     <div class="intro" v-else><span>此用户很懒，什么都没有写</span></div>
@@ -114,6 +114,9 @@
                 if(this.fanslist.length != 0) this.focusList = this.fanslist;
                 else this.getUserFocusOrFans();
             },
+            toProfile(user_id){
+                console.log(user_id);
+            }
         },
         activated() {
             //判断点击关注还是粉丝按钮

@@ -9,7 +9,7 @@
             <div class="collection-num">
                 <span>{{collection_num}}条内容</span>
             </div>
-            <div class="my-collection-item" v-for="collection in collections" @click="toCollectionDetail(collection.art_id)">
+            <div class="my-collection-item" v-for="(collection,index) in collections" @click="toCollectionDetail(index)">
                 <div class="title">
                     <span>{{collection.title}}</span>
                 </div>
@@ -45,7 +45,7 @@
                 page_num:10,
                 collections:[],
                 collection_num:0,
-                aid:-1
+                aid:-1,
             }
 
         },
@@ -70,11 +70,17 @@
                 getUserArticleCollection(1,this.page_num).then(res=>{
                     this.collection_num = res.data.data.total_num
                     this.collections = res.data.data.collections
+                    this.$store.dispatch('SaveAllArticleDetail',this.collections)
                 })
             },
             //跳转收藏文章详情页
             toCollectionDetail(aid){
-                console.log(778887,aid);
+                this.$router.push({
+                    path:'/article/detail',
+                    query:{
+                        aid:aid
+                    }
+                })
             },
             //不显示是否取消收藏页面
             cancelShow(){
