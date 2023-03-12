@@ -72,16 +72,16 @@
                                 this.$router.push('/login/phone')
                             }else if(ret.status===201){//刷新成功，保存新的token
                                 window.localStorage.clear();
-                                window.localStorage.setItem('token',ret.data.token);
-                                window.localStorage.setItem('refresh_token',ret.data.refresh_token);
-                                this.saveToken(ret.data.token);
-                                this.saveRefreshToken(ret.data.refresh_token);
+                                window.localStorage.setItem('token',ret.data.data.token);
+                                window.localStorage.setItem('refresh_token',ret.data.data.refresh_token);
+                                this.saveToken(ret.data.data.token);
+                                this.saveRefreshToken(ret.data.data.refresh_token);
                                 this.$router.replace('/profile')
                             }
                         })
                     }else if(res.status===201){
-                        this.SaveIndividuleInfo(res.data);
-                        this.individuleInfo = res.data
+                        this.SaveIndividuleInfo(res.data.data);
+                        this.individuleInfo = res.data.data
                     }
                 })
             },

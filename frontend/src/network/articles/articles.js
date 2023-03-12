@@ -3,7 +3,7 @@ import {requests} from "../requests";
 //每个频道的文章
 export function getChannelArticle(channel_id,page,page_num) {
     return requests({
-        url:'/v1/articles/' + channel_id,
+        url:'/v1/article/articles/' + channel_id,
         method:'get',
         params:{
             page:page,
@@ -14,7 +14,7 @@ export function getChannelArticle(channel_id,page,page_num) {
 //每个用户的文章
 export function getUserArticle(page,page_num) {
     return requests({
-        url:'/v1/user/articles',
+        url:'/v1/article/user/articles',
         method:'get',
         params:{
             page:page,

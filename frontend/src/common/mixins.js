@@ -52,7 +52,9 @@ export const clickFocus = {
         //判断是否关注
         getfocusinfo(user_id) {
             isFocusUser(user_id).then(res => {
-                if (res.data.isFocusUser) this.isFocus = "已关注";
+                console.log("11111111获取关注状态11111111111",this.isFocus)
+                console.log("222222222222222222222222",res,res.data.data.isFocusUser)
+                if (res.data.data.isFocusUser) this.isFocus = "已关注";
                 else this.isFocus = "关注";
             })
         }

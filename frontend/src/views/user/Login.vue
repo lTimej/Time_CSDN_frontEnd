@@ -77,7 +77,7 @@
                 this.$router.replace(path).catch(()=>{})
             },
             login(res){//登录逻辑
-                console.log(res);
+                console.log("+++++++++++++++++++",res);
                     if(res.status=='400'){//验证码过期
                         this.$toast.show('验证码已过期',5000);
                     }else if(res.status=='401'){//验证码输入错误
@@ -88,10 +88,11 @@
                         this.$toast.show('登录成功',5000)
                         //登录成功，将token值存入locaStorage
                         window.localStorage.clear();
-                        window.localStorage.setItem('token',res.data.token);
-                        window.localStorage.setItem('refresh_token',res.data.refresh_token);
-                        this.saveToken(res.data.token);
-                        this.saveRefreshToken(res.data.refresh_token);
+                        console.log("538534530",res.data.data)
+                        window.localStorage.setItem('token',res.data.data.token);
+                        window.localStorage.setItem('refresh_token',res.data.data.refresh_token);
+                        this.saveToken(res.data.data.token);
+                        this.saveRefreshToken(res.data.data.refresh_token);
 
                         //跳转到我的页面
                         // this.$router.push('/profile')
@@ -119,6 +120,7 @@
                 if(!this.isAccountLogin){
                     return;
                 }
+                console.log(this.username,this.pwd,"99999999")
                 login(this.username,this.pwd).then(res=>{
                     this.login(res)
                 }).catch(err=>{

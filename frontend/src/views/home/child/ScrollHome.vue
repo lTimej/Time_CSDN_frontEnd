@@ -21,7 +21,7 @@
         },
         data(){
             return{
-                currIndex:-1
+                currIndex:17
             }
         },
         components:{

@@ -46,7 +46,7 @@ export function cancelFocusUser(target) {
 //判断是否关注用户
 export function isFocusUser(target) {
     return requests({
-        url:'/v1/isfocus',
+        url:'/v1/user/isfocus',
         method:'get',
         params:{
             target:target

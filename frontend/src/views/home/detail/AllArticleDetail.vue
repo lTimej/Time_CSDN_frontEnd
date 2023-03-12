@@ -148,6 +148,7 @@
                 this.$refs.scrollTo.refresh();
             },
             myscroll(pos){
+                console.log(pos.y,"********************",this.baseInfo_Y)
                 this.isShowInfo = pos.y < this.baseInfo_Y;
                 this.drawers = true;
                 this.drawers = false;
@@ -188,7 +189,7 @@
                     this.drawers = true;
                     return
                 }
-                //如果已收藏则直接返回
+                //如果已点赞则直接返回
                 if(this.status.islike){
                     cancelUserArticleLike(aid).then(res=>{
                         if (res.status === 201){
@@ -215,6 +216,7 @@
             getArticleStatus(){
                 let aid = this.article[this.$route.query.aid].art_id;
                 let uid = this.article[this.$route.query.aid].user_id;
+                
                 getArticleStatus(aid,uid).then(res=>{
                     this.status = res.data.data
                 })

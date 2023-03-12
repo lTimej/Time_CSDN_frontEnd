@@ -72,7 +72,9 @@
 
         },
         created() {
+            console.log("创建陈工")
             this.getChannels();
+            this.changeChannel(17)
         },
         methods:{
             //获取频道信息
