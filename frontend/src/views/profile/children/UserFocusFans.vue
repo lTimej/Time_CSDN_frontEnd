@@ -71,13 +71,15 @@
                 //请求关注列表数据
                 if (this.flag === 'focus'){
                     userFocus(this.page,this.page_num).then(res=>{
-                        this.focusList = res.data.focus;
-                        this.$store.dispatch('SaveFocusList',res.data.focus)
+                        console.log(res,"====================")
+                        this.focusList = res.data.data.focus;
+                        console.log("&&&&&&&&&&",this.focusList)
+                        this.$store.dispatch('SaveFocusList',res.data.data.focus)
                     })
                 }else{//请求粉丝列表数据
                     userFans(this.page,this.page_num).then(res=>{
-                        this.focusList = res.data.fans;
-                        this.$store.dispatch('SaveFansList',res.data.fans)
+                        this.focusList = res.data.data.fans;
+                        this.$store.dispatch('SaveFansList',res.data.data.fans)
                     })
                 }
             },
