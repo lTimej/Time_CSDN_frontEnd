@@ -7,7 +7,7 @@
         <nav-bar class="article-detail-nav-copy" v-show="isShowInfo">
             <div slot="left" @click="back">
                 <i class="el-icon-arrow-left" style="font-size: 32px;color: #333;"></i>
-                <img :src="head_photo">
+                <img :src="head_photo" @click="toUser(user_id)">
                 <span >{{user_name}}</span>
             </div>
             <div slot="right">
@@ -271,6 +271,9 @@
                 articleLike(aid).then(res=>{
                     this.likers = res.data.data.users_info
                 })
+            },
+            toUser(user_id){
+                console.log("跳转到用户信息页面")
             }
         },
         activated() {
