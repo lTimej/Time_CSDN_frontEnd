@@ -274,6 +274,7 @@
             },
             toUser(user_id){
                 console.log("跳转到用户信息页面")
+                this.$router.push('/myAccount')
             }
         },
         activated() {
