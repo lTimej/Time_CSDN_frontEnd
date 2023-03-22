@@ -88,7 +88,8 @@
         },
         methods: {
             back(){
-                this.$router.push('/profile')
+                // this.$router.push('/profile')
+                this.$router.back()
             },
             myscroll(pos){
                 //监听content下拉位置，改变导航栏的展现

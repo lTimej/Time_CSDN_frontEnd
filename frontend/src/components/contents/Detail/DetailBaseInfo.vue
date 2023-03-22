@@ -9,7 +9,7 @@
             <span>{{read_num}}阅读</span>
         </div>
         <div class="author-info">
-            <div class="head-photo">
+            <div class="head-photo" @click="toUser">
                 <img :src="article.head_photo">
             </div>
             <div class="name">
@@ -62,6 +62,9 @@
         methods:{
             focus(){
                 this.$emit('focus',this.article.user_id)
+            },
+            toUser(){
+                this.$emit('toUser',this.article.user_id)
             }
         },
         filters:{

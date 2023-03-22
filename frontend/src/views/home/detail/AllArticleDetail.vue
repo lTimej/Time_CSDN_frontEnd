@@ -23,7 +23,7 @@
                 ref="scrollTo"
                 @pullingUp="loadMore"
         >
-            <detail-base-info :article="article[this.$route.query.aid]" @focus="focus(user_id)" :isFocus="isFocus" ref="baseInfo" :read_num="status.read_num"/>
+            <detail-base-info :article="article[this.$route.query.aid]" @focus="focus(user_id)" :isFocus="isFocus" ref="baseInfo" :read_num="status.read_num" @toUser="toUser(user_id)"/>
             <detail-content :article="article[this.$route.query.aid]" />
             <article-like
                 :likers="likers"
