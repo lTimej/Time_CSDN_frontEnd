@@ -146,7 +146,7 @@
                     this.isSuggest = true
                 }
                 searchSuggest(this.search).then(res=>{
-                    this.searchs = res.data.searchs
+                    this.searchs = res.data.data.searchs
                 })
             }
         },

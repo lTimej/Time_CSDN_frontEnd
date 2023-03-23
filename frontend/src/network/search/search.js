@@ -15,21 +15,21 @@ export function userSearch(keyword,page,page_num) {
 //用户搜索历史
 export function userSearchHistory() {
     return requests({
-        url:'/v1/search/history',
+        url:'/v1/article/search/history',
         method:'get'
     })
 }
 //清除用户搜索历史
 export function clearUserSearchHistory() {
     return requests({
-        url:'/v1/search/history',
+        url:'/v1/article/search/history',
         method:'delete'
     })
 }
 //搜索建议
 export function searchSuggest(keyword) {
     return requests({
-        url:'/v1/search/suggest',
+        url:'/v1/article/search/suggest',
         method:'get',
         params:{
             keyword:keyword
