@@ -22,9 +22,11 @@
         padding: 0 12px;
 
     }
+
     .left, .right{
         /*width: 120px;*/
-    }
+    } 
+
   .center{
     flex: 1;
 
