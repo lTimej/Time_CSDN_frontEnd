@@ -1,6 +1,6 @@
 <template>
     <div class="msg-list">
-        <div class="msg-item">
+        <div class="msg-item" @click="chat">
             <div class="tx">
                 <img src="~assets/img/my.jpg">
             </div>
@@ -9,7 +9,7 @@
                 <div class="info-introduce">我是帅哥</div>
             </div>
         </div>
-        <div class="msg-item">
+        <div class="msg-item" @click="chat">
             <div class="tx">
                 <img src="~assets/img/my.jpg">
             </div>
@@ -150,6 +150,11 @@
 <script>
     export default {
         name: "MessageList",
+        methods:{
+            chat(){
+                this.$router.push('/chat');
+            }
+        }
         // components:{
         //     Scroll,
         // }
@@ -158,7 +163,7 @@
 
 <style scoped>
     .msg-list{
-        top:20px;
+        margin-top: 20px;
     }
     .msg-item{
         margin-top: 10px;

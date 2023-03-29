@@ -88,6 +88,7 @@
     .msg-item-nav .item{
         font-size: 18px;
         padding-bottom: 15px;
+        height: 40px;
     }
     .msg-item-nav .item i{
         font-size: 18px;

@@ -9,6 +9,7 @@ const Home = () => import('views/home/Home');
 const Blog = () => import('views/blog/Blog');
 const Study = () => import('views/study/Study');
 const Message = () => import('views/message/Message');
+const MessageInterface = () => import('views/message/MessageInterface');
 const Profile = () => import('views/profile/Profile');
 const UnloginProfile = () => import('views/profile/UnloginProfile');
 const PhoneLogin = () => import('views/user/PhoneLogin');
@@ -185,7 +186,15 @@ const routes = [
       meta:{
           isShowTabbar:true
         }
-    }
+    },
+    {
+      name:'聊天界面',
+      component:MessageInterface,
+      path:'/chat',
+      meta:{
+          isShowTabbar:true
+        }
+    },
 ];
 
 const router = new VueRouter({
