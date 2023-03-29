@@ -13,30 +13,29 @@
             class="content"
             ref="scroll"
         >
-            <div class="chat-item">
-                <div class="chat-item-left">
-                    <div>
-                        <div class="tx">
-                            <img src="~assets/img/my.jpg">
-                        </div>
-                        <div class="info">
-                            <span>skfskdfkjsfksdfjskfksfjfdsadfsfsfsfsfsfsfgertwerfrsdfwefsjfskfjksfsdkjs</span>
-                        </div>
-                    </div>
-                </div>
+        <div class="dialog-text-box">
+            <div class="text-item">
+                <template>
+                    <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">哈哈哈</div>
+                </template>
             </div>
-            <div class="chat-item">
-                <div class="chat-item-right">
-                    <div>
-                        <div class="tx">
-                            <img src="~assets/img/my.jpg">
-                        </div>
-                        <div class="info">
-                            <input>
-                        </div>
-                    </div>
-                </div>
+            <div class="text-item text-item-right">
+                <template>
+                    <div class="chat-box">哈哈哈</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
+                </template>
             </div>
+            <div class="text-item">
+                <template>
+                    <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">哈哈sfdsf洒夫人双方围绕发生发生颠覆性的地方个人头是粉色法国v大哥vBert给对方VCD v不到十个斯蒂芬闰土股份人脱高峰日台风而他个死人头骨台风个人台风台风德国人的哈</div>
+                </template>
+            </div>
+            <div class="text-item text-item-right">
+                <template>
+                    <div class="chat-box">哈哈哈</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
+                </template>
+            </div>
+        </div>
+        
         </scroll>
         <tab-bar class="chat-tarbar">
             <input type="text">
@@ -93,57 +92,68 @@
     .content{
         overflow: hidden;
         position: absolute;
-        top: 88px;
-        bottom: 49px;
+        top: 44px;
+        bottom: 36px;
         left: 0;
         right: 0;
-        background-color: white;
+        background-color: #F2F2F2;
     }
-    .chat-item{
+ 
+    .dialog-text-box::-webkit-scrollbar {
+        display: none;
+    }
+    .text-item {
+        display: flex;
+        /* align-items: center; */
+        margin: 10px 0;
+    }
+    .chat-name {
+        /* width: 42px;
+        height: 42px; */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        /* border-radius: 50%;
+        background-color: #3C8AFF;
+        color: #Ffffff; */
+        margin: 0px 6px 6px 6px;
+    }
+    .chat-name img{
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+    }
+    .chat-box {
+        margin-left: 12px;
+        padding: 8px;
+        max-width: calc(100% - 168px);
+        background: #FFFFFF;
         position: relative;
-        /* height: 60px; */
+        border-radius:4px;
     }
-    .chat-item-left{
-        width: 215px;
-        /* height: 60px; */
-        /* background-color: red; */
-        float: left;
+    .chat-box:before {
+        content:"";
+        position: absolute;
+        right: 100%;
+        width: 0;
+        height: 0;
+        border-top: 9px solid transparent;
+        border-right: 8px solid #FFFFFF;
+        border-bottom: 9px solid transparent;
+        transform: translateY(-50%);
     }
-    .chat-item-right{
-        width: 215px;
-        /* height: 60px; */
-        /* background-color: blue; */
-        float: right;
-    }
-    .chat-item-left .tx{
-        float: left;
-    }
-    .chat-item-left .info{
-        position: relative;
         
+    .text-item-right {
+        justify-content: flex-end;
     }
-    .chat-item-left .tx img{
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
+    .text-item-right .chat-box {
+        margin-left: 0;
+        margin-right: 15px;
     }
-    .chat-item-left .info span{
-        height: 100px;
-        width: 160px;
-    }
-
-    .chat-item-right .tx{
-        float: right;
-    }
-    .chat-item-right .info{
-        float: left;
-    }
-    .chat-item-right .tx img{
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-    }
-    .chat-item-right .info input{
-        width: 160px;
+    .text-item-right .chat-box:before {
+        right: -8px;
+        border-left: 8px solid #FFFFFF;
+        border-right: none;
     }
 </style>
