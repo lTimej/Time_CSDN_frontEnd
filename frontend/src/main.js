@@ -6,10 +6,19 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import VueTouch from 'vue-touch'
 import SocketIOConfig from "common/socketIoConfig";
-
+import {ws} from "common/config"
 import toast from 'components/contents/toast'
-Vue.config.productionTip = false
 
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
+ 
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import '@/assets/iconfont/iconfont.css'
+import '@/assets/iconfont/iconfont.js'
+Vue.use(BootstrapVue)
+Vue.use(BootstrapVueIcons)
+Vue.config.productionTip = false
+Vue.prototype.ws = ws
 Vue.use(SocketIOConfig)
 
 Vue.use(toast)

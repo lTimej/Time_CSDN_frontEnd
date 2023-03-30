@@ -44,19 +44,47 @@
             MessageList,
             Scroll,
         },
-        sockets: {
-            connect() {
-                console.log(111111111111)
+        mounted(){
+            this.defaultWs();
+        },
+        // sockets: {
+        //     connect() {
+        //         console.log(111111111111)
 
-                // this.$lib.logInfo("连接socket io服务器成功");
+        //         // this.$lib.logInfo("连接socket io服务器成功");
+        //     },
+        //     message(msg) {
+        //         console.log(msg)
+        //         this.$lib.logInfo("接收到服务端的消息：" + msg);
+        //     },
+        //     // focus:data=>{
+        //     //     console.log(data);
+        //     // }
+        // },
+        methods:{
+            defaultWs() {
+                console.log('try to connect webSocket')
+                if ("WebSocket" in window) {
+                    console.log('support webSocket')
+                    var connectInfo = 'ws://' + "172.20.16.20:8890" + '/v1/im/user/chat'
+                    this.ws = new WebSocket(connectInfo)
+                    this.ws.onopen = this.wsOnopen
+                    this.ws.onmessage = this.wsOnMessage
+                    this.ws.onclose = this.wsOnClose
+                }
             },
-            message(msg) {
-                console.log(msg)
-                this.$lib.logInfo("接收到服务端的消息：" + msg);
+            wsOnopen() {
+                console.log('connect success')
             },
-            // focus:data=>{
-            //     console.log(data);
-            // }
+            wsOnMessage(e) {
+                console.log('receive data: ')
+                this.showData += '<span style="float:right">'+ e.data + ' : say server' + '</span><br />'
+                console.log(e.data)
+                console.log(this.showData)
+            },
+            wsOnClose(e) {
+                this.ws.close()
+            },
         },
         activated() {
             if (this.$socket != null && !this.$socket.connected) {
