@@ -148,12 +148,26 @@
 </template>
 
 <script>
+    import{getUserChatList} from "network/im/im";
     export default {
         name: "MessageList",
         methods:{
             chat(){
                 this.$router.push('/chat');
+            },
+            get_chat_list(){
+                getUserChatList().then(res=>{
+                    if (res.status===201){
+                        console.log("===========")
+                        console.log(res.data.data)
+                    }else{
+                        console.log("获取聊天列表失败")
+                    }
+                })
             }
+        },
+        created(){
+            this.get_chat_list()
         }
         // components:{
         //     Scroll,

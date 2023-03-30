@@ -4,7 +4,7 @@ import {refresh_token} from "./users/login";
 export function requests(config){
     //实例化对象
     const instance = axios.create({
-        baseURL:'http://172.20.16.20:8888',
+        baseURL:'',
         timeout: 5000
     });
 

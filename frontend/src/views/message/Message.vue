@@ -39,6 +39,12 @@
     import Scroll from "components/common/scroll/Scroll";
     export default {
         name: "Message",
+        data(){
+            return{
+                showData:"",
+                // ws:null,
+            }
+        },
         components:{
             NavBar,
             MessageList,
@@ -66,11 +72,12 @@
                 console.log('try to connect webSocket')
                 if ("WebSocket" in window) {
                     console.log('support webSocket')
-                    var connectInfo = 'ws://' + "172.20.16.20:8890" + '/v1/im/user/chat'
-                    this.ws = new WebSocket(connectInfo)
-                    this.ws.onopen = this.wsOnopen
-                    this.ws.onmessage = this.wsOnMessage
-                    this.ws.onclose = this.wsOnClose
+                    console.log(this.$ws,"=============")
+                    var connectInfo = 'ws://' + "172.20.16.20:8890" + '/v1/im/user/chat?token=' + "Bearer " + window.localStorage.getItem('token')
+                    this.$ws.ws = new WebSocket(connectInfo)
+                    this.$ws.ws.onopen = this.wsOnopen
+                    this.$ws.ws.onmessage = this.wsOnMessage
+                    this.$ws.ws.onclose = this.wsOnClose
                 }
             },
             wsOnopen() {
@@ -83,13 +90,14 @@
                 console.log(this.showData)
             },
             wsOnClose(e) {
-                this.ws.close()
+                console.log("======closed=========")
+                this.$ws.ws.close()
             },
         },
         activated() {
-            if (this.$socket != null && !this.$socket.connected) {
-                this.$socket.connect();
-            }
+            // if (this.$socket != null && !this.$socket.connected) {
+            //     this.$socket.connect();
+            // }
         },
     }
 </script>

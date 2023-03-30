@@ -5,7 +5,7 @@
                 <i class="el-icon-arrow-left"></i>
             </div>
             <div slot="center">
-                <src>谢勇1号</src>
+                <src>{{this.$route.query.user_name }}</src>
             </div>
             <div slot="right"><i class="el-icon-place"></i></div>
         </nav-bar>
@@ -45,13 +45,16 @@
                 <use xlink:href="#icon-yuyin" />
             </svg>
             <div class="text">
-                <input type="text" >
+                <input type="text" v-model="info">
             </div>
             <svg class="icon" @click="show_emoj">
                 <use xlink:href="#icon-7biaoqing-1" />
             </svg>
-            <svg class="icon">
+            <svg class="icon" v-show="info==''">
                 <use xlink:href="#icon-jiahao"></use>
+            </svg>
+            <svg class="icon" v-show="info!=''" @click="send_msg">
+                <use xlink:href="#icon-fasong"></use>
             </svg>
         </tab-bar>
     </div>
@@ -62,11 +65,14 @@
     import TabBar from "components/common/tabbar/TabBar";
     import Scroll from "components/common/scroll/Scroll";
     import Emoj from "views/message/Emoj"
+    import{getUserChatRecord} from "network/im/im";
     export default {
-        name: "Message",
+        name: "MessageInterface",
         data(){
             return{
                 isShow:false,
+                info:"",
+                user_name:this.$route.query.user_name 
             }
         },
         components:{
@@ -86,6 +92,43 @@
             cancel_emoj(){
                 this.isShow = false;
             },
+            send_msg(){
+                console.log(this.info)
+                console.log("*********",this.$ws.ws)
+                let data = {
+                    "content":this.info,
+                    "target_id":String(this.$route.query.user_id),
+                    "type":1,
+                }
+                console.log(data)
+                this.$ws.ws.send(JSON.stringify(data))
+            },
+            get_chat_records(){
+                var target_user_id = this.$route.query.user_id;
+                var page = 1;
+                var page_num = 2;
+                console.log(target_user_id,"**********")
+                getUserChatRecord(target_user_id,page,page_num).then(res=>{
+                    if (res.status===201){
+                        console.log("===========")
+                        console.log(res.data.data)
+                    }else{
+                        console.log("获取聊天记录失败")
+                    }
+                })
+            }
+        },
+        created() {
+            console.log("获取聊天记录")
+            if(!this.$ws.ws){
+                var connectInfo = 'ws://' + "172.20.16.20:8890" + '/v1/im/user/chat?token=' + "Bearer " + window.localStorage.getItem('token')
+                this.$ws.ws = new WebSocket(connectInfo)
+            }
+            this.get_chat_records()
+
+        },
+        activated(){
+            this.user_name = this.$route.query.user_name; 
         }
         
     }

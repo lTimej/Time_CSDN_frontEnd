@@ -19,7 +19,7 @@
             <div class="focus" @click="focus">
                 <span>{{isFocus}}</span>
             </div>
-            <div class="private-letter">
+            <div class="private-letter" @click="to_chat">
                 <span>私信</span>
             </div>
 
@@ -65,6 +65,16 @@
             },
             toUser(){
                 this.$emit('toUser',this.article.user_id)
+            },
+            to_chat(){
+                console.log(this.article.user_id,"&&&&&&&&&&&&&&")
+                this.$router.push({
+                    path:'/chat',
+                    query:{
+                        user_name:this.article.user_name,
+                        user_id:this.article.user_id,
+                    }
+                })
             }
         },
         filters:{
