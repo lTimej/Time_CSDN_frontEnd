@@ -1,147 +1,12 @@
 <template>
     <div class="msg-list">
-        <div class="msg-item" @click="chat">
+        <div class="msg-item" @click="tochat" v-for="chat in chat_list">
             <div class="tx">
-                <img src="~assets/img/my.jpg">
+                <img src="http://172.20.16.20:9000/csdn/f7196618-46d5-4889-877b-d6a8a1bc1a2d.jpg">
             </div>
             <div class="info">
-                <div class="info-name">谢勇1号</div>
-                <div class="info-introduce">我是帅哥</div>
-            </div>
-        </div>
-        <div class="msg-item" @click="chat">
-            <div class="tx">
-                <img src="~assets/img/my.jpg">
-            </div>
-            <div class="info">
-                <div class="info-name">谢勇1号</div>
-                <div class="info-introduce">我是帅哥</div>
-            </div>
-        </div>
-        <div class="msg-item">
-            <div class="tx">
-                <img src="~assets/img/my.jpg">
-            </div>
-            <div class="info">
-                <div class="info-name">谢勇1号</div>
-                <div class="info-introduce">我是帅哥</div>
-            </div>
-        </div>
-        <div class="msg-item">
-            <div class="tx">
-                <img src="~assets/img/my.jpg">
-            </div>
-            <div class="info">
-                <div class="info-name">谢勇1号</div>
-                <div class="info-introduce">我是帅哥</div>
-            </div>
-        </div>
-        <div class="msg-item">
-            <div class="tx">
-                <img src="~assets/img/my.jpg">
-            </div>
-            <div class="info">
-                <div class="info-name">谢勇1号</div>
-                <div class="info-introduce">我是帅哥</div>
-            </div>
-        </div>
-        <div class="msg-item">
-            <div class="tx">
-                <img src="~assets/img/my.jpg">
-            </div>
-            <div class="info">
-                <div class="info-name">谢勇1号</div>
-                <div class="info-introduce">我是帅哥</div>
-            </div>
-        </div>
-        <div class="msg-item">
-            <div class="tx">
-                <img src="~assets/img/my.jpg">
-            </div>
-            <div class="info">
-                <div class="info-name">谢勇1号</div>
-                <div class="info-introduce">我是帅哥</div>
-            </div>
-        </div>
-        <div class="msg-item">
-            <div class="tx">
-                <img src="~assets/img/my.jpg">
-            </div>
-            <div class="info">
-                <div class="info-name">谢勇1号</div>
-                <div class="info-introduce">我是帅哥</div>
-            </div>
-        </div>
-        <div class="msg-item">
-            <div class="tx">
-                <img src="~assets/img/my.jpg">
-            </div>
-            <div class="info">
-                <div class="info-name">谢勇1号</div>
-                <div class="info-introduce">我是帅哥</div>
-            </div>
-        </div>
-        <div class="msg-item">
-            <div class="tx">
-                <img src="~assets/img/my.jpg">
-            </div>
-            <div class="info">
-                <div class="info-name">谢勇1号</div>
-                <div class="info-introduce">我是帅哥</div>
-            </div>
-        </div>
-        <div class="msg-item">
-            <div class="tx">
-                <img src="~assets/img/my.jpg">
-            </div>
-            <div class="info">
-                <div class="info-name">谢勇1号</div>
-                <div class="info-introduce">我是帅哥</div>
-            </div>
-        </div>
-        <div class="msg-item">
-            <div class="tx">
-                <img src="~assets/img/my.jpg">
-            </div>
-            <div class="info">
-                <div class="info-name">谢勇1号</div>
-                <div class="info-introduce">我是帅哥</div>
-            </div>
-        </div>
-        <div class="msg-item">
-            <div class="tx">
-                <img src="~assets/img/my.jpg">
-            </div>
-            <div class="info">
-                <div class="info-name">谢勇1号</div>
-                <div class="info-introduce">我是帅哥</div>
-            </div>
-        </div>
-        <div class="msg-item">
-            <div class="tx">
-                <img src="~assets/img/my.jpg">
-            </div>
-            <div class="info">
-                <div class="info-name">谢勇1号</div>
-                <div class="info-introduce">我是帅哥</div>
-            </div>
-        </div>
-        <div class="msg-item">
-            <div class="tx">
-                <img src="~assets/img/my.jpg">
-            </div>
-            <div class="info">
-                <div class="info-name">谢勇1号</div>
-                <div class="info-introduce">我是帅哥</div>
-            </div>
-        </div>
-        <div class="msg-item">
-            <div class="tx">
-                <img src="~assets/img/my.jpg">
-            </div>
-            <div class="info">
-                <div class="info-name">谢勇1号</div>
-                <div class="info-introduce">我是帅哥</div>
+                <div class="info-name">{{ chat.user_name }}</div>
+                <div class="info-introduce">{{ chat.introduce }}</div>
             </div>
         </div>
     </div>
@@ -151,15 +16,28 @@
     import{getUserChatList} from "network/im/im";
     export default {
         name: "MessageList",
+        data(){
+            return{
+                chat_list:[],
+            }
+        },
         methods:{
-            chat(){
-                this.$router.push('/chat');
+            tochat(){
+                console.log(this.chat_list.user_name,"------------")
+                this.$router.push({
+                    path:'/chat',
+                    query:{
+                        user_name:this.chat_list.user_name,
+                        user_id:this.chat_list.user_id,
+                    }
+                })
             },
             get_chat_list(){
                 getUserChatList().then(res=>{
                     if (res.status===201){
                         console.log("===========")
                         console.log(res.data.data)
+                        this.chat_list = res.data.data.user_infos;
                     }else{
                         console.log("获取聊天列表失败")
                     }
