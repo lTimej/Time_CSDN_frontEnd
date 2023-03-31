@@ -71,7 +71,10 @@
       getScrollY()
       {//获取y轴位置
         return this.scroll?this.scroll.y:0
-      }
+      },
+      scrollToElement(ele,time=300){
+        this.scroll.scrollToElement( ele, time );
+      },
     }
   }
 </script>

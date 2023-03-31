@@ -11,32 +11,121 @@
         </nav-bar>
         <scroll 
             class="content"
-            ref="scroll"
-            
+            @scroll="myscroll"
+            ref="scroll" 
         >
-        <div class="chat-item" @click="cancel_emoj">
-            <div class="dialog-text-box" >
-                <div class="text-item">
-                    <template>
-                        <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">哈哈哈</div>
+        <div class="chat-item" @click="cancel_emoj" >
+            <div class="dialog-text-box"  ref="container">
+                <div class="text-item" :class="{'text-item-right':target_id==record.target_id}" v-for="record in chat_records">
+                    <template v-if="target_id==record.target_id">
+                        <div class="chat-box">{{record.content}}</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
                     </template>
-                </div>
-                <div class="text-item text-item-right">
-                    <template>
-                        <div class="chat-box">哈哈哈</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
-                    </template>
-                </div>
-                <div class="text-item">
-                    <template>
-                        <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">哈哈sfdsf洒夫人双方围绕发生发生颠覆性的地方个人头是粉色法国v大哥vBert给对方VCD v不到十个斯蒂芬闰土股份人脱高峰日台风而他个死人头骨台风个人台风台风德国人的哈</div>
-                    </template>
-                </div>
-                <div class="text-item text-item-right">
-                    <template>
-                        <div class="chat-box">哈哈哈</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
+                    <template v-else>
+                        <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">{{record.content}}</div> 
                     </template>
                 </div>
             </div>
+
+            <!-- <div class="text-item">
+                <template>
+                    <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">哈哈哈</div>
+                </template>
+            </div>
+            <div class="text-item text-item-right">
+                <template>
+                    <div class="chat-box">哈哈哈</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
+                </template>
+            </div>
+            <div class="text-item">
+                <template>
+                    <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">哈哈sfdsf洒夫人双方围绕发生发生颠覆性的地方个人头是粉色法国v大哥vBert给对方VCD v不到十个斯蒂芬闰土股份人脱高峰日台风而他个死人头骨台风个人台风台风德国人的哈</div>
+                </template>
+            </div>
+            <div class="text-item text-item-right">
+                <template>
+                    <div class="chat-box">哈哈哈</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
+                </template>
+            </div>
+            <div class="text-item">
+                <template>
+                    <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">哈哈哈</div>
+                </template>
+            </div>
+            <div class="text-item text-item-right">
+                <template>
+                    <div class="chat-box">哈哈哈</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
+                </template>
+            </div>
+            <div class="text-item">
+                <template>
+                    <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">哈哈sfdsf洒夫人双方围绕发生发生颠覆性的地方个人头是粉色法国v大哥vBert给对方VCD v不到十个斯蒂芬闰土股份人脱高峰日台风而他个死人头骨台风个人台风台风德国人的哈</div>
+                </template>
+            </div>
+            <div class="text-item text-item-right">
+                <template>
+                    <div class="chat-box">哈哈哈</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
+                </template>
+            </div>
+            <div class="text-item">
+                <template>
+                    <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">哈哈哈</div>
+                </template>
+            </div>
+            <div class="text-item text-item-right">
+                <template>
+                    <div class="chat-box">哈哈哈</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
+                </template>
+            </div>
+            <div class="text-item">
+                <template>
+                    <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">哈哈sfdsf洒夫人双方围绕发生发生颠覆性的地方个人头是粉色法国v大哥vBert给对方VCD v不到十个斯蒂芬闰土股份人脱高峰日台风而他个死人头骨台风个人台风台风德国人的哈</div>
+                </template>
+            </div>
+            <div class="text-item text-item-right">
+                <template>
+                    <div class="chat-box">哈哈哈</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
+                </template>
+            </div>
+            <div class="text-item">
+                <template>
+                    <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">哈哈哈</div>
+                </template>
+            </div>
+            <div class="text-item text-item-right">
+                <template>
+                    <div class="chat-box">哈哈哈</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
+                </template>
+            </div>
+            <div class="text-item">
+                <template>
+                    <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">哈哈sfdsf洒夫人双方围绕发生发生颠覆性的地方个人头是粉色法国v大哥vBert给对方VCD v不到十个斯蒂芬闰土股份人脱高峰日台风而他个死人头骨台风个人台风台风德国人的哈</div>
+                </template>
+            </div>
+            <div class="text-item text-item-right">
+                <template>
+                    <div class="chat-box">哈哈哈</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
+                </template>
+            </div>
+            <div class="text-item">
+                <template>
+                    <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">哈哈哈</div>
+                </template>
+            </div>
+            <div class="text-item text-item-right">
+                <template>
+                    <div class="chat-box">哈哈哈</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
+                </template>
+            </div>
+            <div class="text-item">
+                <template>
+                    <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">哈哈sfdsf洒夫人双方围绕发生发生颠覆性的地方个人头是粉色法国v大哥vBert给对方VCD v不到十个斯蒂芬闰土股份人脱高峰日台风而他个死人头骨台风个人台风台风德国人的哈</div>
+                </template>
+            </div>
+            <div class="text-item text-item-right">
+                <template>
+                    <div class="chat-box">哈哈哈</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
+                </template>
+            </div> -->
         </div>
         </scroll>
         <emoj v-show="isShow"></emoj>
@@ -66,13 +155,16 @@
     import Scroll from "components/common/scroll/Scroll";
     import Emoj from "views/message/Emoj"
     import{getUserChatRecord} from "network/im/im";
+    import {mapGetters} from "vuex";
     export default {
         name: "MessageInterface",
         data(){
             return{
                 isShow:false,
                 info:"",
-                user_name:this.$route.query.user_name 
+                user_name:this.$route.query.user_name ,
+                target_id:this.$route.query.user_id ,
+                chat_records:[],
             }
         },
         components:{
@@ -80,6 +172,22 @@
             TabBar,
             Scroll,
             Emoj,
+        },
+        mounted(){
+            
+            // this.$nextTick(() => {
+			//     console.log("首次进入")
+            //     var Lis = document.querySelectorAll(".text-item dev");
+            //     console.log(Lis,"***************",Lis.length)
+            //     var l = document.querySelectorAll(".text-item")[0];
+            //     console.log(l,"####################")
+			//     // this.$refs.scroll.scrollToElement( Lis[Lis.length - 1], 300 );  // 滑动到指定元素,设置动画300ms
+		    // });
+        },
+        computed:{
+            ...mapGetters({
+                individuleInfo:'get_user_info'
+            })
         },
         methods:{
             back(){
@@ -95,28 +203,61 @@
             send_msg(){
                 console.log(this.info)
                 console.log("*********",this.$ws.ws)
+                var t = Date.parse(new Date()) / 1000;
                 let data = {
                     "content":this.info,
                     "target_id":String(this.$route.query.user_id),
                     "type":1,
+                    "user_id":this.individuleInfo.user_id,
+                    "media":1,
+                    "create_time":t,
                 }
                 console.log(data)
+                this.chat_records.push(data)
                 this.$ws.ws.send(JSON.stringify(data))
+                this.info = ""
             },
             get_chat_records(){
                 var target_user_id = this.$route.query.user_id;
-                var page = 1;
-                var page_num = 2;
+                var page = 0;
+                var page_num = -1;
                 console.log(target_user_id,"**********")
                 getUserChatRecord(target_user_id,page,page_num).then(res=>{
                     if (res.status===201){
                         console.log("===========")
                         console.log(res.data.data)
+                        this.chat_records = res.data.data.chat_records
+
+                        console.log(this.chat_records,"哈哈哈哈哈哈哈")
                     }else{
                         console.log("获取聊天记录失败")
                     }
                 })
-            }
+            },
+            wsOnopen() {
+                console.log('connect success')
+            },
+            wsOnMessage(e) {
+                console.log('收到一条新的消息',e.data,typeof(JSON.parse(e.data)),"====",typeof(this.chat_records[0]))
+                
+                this.chat_records.push(JSON.parse(e.data))
+                // this.showData += '<span style="float:right">'+ e.data + ' : say server' + '</span><br />'
+                // console.log(e.data)
+                // console.log(this.showData)
+            },
+            wsOnClose(e) {
+                console.log("======closed=========")
+                this.$ws.ws.close()
+            },
+            // myscroll(pos){
+            //     console.log(pos.y,"********************")
+            // },
+            // scrollToBottom(){
+            //     this.$nextTick(()=>{
+            //     let chat = document.getElementById("#chat")
+            //     chat.scrollTop = chat.scrollHeight
+            //     })
+            // },
         },
         created() {
             console.log("获取聊天记录")
@@ -124,9 +265,24 @@
                 var connectInfo = 'ws://' + "172.20.16.20:8890" + '/v1/im/user/chat?token=' + "Bearer " + window.localStorage.getItem('token')
                 this.$ws.ws = new WebSocket(connectInfo)
             }
+            this.$ws.ws.onopen = this.wsOnopen
+            this.$ws.ws.onmessage = this.wsOnMessage
+            this.$ws.ws.onclose = this.wsOnClose
             this.get_chat_records()
-
         },
+        updated:function(){
+            var Lis = document.querySelectorAll(".text-item");
+            console.log(Lis,"***************",Lis.length)
+            this.$refs.scroll.scrollToElement( Lis[Lis.length - 1], 300 );
+        },
+        // created: function(){ // 这里数据请求方法写在created和mounted中均可以。
+        //     this.getAPs().then(()=>{
+        //     let str_id = this.currentEqu.device_id;
+        //     let currentEquEle = document.getElementById(str_id);
+        //     document.getElementById('equList').scrollTop = currentEquEle.offsetTop - 130;
+        //     });
+
+        // },
         activated(){
             this.user_name = this.$route.query.user_name; 
         }
@@ -168,9 +324,9 @@
     .chat-item{
         height: 100%;
     }
-    >>> .contents{
+    /* >>> .contents{
         height: 100%;
-    }
+    } */
     .content{
         overflow: hidden;
         position: absolute;

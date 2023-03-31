@@ -75,24 +75,24 @@
                     console.log(this.$ws,"=============")
                     var connectInfo = 'ws://' + "172.20.16.20:8890" + '/v1/im/user/chat?token=' + "Bearer " + window.localStorage.getItem('token')
                     this.$ws.ws = new WebSocket(connectInfo)
-                    this.$ws.ws.onopen = this.wsOnopen
-                    this.$ws.ws.onmessage = this.wsOnMessage
-                    this.$ws.ws.onclose = this.wsOnClose
+                    // this.$ws.ws.onopen = this.wsOnopen
+                    // this.$ws.ws.onmessage = this.wsOnMessage
+                    // this.$ws.ws.onclose = this.wsOnClose
                 }
             },
-            wsOnopen() {
-                console.log('connect success')
-            },
-            wsOnMessage(e) {
-                console.log('receive data: ')
-                this.showData += '<span style="float:right">'+ e.data + ' : say server' + '</span><br />'
-                console.log(e.data)
-                console.log(this.showData)
-            },
-            wsOnClose(e) {
-                console.log("======closed=========")
-                this.$ws.ws.close()
-            },
+            // wsOnopen() {
+            //     console.log('connect success')
+            // },
+            // wsOnMessage(e) {
+            //     console.log('receive data: ')
+            //     this.showData += '<span style="float:right">'+ e.data + ' : say server' + '</span><br />'
+            //     console.log(e.data)
+            //     console.log(this.showData)
+            // },
+            // wsOnClose(e) {
+            //     console.log("======closed=========")
+            //     this.$ws.ws.close()
+            // },
         },
         activated() {
             // if (this.$socket != null && !this.$socket.connected) {

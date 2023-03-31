@@ -1,14 +1,24 @@
 <template>
     <div class="msg-list">
-        <div class="msg-item" @click="tochat" v-for="chat in chat_list">
+        <div class="msg-item" @click="tochat(index)" v-for="(chat,index) in chat_list">
             <div class="tx">
-                <img src="http://172.20.16.20:9000/csdn/f7196618-46d5-4889-877b-d6a8a1bc1a2d.jpg">
+                <img src="http://172.20.16.20:9000/csdn/head-photo/tx.jpg">
             </div>
             <div class="info">
                 <div class="info-name">{{ chat.user_name }}</div>
                 <div class="info-introduce">{{ chat.introduce }}</div>
             </div>
         </div>
+        <!-- <div class="msg-item" @click="tochat1">
+            <div class="tx">
+                <img src="http://172.20.16.20:9000/csdn/head-photo/tx.jpg">
+            </div>
+            <div class="info">
+                <div class="info-name">谢勇</div>
+                <div class="info-introduce">haha</div>
+            </div>
+        </div> -->
+        
     </div>
 </template>
 
@@ -22,13 +32,22 @@
             }
         },
         methods:{
-            tochat(){
-                console.log(this.chat_list.user_name,"------------")
+            tochat1(){
                 this.$router.push({
                     path:'/chat',
                     query:{
-                        user_name:this.chat_list.user_name,
-                        user_id:this.chat_list.user_id,
+                        user_name:"谢勇",
+                        user_id:1001,
+                    }
+                })
+            },
+            tochat(index){
+                console.log(this.chat_list[index].user_name,"------------")
+                this.$router.push({
+                    path:'/chat',
+                    query:{
+                        user_name:this.chat_list[index].user_name,
+                        user_id:this.chat_list[index].user_id,
                     }
                 })
             },
@@ -44,7 +63,7 @@
                 })
             }
         },
-        created(){
+        activated(){
             this.get_chat_list()
         }
         // components:{
