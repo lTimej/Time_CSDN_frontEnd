@@ -143,7 +143,7 @@
     .content{
         overflow: hidden;
         position: absolute;
-        top: 88px;
+        top: 100px;
         bottom: 49px;
         left: 0;
         right: 0;

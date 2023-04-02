@@ -18,117 +18,23 @@
             <div class="dialog-text-box"  ref="container">
                 <div class="text-item" :class="{'text-item-right':target_id==record.target_id}" v-for="record in chat_records">
                     <template v-if="target_id==record.target_id">
-                        <div class="chat-box">{{record.content}}</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
+                        <div v-if="record.media==1" class="chat-box">{{record.content}}</div>
+                        <div v-if="record.media==4" class="chat-box"><img :src="record.url"></div> 
+                        <div v-if="record.media==5" class="chat-box"><img :src="record.url" class="picture"></div> 
+                        <div class="chat-name"><img src="~assets/img/my.jpg"></div>
                     </template>
                     <template v-else>
-                        <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">{{record.content}}</div> 
+                        <div class="chat-name"><img src="~assets/img/xy.jpg"></div>
+                        <div v-if="record.media==1" class="chat-box">{{record.content}}</div>
+                        <div v-if="record.media==4" class="chat-box"><img :src="record.url"></div>
+                        <div v-if="record.media==5" class="chat-box"><img :src="record.url" class="picture"></div>
                     </template>
                 </div>
             </div>
-
-            <!-- <div class="text-item">
-                <template>
-                    <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">哈哈哈</div>
-                </template>
-            </div>
-            <div class="text-item text-item-right">
-                <template>
-                    <div class="chat-box">哈哈哈</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
-                </template>
-            </div>
-            <div class="text-item">
-                <template>
-                    <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">哈哈sfdsf洒夫人双方围绕发生发生颠覆性的地方个人头是粉色法国v大哥vBert给对方VCD v不到十个斯蒂芬闰土股份人脱高峰日台风而他个死人头骨台风个人台风台风德国人的哈</div>
-                </template>
-            </div>
-            <div class="text-item text-item-right">
-                <template>
-                    <div class="chat-box">哈哈哈</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
-                </template>
-            </div>
-            <div class="text-item">
-                <template>
-                    <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">哈哈哈</div>
-                </template>
-            </div>
-            <div class="text-item text-item-right">
-                <template>
-                    <div class="chat-box">哈哈哈</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
-                </template>
-            </div>
-            <div class="text-item">
-                <template>
-                    <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">哈哈sfdsf洒夫人双方围绕发生发生颠覆性的地方个人头是粉色法国v大哥vBert给对方VCD v不到十个斯蒂芬闰土股份人脱高峰日台风而他个死人头骨台风个人台风台风德国人的哈</div>
-                </template>
-            </div>
-            <div class="text-item text-item-right">
-                <template>
-                    <div class="chat-box">哈哈哈</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
-                </template>
-            </div>
-            <div class="text-item">
-                <template>
-                    <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">哈哈哈</div>
-                </template>
-            </div>
-            <div class="text-item text-item-right">
-                <template>
-                    <div class="chat-box">哈哈哈</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
-                </template>
-            </div>
-            <div class="text-item">
-                <template>
-                    <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">哈哈sfdsf洒夫人双方围绕发生发生颠覆性的地方个人头是粉色法国v大哥vBert给对方VCD v不到十个斯蒂芬闰土股份人脱高峰日台风而他个死人头骨台风个人台风台风德国人的哈</div>
-                </template>
-            </div>
-            <div class="text-item text-item-right">
-                <template>
-                    <div class="chat-box">哈哈哈</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
-                </template>
-            </div>
-            <div class="text-item">
-                <template>
-                    <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">哈哈哈</div>
-                </template>
-            </div>
-            <div class="text-item text-item-right">
-                <template>
-                    <div class="chat-box">哈哈哈</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
-                </template>
-            </div>
-            <div class="text-item">
-                <template>
-                    <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">哈哈sfdsf洒夫人双方围绕发生发生颠覆性的地方个人头是粉色法国v大哥vBert给对方VCD v不到十个斯蒂芬闰土股份人脱高峰日台风而他个死人头骨台风个人台风台风德国人的哈</div>
-                </template>
-            </div>
-            <div class="text-item text-item-right">
-                <template>
-                    <div class="chat-box">哈哈哈</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
-                </template>
-            </div>
-            <div class="text-item">
-                <template>
-                    <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">哈哈哈</div>
-                </template>
-            </div>
-            <div class="text-item text-item-right">
-                <template>
-                    <div class="chat-box">哈哈哈</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
-                </template>
-            </div>
-            <div class="text-item">
-                <template>
-                    <div class="chat-name"><img src="~assets/img/my.jpg"></div><div class="chat-box">哈哈sfdsf洒夫人双方围绕发生发生颠覆性的地方个人头是粉色法国v大哥vBert给对方VCD v不到十个斯蒂芬闰土股份人脱高峰日台风而他个死人头骨台风个人台风台风德国人的哈</div>
-                </template>
-            </div>
-            <div class="text-item text-item-right">
-                <template>
-                    <div class="chat-box">哈哈哈</div> <div class="chat-name"><img src="~assets/img/my.jpg"></div>
-                </template>
-            </div> -->
         </div>
         </scroll>
-        <emoj v-show="isShow"></emoj>
+        <emoj v-show="isShow" :image_list="image_list" @send_emoj="send_emoj" />
+        <more v-show="showMore" @send_photo="send_photo" />
         <tab-bar class="chat-tarbar">
             <svg class="icon">
                 <use xlink:href="#icon-yuyin" />
@@ -139,7 +45,7 @@
             <svg class="icon" @click="show_emoj">
                 <use xlink:href="#icon-7biaoqing-1" />
             </svg>
-            <svg class="icon" v-show="info==''">
+            <svg class="icon" v-show="info==''" @click="toMore">
                 <use xlink:href="#icon-jiahao"></use>
             </svg>
             <svg class="icon" v-show="info!=''" @click="send_msg">
@@ -154,6 +60,7 @@
     import TabBar from "components/common/tabbar/TabBar";
     import Scroll from "components/common/scroll/Scroll";
     import Emoj from "views/message/Emoj"
+    import More from "views/message/More"
     import{getUserChatRecord} from "network/im/im";
     import {mapGetters} from "vuex";
     export default {
@@ -161,10 +68,12 @@
         data(){
             return{
                 isShow:false,
+                showMore:false,
                 info:"",
                 user_name:this.$route.query.user_name ,
                 target_id:this.$route.query.user_id ,
                 chat_records:[],
+                image_list:[],
             }
         },
         components:{
@@ -172,9 +81,16 @@
             TabBar,
             Scroll,
             Emoj,
+            More,
         },
         mounted(){
-            
+            let imgList = []
+            const files = require.context("@/assets/doutu/emoj",true,/\.*\.jpg|jpeg|png|gif$/).keys();
+            files.forEach((e)=> {
+                imgList.push(require("../../assets/doutu/emoj" + e.slice(1)));
+            });
+            this.image_list = imgList;
+            console.log(this.image_list,"**9999999990000000**")
             // this.$nextTick(() => {
 			//     console.log("首次进入")
             //     var Lis = document.querySelectorAll(".text-item dev");
@@ -197,8 +113,13 @@
                 console.log("emoj")
                 this.isShow = !this.isShow;
             },
+            toMore(){
+                console.log(this.showMore,"查看更多")
+                this.showMore = !this.showMore;
+            },
             cancel_emoj(){
                 this.isShow = false;
+                this.showMore = false;
             },
             send_msg(){
                 console.log(this.info)
@@ -217,6 +138,36 @@
                 this.$ws.ws.send(JSON.stringify(data))
                 this.info = ""
             },
+            send_emoj(index){
+                console.log(index,"有有有有有有有有有")
+                var t = Date.parse(new Date()) / 1000;
+                let data = {
+                    "url":this.image_list[index],
+                    "target_id":String(this.$route.query.user_id),
+                    "type":1,
+                    "user_id":this.individuleInfo.user_id,
+                    "media":4,
+                    "create_time":t,
+                }
+                console.log(data)
+                this.chat_records.push(data)
+                this.$ws.ws.send(JSON.stringify(data))
+                this.isShow = false;
+            },
+            send_photo(picture){
+                var t = Date.parse(new Date()) / 1000;
+                let data = {
+                    "url":"http://172.20.16.20:9000/" + picture,
+                    "target_id":String(this.$route.query.user_id),
+                    "type":1,
+                    "user_id":this.individuleInfo.user_id,
+                    "media":5,
+                    "create_time":t,
+                }
+                console.log(data,"this is a picture!!!!!!!!!!!!")
+                this.chat_records.push(data)
+                this.$ws.ws.send(JSON.stringify(data))
+            },
             get_chat_records(){
                 var target_user_id = this.$route.query.user_id;
                 var page = 0;
@@ -226,8 +177,11 @@
                     if (res.status===201){
                         console.log("===========")
                         console.log(res.data.data)
-                        this.chat_records = res.data.data.chat_records
-
+                        if(!res.data.data.chat_records){
+                            this.chat_records = []
+                        }else{
+                            this.chat_records = res.data.data.chat_records
+                        }
                         console.log(this.chat_records,"哈哈哈哈哈哈哈")
                     }else{
                         console.log("获取聊天记录失败")
@@ -381,7 +335,9 @@
         border-bottom: 9px solid transparent;
         transform: translateY(-50%);
     }
-        
+    .chat-box .picture{
+        width: 60px;
+    } 
     .text-item-right {
         justify-content: flex-end;
     }

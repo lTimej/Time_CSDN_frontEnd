@@ -20,3 +20,14 @@ export function getUserChatList() {
         method:'get',
     })
 }
+
+export  function uploadChatPicture(file) {
+    return requests({
+        url:'/v1/im/chat/upload/picture',
+        method:'post',
+        // headers:{
+        //     'Content-Type':'multipart/form-data'
+        // },
+        data:file
+    })
+}
