@@ -31,3 +31,11 @@ export  function uploadChatPicture(file) {
         data:file
     })
 }
+
+export  function getUserChatCount() {
+    return requests({
+        url:'/v1/im/chat/count',
+        method:'get',
+    })
+}
+

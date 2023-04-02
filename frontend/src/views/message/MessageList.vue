@@ -3,22 +3,44 @@
         <div class="msg-item" @click="tochat(index)" v-for="(chat,index) in chat_list">
             <div class="tx">
                 <img src="http://172.20.16.20:9000/csdn/head-photo/tx.jpg">
+                <div class="msg-count" v-show="chat.msg_count != 0"><span>{{ chat.msg_count }}</span></div>
             </div>
             <div class="info">
-                <div class="info-name">{{ chat.user_name }}</div>
-                <div class="info-introduce">{{ chat.introduce }}</div>
+                <div class="info-name"><spn>{{ chat.user_name }}</spn></div>
+                <div class="info-msg info-msg-text" v-if="chat.media == 1"><span>{{ chat.msg }}</span></div>
+                <div class="info-msg" v-if="chat.media == 4"><img :src="chat.msg"></div>
+                <div class="info-msg" v-if="chat.media == 5"><span>[图片]</span></div>
+            </div>
+            <div class="info-item">
+                <div class="msg-time"><span>{{chat.create_time}}</span></div>
             </div>
         </div>
-        <!-- <div class="msg-item" @click="tochat1">
+        <div class="msg-item" @click="tochat1">
             <div class="tx">
                 <img src="http://172.20.16.20:9000/csdn/head-photo/tx.jpg">
+                <div class="msg-count"><span>10</span></div>
             </div>
             <div class="info">
                 <div class="info-name">谢勇</div>
-                <div class="info-introduce">haha</div>
+                <div class="info-msg info-msg-text">haha</div>
             </div>
-        </div> -->
-        
+            <div class="info-item">
+                <div class="msg-time"><span>2020-03-03</span></div>
+            </div>
+        </div>
+        <div class="msg-item" @click="tochat1">
+            <div class="tx">
+                <img src="http://172.20.16.20:9000/csdn/head-photo/tx.jpg">
+                <div class="msg-count"><span>10</span></div>
+            </div>
+            <div class="info">
+                <div class="info-name">谢勇</div>
+                <div class="info-msg info-msg-text">锄禾日当午，汗滴禾下土，谁知盘中餐，粒粒皆辛苦！</div>
+            </div>
+            <div class="info-item">
+                <div class="msg-time"><span>2020-03-03</span></div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -48,6 +70,7 @@
                     query:{
                         user_name:this.chat_list[index].user_name,
                         user_id:this.chat_list[index].user_id,
+                        msg_count:this.chat_list[index].msg_count,
                     }
                 })
             },
@@ -84,7 +107,7 @@
     }
     .tx , .info{
         float: left;
-        text-align: center;
+        /* text-align: center; */
         margin-right: 10px;
 
     }
@@ -99,9 +122,41 @@
         font-size: 16px;
         font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
     }
-    .info .info-introduce{
+    .info .info-msg{
         /* float: left; */
         font-size: 13px;
         color: #666666;
+    }
+    .info .info-msg-text{
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp:1;
+        -webkit-box-orient: vertical;
+        width: 200px;
+        overflow: hidden;
+    }
+    .info-item{
+        float:right;
+        text-align: center;
+    margin-right: 10px;
+    }
+    .tx .msg-count{
+        background-color: red;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        position:relative;
+        left: 30px;
+    }
+    .tx .msg-count span{
+        font-size: 11px;
+        display: block;
+        position: relative;
+        color: #fff;
+        bottom: 42px;
+        text-align: center;
+    }
+    .info-item .msg-time{
+        font-size: 13px;
     }
 </style>

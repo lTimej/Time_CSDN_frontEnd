@@ -239,6 +239,9 @@
         // },
         activated(){
             this.user_name = this.$route.query.user_name; 
+            if(this.$route.query.msg_count != 0){
+                this.get_chat_records();
+            }
         }
         
     }

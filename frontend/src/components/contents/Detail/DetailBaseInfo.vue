@@ -73,6 +73,7 @@
                     query:{
                         user_name:this.article.user_name,
                         user_id:this.article.user_id,
+                        msg_count:0,
                     }
                 })
             }

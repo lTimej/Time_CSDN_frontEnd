@@ -3,6 +3,7 @@
         <div v-if="!isActive"><slot name="icon"></slot></div>
         <div v-else><slot name="active_icon"></slot></div>
         <div :style="ActiveStyle"><slot name="title"></slot></div>
+        <div class="records"><slot name="records"></slot></div>
     </div>
 </template>
 
@@ -23,7 +24,8 @@
         },
         data(){
             return{
-                new_path:this.path
+                new_path:this.path,
+                showMsgCount:false,
             }
         },
         computed:{
@@ -36,6 +38,12 @@
         },
         methods:{
             changeRouter(){
+                // if(this.new_path == "/message"){
+                //     this.showMsgCount = true;
+                // }else{
+                //     this.showMsgCount = false;
+                // }
+                this.$emit("get_chat_count")
                 if(this.new_path === "/unloginprofile" || this.new_path === "/profile"){
                     let token = window.localStorage.getItem('token');
                     if(token) {
@@ -48,6 +56,7 @@
                     this.$router.push(this.new_path).catch(()=>{});
                     return;
                 }
+                console.log("获取用户未读取消息总数！！！！！！！！！！！！！！！！！")
                 this.$router.replace(this.new_path).catch(()=>{});
             }
         },
@@ -78,6 +87,16 @@
         margin-bottom: 3px;
     }
     .ActiveColor{
-    color: red;
-  }
+        color: red;
+    }
+    .message .records {
+        position: relative;
+        width: 20px;
+        height: 20px;
+        bottom: 50px;
+        left: 40px;
+        background-color: red;
+        border-radius: 50%;
+        color: white;
+    }
 </style>

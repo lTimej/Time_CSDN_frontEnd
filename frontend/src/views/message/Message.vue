@@ -147,6 +147,6 @@
         bottom: 49px;
         left: 0;
         right: 0;
-        background-color: white;
+        /* background-color: white; */
     }
 </style>
