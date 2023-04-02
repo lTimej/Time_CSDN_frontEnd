@@ -70,7 +70,7 @@
 <script>
     import ScrollX from "components/common/scroll/ScrollX";
     export default {
-        name: "Blog",
+        name: "Cart",
         components:{
             ScrollX
         }

@@ -27,7 +27,7 @@
     .profile-sample-title{
         height: 39px;
         margin: 10px 10px 0 10px;
-        padding: 20px 0 0 0;
+        padding: 5px 0 0 0;
     }
     .profile-sample-title .left{
         font-size: 20px;

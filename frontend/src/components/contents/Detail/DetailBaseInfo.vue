@@ -126,7 +126,7 @@
     .author-info .private-letter , .author-info .focus{
         float: right;
         height: 24px;
-        width: 60px;
+        /* width: 60px; */
         border-radius: 30px;
         border: 1px solid lightgray;
         line-height: 24px;

@@ -6,8 +6,8 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 
 const Home = () => import('views/home/Home');
-const Blog = () => import('views/blog/Blog');
-const Study = () => import('views/study/Study');
+const Cart = () => import('views/cart/Cart');
+const Shop = () => import('views/shop/Shop');
 const Message = () => import('views/message/Message');
 const MessageInterface = () => import('views/message/MessageInterface');
 const Profile = () => import('views/profile/Profile');
@@ -42,13 +42,13 @@ const routes = [
     },
     {
       name:'博客',
-      component:Blog ,
-      path:'/blog'
+      component:Cart ,
+      path:'/cart'
     },
     {
       name:'学习',
-      component:Study ,
-      path:'/study'
+      component:Shop ,
+      path:'/shop'
     },
     {
       name:'消息',

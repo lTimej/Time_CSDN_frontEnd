@@ -1,14 +1,14 @@
 <template>
     <div class="home">
         <nav-bar class="home-nav">
-            <div slot="left" @click="toSearch">
+            <div slot="left" @click="toSearch" class="home-left">
                 <el-input
                     placeholder="推荐内容"
                     prefix-icon="el-icon-search"
                     v-model="search">
                 </el-input>
             </div>
-            <div  slot="right"><i class="el-icon-circle-plus" style="color: red;font-size: 32px;padding: 10px 10px 10px 5px"></i></div>
+            <div  slot="right" class="home-right"><i class="el-icon-circle-plus" style="color: red;font-size: 32px;padding: 10px 10px 10px 5px"></i></div>
         </nav-bar>
         <div>
             <scroll-x class="content-x">
@@ -173,8 +173,17 @@
         top: 0;
         z-index: 9;
     }
+    .home-nav .home-left{
+        width: 90%;
+    }
+    .home-nav .home-right{
+        width: 10%;
+    }
+    .home-nav .left .el-input{
+        width: 100%;
+    }
     >>> .el-input__inner{
-        width: 360px;
+        /* width: 360px; */
         border-radius: 30px;
         height: 44px;
         background-color: #f2f2f2;

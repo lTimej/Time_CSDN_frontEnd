@@ -90,16 +90,19 @@
         background-color:#fff;
         display: flex;
         /*text-align: center;*/
+        line-height: 29px;
       }
     .bottom-bar .bottom-bar-left{
         float: left;
+        width: 60%;
     }
     .bottom-bar .bottom-bar-right{
         float: right;
         display: flex;
+        width: 40%;
     }
     .bottom-bar .bottom-bar-left .input-frame{
-        width: 200px;
+        /* width: 200px; */
         height: 39px;
         line-height: 39px;
         margin: 10px 10px;
@@ -111,7 +114,7 @@
     .bottom-bar .bottom-bar-right .c{
         flex:1;
         width: 39px;
-        padding: 2px 3px;
+        margin: 2px 4px;
         text-align: center;
         font-size: 13px;
         color: #000000;

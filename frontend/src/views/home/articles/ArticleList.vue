@@ -78,6 +78,7 @@
     }
     .article-list .article-list-item .article-title{
         margin: 0 0 5px 0;
+        font-size: 22px;
     }
     .article-list .article-list-item .article-intro{
         margin: 5px 0;

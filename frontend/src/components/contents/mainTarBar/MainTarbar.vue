@@ -5,15 +5,15 @@
           <img slot="active_icon" src="~assets/img/tabbar/home_active.svg" alt="">
           <div slot="title">首页</div>
         </tab-bar-item>
-        <tab-bar-item path="/study" ActiveColor="deeppink" @get_chat_count="get_chat_count">
+        <tab-bar-item path="/shop" ActiveColor="deeppink" @get_chat_count="get_chat_count">
           <img slot="icon" src="~assets/img/tabbar/ask.png" alt="">
           <img slot="active_icon" src="~assets/img/tabbar/ask.png" alt="">
-          <div slot="title">学习</div>
+          <div slot="title">商城</div>
         </tab-bar-item>
-        <tab-bar-item path="/blog" ActiveColor="deeppink" @get_chat_count="get_chat_count">
+        <tab-bar-item path="/cart" ActiveColor="deeppink" @get_chat_count="get_chat_count">
           <img slot="icon" src="~assets/img/tabbar/bbs.png" alt="">
           <img slot="active_icon" src="~assets/img/tabbar/bbs.png" alt="">
-          <div slot="title">博客</div>
+          <div slot="title">购物车</div>
         </tab-bar-item>
         <tab-bar-item path="/message" ActiveColor="deeppink" @get_chat_count="get_chat_count" :class="{'message':msg_count!=0}">
           <img slot="icon" src="~assets/img/tabbar/ask.png" alt="">

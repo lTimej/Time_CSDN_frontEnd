@@ -309,7 +309,7 @@
     }
     .article-detail-nav-copy{
         position: fixed;
-         background-color: rgba(245, 245, 245, 0.8);
+        background-color: rgba(245, 245, 245, 0.8);
         left: 0;
         right: 0;
         top: 0;
@@ -322,7 +322,7 @@
     }
     .article-detail-nav-copy .focus{
         height: 24px;
-        width: 60px;
+        /* width: 60px; */
         border-radius: 30px;
         border: 1px solid lightgray;
         line-height: 24px;
