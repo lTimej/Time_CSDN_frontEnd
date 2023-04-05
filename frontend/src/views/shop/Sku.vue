@@ -1,6 +1,15 @@
 <template>
     <div class="sku">
-        <scroll
+        <div class="sku-label">
+            <div class="sku-to-home">
+                <i class="el-icon-house"></i>
+            </div>
+            <div class="sku-to-cart">
+                <i class="el-icon-shopping-cart-2"></i>
+            </div>
+        </div>
+
+        <scroll style="bottom: 49px"
             class="content"
             ref="scroll"
         >
@@ -24,6 +33,84 @@
                     <img src="~assets/img/6.png" alt="图片6" />
                 </swiper-slide>
             </swiper>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
+            <div>
+                aaaaaaaaa
+            </div>
         </scroll>
         <div class="sku-nav">
             <div class="sku-shopper">
@@ -83,6 +170,27 @@
 </script>
 
 <style scoped>
+    .sku-label{
+        position: fixed;
+        top: 100px;
+        right:60px;
+        font-size: 18px;
+        text-align: center;
+        z-index: 99;
+    }
+    .sku-label .sku-to-home{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: darkgray;
+        margin-bottom: 8px;
+    }
+    .sku-label .sku-to-cart{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: darkgray;
+    }
   .sku-nav{
         height: 49px;
         display: flex;
@@ -144,13 +252,14 @@
         line-height: 49px;
     }
     .content{
-        position: absolute;
+        position: absolute ;
         overflow: hidden;
         top: 0;
         left: 0;
         right: 0;
-        bottom: 49;
+        bottom: 49 !important;
         text-align: center;
+        
     }
     
 </style>
