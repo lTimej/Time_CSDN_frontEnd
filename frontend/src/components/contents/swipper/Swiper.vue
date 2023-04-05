@@ -4,12 +4,16 @@
         <!-- 需要进行轮播的部分 -->
         <div class="swiper-wrapper">
         <!-- 每个节点 -->
-        <div class="swiper-slide">
             <slot></slot>
-        </div>
-        <!-- <div class="swiper-slide">
-            <img src="~assets/img/my.jpg" alt="图片3" />
-        </div> -->
+            <!-- <div class="swiper-slide">
+                <img src="~assets/img/my.jpg" alt="图片1" />
+            </div>
+            <div class="swiper-slide">
+                <img src="~assets/img/xy.jpg" alt="图片2" />
+            </div>
+            <div class="swiper-slide">
+                <img src="~assets/img/my.jpg" alt="图片3" />
+            </div> -->
         </div>
 
         <!--如果需要使用分页器-->
