@@ -228,8 +228,9 @@
         height: 180px;
     }
     .shop-spu-info{
-        width: 140px;
         text-align: center;
+        padding: 0 5px;
+
     }
     .shop-spu-title{
         text-overflow: ellipsis;

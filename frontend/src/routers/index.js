@@ -29,6 +29,7 @@ const MyCollection = () => import("views/profile/MyCollection");
 const Search = () => import ("views/search/Search");
 const AllSearch = () => import ("views/search/AllSearch");
 const Spu = () => import ("views/shop/Spu")
+const Sku = () => import ("views/shop/Sku")
 
 const routes = [
     {
@@ -200,6 +201,14 @@ const routes = [
       name:'spu',
       component:Spu,
       path:'/spu',
+      meta:{
+          isShowTabbar:true
+        }
+    },
+    {
+      name:'sku',
+      component:Sku,
+      path:'/sku',
       meta:{
           isShowTabbar:true
         }

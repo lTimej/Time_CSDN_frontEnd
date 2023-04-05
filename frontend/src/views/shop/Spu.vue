@@ -23,7 +23,7 @@
             ref="scroll"
         >
             <div class="spu-item">
-                <div class="shop-spu-item" v-for="(spu,index) in spus">
+                <div class="shop-spu-item" v-for="(spu,index) in spus" @click="toSku(spu.spu_id)">
                     <div class="shop-img">
                         <img :src="spu.default_image">
                     </div>
@@ -76,6 +76,15 @@
                     this.spus = res.data.data.product_spus
                 }).catch(err =>{
                     console.log(err,"3333333333")
+                })
+            },
+            toSku(spu_id){
+                console.log(spu_id,"###4444444444444")
+                this.$router.push({
+                    path:'/sku',
+                    query:{
+                        spu_id: spu_id
+                    }
                 })
             }
         },
