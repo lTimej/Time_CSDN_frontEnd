@@ -4,22 +4,9 @@
             class="content"
             ref="scroll"
         >
-            <swiper-item>
-                <swiper>
-                <div ckass="sku-item">
-                    <div class="sku-swipper">
-                        <img src="~assets/img/my.jpg">
-                    </div>
-                </div>
-                <div ckass="sku-item">
-                    <div class="sku-swipper">
-                        <img src="~assets/img/my.jpg">
-                    </div>
-                </div>
+            <swiper>
+                <img src="~assets/img/my.jpg" alt="图片1" />
             </swiper>
-            </swiper-item>
-            
-            
         </scroll>
         <div class="sku-nav">
             <div class="sku-shopper">
@@ -47,15 +34,14 @@
 <script>
     import NavBar from "components/common/navbar/NavBar";
     import Scroll from "components/common/scroll/Scroll";
-    import Swiper from "components/common/swiper/Swiper"
-    import SwiperItem from "components/common/swiper/SwiperItem"
+    import Swiper from "components/contents/swipper/Swiper"
     export default {
         name: "Sku",
         components:{
             NavBar,
             Scroll,
             Swiper,
-            SwiperItem,
+            // SwiperSlide,
         },
         data(){
             return{
@@ -63,7 +49,19 @@
             }
         },
         methods:{
-            
+            // onSwiper(swiper) {
+            //     console.log("111", swiper);
+            // },
+            // onSlideChange() {
+            //     console.log('slide change');
+            // },
+            // onSlidePrevTransitionEnd(){
+            //     console.log("向前滚动结束了")
+            // },
+            // onSlideNextTransitionEnd(){
+            //     console.log("向后滚动结束了")
+            // },
+
         },
         activated(){
             
@@ -141,4 +139,5 @@
         bottom: 49;
         text-align: center;
     }
+    
 </style>
