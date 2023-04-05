@@ -28,6 +28,7 @@ const UserFocusFans = () => import ("views/profile/children/UserFocusFans");
 const MyCollection = () => import("views/profile/MyCollection");
 const Search = () => import ("views/search/Search");
 const AllSearch = () => import ("views/search/AllSearch");
+const Spu = () => import ("views/shop/Spu")
 
 const routes = [
     {
@@ -191,6 +192,14 @@ const routes = [
       name:'聊天界面',
       component:MessageInterface,
       path:'/chat',
+      meta:{
+          isShowTabbar:true
+        }
+    },
+    {
+      name:'spu',
+      component:Spu,
+      path:'/spu',
       meta:{
           isShowTabbar:true
         }

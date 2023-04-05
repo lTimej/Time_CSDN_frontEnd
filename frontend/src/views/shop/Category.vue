@@ -1,6 +1,9 @@
 <template>
     <div class="cate">
-        <div class="shop-cate">
+        <div class="shop-cate" v-for="(category,index) in categorys" @click="toSpu(index)">
+            <span>{{ category.name }}</span>
+        </div>
+        <!-- <div class="shop-cate">
             <span>裙子</span>
         </div>
         <div class="shop-cate">
@@ -38,7 +41,7 @@
         </div>
         <div class="shop-cate">
             <span>食品</span>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -48,9 +51,20 @@
         components:{
             
         },
+        props:{
+            categorys:{
+                type: Array,
+                default:[],
+            }
+        },
         data(){
             return{
                 
+            }
+        },
+        methods:{
+            toSpu(index){
+                this.$emit("toSpu",index)
             }
         }
     }
