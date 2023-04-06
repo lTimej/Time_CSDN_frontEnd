@@ -14,103 +14,18 @@
             ref="scroll"
         >
             <swiper>
-                <swiper-slide>
-                    <img src="~assets/img/1.png" alt="图片1" />
-                </swiper-slide>
+                <!-- <swiper-slide v-for="(swiper_image,_) in sku_desc.swiper_images" :key="index">
+                    <img :src="swiper_image" alt="图片1" />
+                </swiper-slide> -->
                 <swiper-slide>
                     <img src="~assets/img/2.png" alt="图片2" />
                 </swiper-slide>
                 <swiper-slide>
-                    <img src="~assets/img/3.png" alt="图片3" />
-                </swiper-slide>
-                <swiper-slide>
-                    <img src="~assets/img/4.png" alt="图片4" />
-                </swiper-slide>
-                <swiper-slide>
-                    <img src="~assets/img/5.png" alt="图片5" />
-                </swiper-slide>
-                <swiper-slide>
-                    <img src="~assets/img/6.png" alt="图片6" />
+                    <img src="~assets/img/3.png" alt="图片2" />
                 </swiper-slide>
             </swiper>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
-            <div>
-                aaaaaaaaa
-            </div>
+            <sku-base-info :sku_desc="sku_desc" />
+            <sku-spec :sku_spec="sku_spec"/>
         </scroll>
         <div class="sku-nav">
             <div class="sku-shopper">
@@ -140,6 +55,9 @@
     import Scroll from "components/common/scroll/Scroll";
     import Swiper from "components/contents/swipper/Swiper"
     import SwiperSlide from "components/contents/swipper/SwiperSlide"
+    import {getSkuBySpuId} from "network/shop/product"
+    import SkuBaseInfo from "views/shop/child/SkuBaseInfo"
+    import SkuSpec from "views/shop/child/SkuSpec"
     export default {
         name: "Sku",
         components:{
@@ -147,29 +65,38 @@
             Scroll,
             Swiper,
             SwiperSlide,
+            SkuBaseInfo,
+            SkuSpec,
         },
         data(){
             return{
-                spu_id: 1
+                spu_id: this.$route.query.spu_id,
+                sku_desc:{},
+                sku_spec:{},
             }
         },
         methods:{
             get_sku_by_spu_id(){
-                getSkuBySpuId(spu_id).then(res => {
+                getSkuBySpuId(this.spu_id).then(res => {
                     console.log(res,"==============")
+                    this.sku_desc = res.data.data
+                    this.sku_spec = this.sku_desc.sku_spec
                 }).catch(err =>{
                     console.log(err)
                 })
             }
         },
         activated(){
-            this.spu_id = this.$route.query.spu_id
+            // this.spu_id = this.$route.query.spu_id
             this.get_sku_by_spu_id()
         }
     }
 </script>
 
 <style scoped>
+    .sku{
+        background-color: lightgray;
+    }
     .sku-label{
         position: fixed;
         top: 100px;
@@ -258,8 +185,10 @@
         left: 0;
         right: 0;
         bottom: 49 !important;
-        text-align: center;
+        /* text-align: center; */
+        background-color: rgba(125,125,125,0.1)
         
     }
+    
     
 </style>

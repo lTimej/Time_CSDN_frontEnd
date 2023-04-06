@@ -18,3 +18,13 @@ export function getProductSpu(category_id) {
         }
     })
 }
+
+export function getSkuBySpuId(spu_id) {
+    return requests({
+        url:'/v1/shop/product/desc',
+        method:'get',
+        params:{
+           spu_id:spu_id,
+        }
+    })
+}

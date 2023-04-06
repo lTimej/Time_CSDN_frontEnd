@@ -60,6 +60,7 @@
             return{
                 sort:"zonghe",
                 category_id:this.$route.query.category_id,
+                spus:[],
             }
         },
         methods:{
