@@ -1,6 +1,6 @@
 <template>
     <div class="sku-spec">
-        <div class="sku-spec-item">
+        <div class="sku-spec-item" @click="toSpecTabar">
             <span>选择  </span>
             <span class="spec">{{ sku_spec.label}}</span>
         </div>
@@ -31,6 +31,11 @@
                 
             }
         },
+        methods:{
+            toSpecTabar(){
+                this.$emit("toSpecTabar")
+            }
+        }
     
     }
 </script>

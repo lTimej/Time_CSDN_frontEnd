@@ -25,9 +25,9 @@
                 </swiper-slide>
             </swiper>
             <sku-base-info :sku_desc="sku_desc" />
-            <sku-spec :sku_spec="sku_spec"/>
+            <sku-spec :sku_spec="sku_spec" @toSpecTabar="toSpecTabar"/>
         </scroll>
-        <sku-spec-tabar v-show="false"/>
+        <sku-spec-tabar v-show="isShowSpecTabar"/>
         <sku-nav />
     </div>
 </template>
@@ -59,6 +59,7 @@
                 spu_id: this.$route.query.spu_id,
                 sku_desc:{},
                 sku_spec:{},
+                isShowSpecTabar:false,
             }
         },
         methods:{
@@ -70,6 +71,9 @@
                 }).catch(err =>{
                     console.log(err)
                 })
+            },
+            toSpecTabar(){
+                this.isShowSpecTabar = !this.isShowSpecTabar
             }
         },
         activated(){
