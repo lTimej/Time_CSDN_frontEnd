@@ -1,5 +1,5 @@
 <template>
-    <div class="sku">
+    <div class="sku" >
         <div class="sku-label">
             <div class="sku-to-home">
                 <i class="el-icon-house"></i>
@@ -10,25 +10,33 @@
         </div>
 
         <scroll style="bottom: 49px"
-            class="content"
             ref="scroll"
+            :class="{'content-gray':isShowSpecTabar==true,'content':isShowSpecTabar==false}"
         >
-            <swiper>
-                <!-- <swiper-slide v-for="(swiper_image,_) in sku_desc.swiper_images" :key="index">
-                    <img :src="swiper_image" alt="图片1" />
-                </swiper-slide> -->
-                <swiper-slide>
-                    <img src="~assets/img/2.png" alt="图片2" />
-                </swiper-slide>
-                <swiper-slide>
-                    <img src="~assets/img/3.png" alt="图片2" />
-                </swiper-slide>
-            </swiper>
-            <sku-base-info :sku_desc="sku_desc" />
-            <sku-spec :sku_spec="sku_spec" @toSpecTabar="toSpecTabar"/>
+            <div  @click="cancelSpecTabar"> 
+                <swiper>
+                    <!-- <swiper-slide v-for="(swiper_image,_) in sku_desc.swiper_images" :key="index">
+                        <img :src="swiper_image" alt="图片1" />
+                    </swiper-slide> -->
+                    <swiper-slide>
+                        <img src="~assets/img/2.png" alt="图片2" />
+                    </swiper-slide>
+                    <swiper-slide>
+                        <img src="~assets/img/3.png" alt="图片2" />
+                    </swiper-slide>
+                </swiper>
+                <sku-base-info :sku_desc="sku_desc" :isShowSpecTabar="isShowSpecTabar"/>
+            </div>
+            <sku-spec :sku_spec="sku_spec" :init_label="init_label" @toSpecTabar="toSpecTabar"/>
+            
         </scroll>
-        <sku-spec-tabar v-show="isShowSpecTabar"/>
-        <sku-nav />
+        <sku-spec-tabar 
+            v-show="isShowSpecTabar" 
+            @shutTabar="shutTabar" 
+            :sku_spec="sku_spec"
+            :price="sku_desc.price"
+        />
+        <sku-nav/>
     </div>
 </template>
 
@@ -60,6 +68,8 @@
                 sku_desc:{},
                 sku_spec:{},
                 isShowSpecTabar:false,
+                isShowSkuNav:false,
+                init_label:"",
             }
         },
         methods:{
@@ -68,13 +78,23 @@
                     console.log(res,"==============")
                     this.sku_desc = res.data.data
                     this.sku_spec = this.sku_desc.sku_spec
+                    this.init_label = this.sku_spec.label
                 }).catch(err =>{
                     console.log(err)
                 })
             },
+            cancelSpecTabar(){
+                if(this.isShowSpecTabar){
+                    this.isShowSpecTabar = false;
+                }
+            },
             toSpecTabar(){
-                this.isShowSpecTabar = !this.isShowSpecTabar
-            }
+                this.isShowSpecTabar = true
+            },
+            shutTabar(){
+                this.isShowSpecTabar = false;
+            },
+            
         },
         activated(){
             // this.spu_id = this.$route.query.spu_id
@@ -86,6 +106,7 @@
 <style scoped>
     .sku{
         background-color: lightgray;
+        height: 100%;
     }
     .sku-label{
         position: fixed;
@@ -115,11 +136,20 @@
         top: 0;
         left: 0;
         right: 0;
-        bottom: 49 !important;
+        bottom: 49px;
         /* text-align: center; */
         background-color: rgba(125,125,125,0.1)
     }
-    
-    
+    .content-gray{
+        filter:progid:DXImageTransform.Microsoft.BasicImage(graysale=1);
+        -webkit-filter: grayscale(50%); 
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: fixed;
+        width: 100%;
+    height: 100%;
+    }
     
 </style>

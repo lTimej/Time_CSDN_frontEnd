@@ -21,6 +21,7 @@
                     this.isShow = false;
                     this.message = '';
                 },duration)
+                // clearInterval(interval)
             }
         }
     }
@@ -30,8 +31,8 @@
 .toast{
     font-size: 14px;
     position: fixed;
-    /*width: 80px;*/
-    /*height:40px;*/
+    /* width: 800px;
+    height:400px; */
     /*line-height: 40px;*/
     left: 50%;
     top: 40%;
@@ -40,6 +41,7 @@
     transform: translate(-50%,-50%);
     padding: 18px 20px;
     color: #ff6b0f;
-    z-index: 99;
+    opacity: unset;
+    z-index: 9999;
   }
 </style>

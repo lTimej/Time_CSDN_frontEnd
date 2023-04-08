@@ -24,6 +24,7 @@
 <style scoped>
 .swiper-slide img {
     width: 100%;
+    height: 30%;
     object-fit: cover;
 }
 </style>

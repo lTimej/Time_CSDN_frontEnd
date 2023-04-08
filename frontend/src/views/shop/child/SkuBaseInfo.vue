@@ -1,5 +1,5 @@
 <template>
-    <div class="sku-base-info">
+    <div class="sku-base-info" :class="{'to-gray':isShowSpecTabar==true}">
         <div class="sku-base-price">
             <div class="price-left">
                 <span>￥</span>
@@ -22,7 +22,13 @@
         props:{
             sku_desc:{
                 type: Object,
-                default:{}
+                default:function () {
+                    return {}
+                }
+            },
+            isShowSpecTabar:{
+                type: Boolean,
+                default: false
             }
         },
         components:{
@@ -44,6 +50,9 @@
         background-color: white;
         padding: 0 10px;
         line-height: normal;
+    }
+    .to-gray{
+        background-color: rgba(125, 125, 125, 0.01);
     }
     .sku-base-info .sku-base-price{
         /* margin-top: 10px;

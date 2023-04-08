@@ -2,7 +2,8 @@
     <div class="sku-spec">
         <div class="sku-spec-item" @click="toSpecTabar">
             <span>选择  </span>
-            <span class="spec">{{ sku_spec.label}}</span>
+            <span class="spec">{{ init_label}}</span>
+            <div class="sku-spec-arrow"><i class="el-icon-arrow-right"></i></div>
         </div>
         <div class="sku-mail">
             <span>免邮费</span>
@@ -20,7 +21,13 @@
         props:{
             sku_spec:{
                 type: Object,
-                default:{}
+                default:function () {
+                    return {}
+                }
+            },
+            init_label:{
+                type: String,
+                default:"",
             }
         },
         components:{
@@ -45,6 +52,7 @@
         background-color: white;
         margin: 10px 0;
         padding: 10px 10px;
+        z-index: 98;
     }
     .sku-spec .sku-spec-item,.sku-mail,.sku-server{
         margin: 10px 0;
@@ -53,6 +61,10 @@
     .sku-spec .sku-spec-item .spec{
         font-size: 16px;
         color: #333;
+    }
+    .sku-spec .sku-spec-item .sku-spec-arrow{
+        /* display: inline-block; */
+        float: right;
     }
     .sku-spec .sku-server .sku-server-item{
         color: #333;

@@ -28,3 +28,14 @@ export function getSkuBySpuId(spu_id) {
         }
     })
 }
+
+export function addCart(sku_id,count) {
+    return requests({
+        url:'/v1/shop/add/cart',
+        method:'post',
+        data:{
+            sku_id:sku_id,
+            count:count,
+        }
+    })
+}

@@ -27,7 +27,9 @@
         props:{
             sku_spec:{
                 type: Object,
-                default:{}
+                default:function () {
+                    return {}
+                }
             }
         },
         components:{
