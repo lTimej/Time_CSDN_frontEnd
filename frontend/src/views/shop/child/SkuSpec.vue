@@ -2,7 +2,8 @@
     <div class="sku-spec">
         <div class="sku-spec-item" @click="toSpecTabar">
             <span>选择  </span>
-            <span class="spec">{{ init_label}}</span>
+            <span class="spec" v-if="Ilabel == sku_spec.label">{{ Ilabel}}</span>
+            <span class="spec-else" v-else>已选：{{ Ilabel}}</span>
             <div class="sku-spec-arrow"><i class="el-icon-arrow-right"></i></div>
         </div>
         <div class="sku-mail">
@@ -25,7 +26,7 @@
                     return {}
                 }
             },
-            init_label:{
+            Ilabel:{
                 type: String,
                 default:"",
             }
@@ -35,12 +36,24 @@
         },
         data(){
             return{
-                
+                init_label:""
             }
         },
         methods:{
             toSpecTabar(){
                 this.$emit("toSpecTabar")
+            }
+        },
+        created(){
+            this.init_label = this.Ilabel;
+        },
+        watch:{
+            Ilabel:{
+                handler(newValue,oldValue){
+                    this.init_label = newValue
+                },
+                deep:true,
+                immediate:true
             }
         }
     
@@ -61,6 +74,10 @@
     .sku-spec .sku-spec-item .spec{
         font-size: 16px;
         color: #333;
+    }
+    .sku-spec .sku-spec-item .spec-else{
+        font-size: 16px;
+        color: rgb(255, 68, 102);
     }
     .sku-spec .sku-spec-item .sku-spec-arrow{
         /* display: inline-block; */

@@ -12,7 +12,7 @@
             <i class="el-icon-star-off"></i>
             <div>收藏</div>
         </div>
-        <div class="sku-cart">
+        <div class="sku-cart" @click="toSpecTabar">
             <span>加入购物车</span>
         </div>
         <div class="sku-buy">
@@ -40,6 +40,11 @@
                 
             }
         },
+        methods:{
+            toSpecTabar(){
+                this.$emit("toSpecTabar")
+            }
+        }
     
     }
 </script>

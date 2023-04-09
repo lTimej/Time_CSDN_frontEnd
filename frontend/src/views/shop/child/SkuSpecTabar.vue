@@ -44,6 +44,13 @@
             <div class="tobuy">
                 <span>立即购买</span>
             </div>
+            <transition
+                @before-enter="beforeEnter"
+                @enter="Enter"
+                @after-enter="afterEnter"
+            >
+                <div v-if="showBall" class="ball"></div>
+            </transition>
         </div>
     </div>
 </template>
@@ -62,6 +69,10 @@
             price:{
                 type: Number,
                 defautl:0,
+            },
+            Ilabel:{
+                type: String,
+                default: "",
             }
         },
         components:{
@@ -74,6 +85,7 @@
                 choose:{},
                 init_label:"",
                 sku_id: [],
+                showBall:false,
             }
         },
         methods:{
@@ -109,21 +121,64 @@
                 for (let key in this.choose) {
                     this.init_label += this.choose[key] += " "
                 }
-                console.log("&&&&&&&&&&&&",this.sku_id,this.num)
+                console.log("&&&&&&&&&&&&",this.sku_id,this.num,this.Ilabel)
                 
                 
             },
             addCart(){
+                this.$emit("getcartlocation")
                 console.log(this.sku_spec.spec_list.length,"::::",this.sku_id.length)
                 if(this.sku_id.length < this.sku_spec.spec_list.length){
                     this.$toast.show("请选择商品规格",3000)
                     return
                 }
+                // this.$emit("toShowBall")
+                this.showBall = !this.showBall
                 addCart(this.sku_id,this.num).then(res =>{
                     console.log(res)
                 }).catch(err =>{
                     console.log(err)
                 })
+            },
+            beforeEnter(el,done){
+                // let elContent = document.querySelector(".sku-to-cart").getBoundingClientRect()
+                // let x = elContent.y
+                
+                console.log("进入动画之前")
+                el.offsetHeight;
+                el.style.transform="translate(0,0)"
+                console.log(el,"*******")
+                // el.style.top = "0"
+                // el.style.left = "0"
+
+            },
+            Enter(el,done){
+                let elContent = document.querySelector(".sku-to-cart").getBoundingClientRect()
+                let x = elContent.top
+                let y = elContent.right
+                let w = y - (window.innerWidth - y) - 45;
+                let h = -(window.innerHeight - x - 54);
+                console.log(w,"!!!!!!!!!!!!!!!!",h)
+                var test = `translate(${w}px,${h}px)`
+                // var test = `translate(210px,-485px)`
+                console.log(test,"----hhhhh")
+                el.offsetHeight;
+                el.style.transform = test
+                // el.style.transform = "translate(0,0)"
+                // el.style.top = `${x}px`
+                // el.style.left = `${y}px`
+                // el.style.transition = " left 0s ,top 0s ease-in-out";
+                el.style.transition = " all 0.8s ease-in-out";
+                // setTimeout(()=>{
+                //     el.style.transition = " left 1s linear,top 1s ease-in-out";
+                // },20)
+                console.log(el,"$$$$$$$$$")
+                el.addEventListener("transilated",done);
+                done();
+            },
+            afterEnter(){
+                console.log("动画进入后");
+                this.showBall = !this.showBall;
             },
         },
         updated : function(){
@@ -131,19 +186,22 @@
                 this.init_label = this.sku_spec.label;
             }
         },
-        // watch: {
-        //     'choose.specs':{
-        //         handler(newValue,oldValue){
-        //             console.log('属性isHot被修改了',newValue,oldValue);
-        //         },
-        //         mmediate:true,    
-        //         deep:true
-        //     }
-        // },
-        // activated(){
-        //     this.init_label = this.sku_spec.label;
-        // }
-
+        watch:{
+            init_label:{
+                handler(newValue,oldValue){
+                    let l = newValue
+                    // console.log(this.choose,"1111111111",this.sku_spec.label)
+                    // let ll = this.sku_spec.label.split(' ')
+                    // console.log(ll,"呵呵呵呵呵呵")
+                    // if(l != this.sku_spec.label){
+                        
+                    // }
+                    this.$emit("changeLabel",l)
+                },
+                deep:true,
+                immediate:true
+            }
+        }
     }
 </script>
 
@@ -235,10 +293,10 @@
     }
     .spec-tabar{
         height: 44px;
-        position: fixed;
+        position: absolute;
         left: 0;
         right: 0;
-        bottom: 0;
+        /* bottom: 0; */
         text-align: center;
     }
     .spec-tabar .add-cart,.tobuy{
@@ -270,5 +328,16 @@
         font-size: .25rem;
         margin-bottom: .14rem;
         color: #999;
+    }
+    .ball{
+        position: relative;
+        left: 20%;
+        right: 0;
+        bottom: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: red;
+        /* z-index: 1000; */
     }
 </style>
