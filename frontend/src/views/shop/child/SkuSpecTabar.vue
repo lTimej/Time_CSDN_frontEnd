@@ -121,9 +121,6 @@
                 for (let key in this.choose) {
                     this.init_label += this.choose[key] += " "
                 }
-                console.log("&&&&&&&&&&&&",this.sku_id,this.num,this.Ilabel)
-                
-                
             },
             addCart(){
                 this.$emit("getcartlocation")
@@ -132,7 +129,6 @@
                     this.$toast.show("请选择商品规格",3000)
                     return
                 }
-                // this.$emit("toShowBall")
                 this.showBall = !this.showBall
                 addCart(this.sku_id,this.num).then(res =>{
                     console.log(res)
@@ -141,27 +137,27 @@
                 })
             },
             beforeEnter(el,done){
-                // let elContent = document.querySelector(".sku-to-cart").getBoundingClientRect()
-                // let x = elContent.y
-                
-                console.log("进入动画之前")
                 el.offsetHeight;
                 el.style.transform="translate(0,0)"
-                console.log(el,"*******")
-                // el.style.top = "0"
-                // el.style.left = "0"
 
             },
             Enter(el,done){
                 let elContent = document.querySelector(".sku-to-cart").getBoundingClientRect()
+                let cContent = document.querySelector(".add-cart").getBoundingClientRect()
+                let c_width = cContent.width / 2.05
                 let x = elContent.top
                 let y = elContent.right
-                let w = y - (window.innerWidth - y) - 45;
+                // let window_w = window.innerWidth - y
+                // let window_h = window.innerHeight - x
+                // let pContent = document.querySelector(".sku-label").getBoundingClientRect()
+                // let height = pContent.height
+                // let width = pContent.width
+                // // let w = - (window.innerWidth - y);
+                let w = y - c_width - 7;
                 let h = -(window.innerHeight - x - 54);
-                console.log(w,"!!!!!!!!!!!!!!!!",h)
+                //console.log(w,"!!!!!!!!!!!!!!!!","w:",w,"window_w:",window.innerWidth,y,c_width,"left:",y - c_width)
                 var test = `translate(${w}px,${h}px)`
                 // var test = `translate(210px,-485px)`
-                console.log(test,"----hhhhh")
                 el.offsetHeight;
                 el.style.transform = test
                 // el.style.transform = "translate(0,0)"
@@ -172,12 +168,10 @@
                 // setTimeout(()=>{
                 //     el.style.transition = " left 1s linear,top 1s ease-in-out";
                 // },20)
-                console.log(el,"$$$$$$$$$")
                 el.addEventListener("transilated",done);
                 done();
             },
             afterEnter(){
-                console.log("动画进入后");
                 this.showBall = !this.showBall;
             },
         },
@@ -215,6 +209,7 @@
         bottom: 44px;
         z-index: 999;
         background-color: white;
+        border-top: 1px solid lightgray;
     }
     .spec-title{
         height: 15vh;

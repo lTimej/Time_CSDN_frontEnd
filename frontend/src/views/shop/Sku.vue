@@ -6,15 +6,14 @@
             </div>
             <div class="sku-to-cart">
                 <i class="el-icon-shopping-cart-2"></i>
+                <div class="cart-num" v-show="cart_num != 0">
+                    <span>{{ cart_num }}</span>
+                </div>
             </div>
         </div>
-        <transition
-            @before-enter="beforeEnter"
-            @enter="Enter"
-            @after-enter="afterEnter"
-        >
-            <div v-if="showBall" class="ball"></div>
-        </transition>
+        <div class="sku-back" @click="back">
+            <i class="el-icon-arrow-left" style="font-size: 32px;color: #333;"></i>
+        </div>
         <scroll style="bottom: 49px"
             ref="scroll"
             :class="{'content-gray':isShowSpecTabar==true,'content':isShowSpecTabar==false}"
@@ -39,7 +38,6 @@
                 @toSpecTabar="toSpecTabar"
 
             />
-            
         </scroll>
         <sku-spec-tabar 
             v-show="isShowSpecTabar" 
@@ -61,6 +59,7 @@
     import Swiper from "components/contents/swipper/Swiper"
     import SwiperSlide from "components/contents/swipper/SwiperSlide"
     import {getSkuBySpuId} from "network/shop/product"
+    import {getCart} from "network/shop/product"
     import SkuBaseInfo from "views/shop/child/SkuBaseInfo"
     import SkuSpec from "views/shop/child/SkuSpec"
     import SkuSpecTabar from "views/shop/child/SkuSpecTabar"
@@ -87,6 +86,7 @@
                 // init_label:"",
                 Ilabel:"",
                 showBall:false,
+                cart_num:0,
             }
         },
         methods:{
@@ -95,6 +95,11 @@
                     this.sku_desc = res.data.data
                     this.sku_spec = this.sku_desc.sku_spec
                     this.Ilabel = this.sku_spec.label
+                }).catch(err =>{
+                    console.log(err)
+                })
+                getCart().then(res =>{
+                    console.log(res)
                 }).catch(err =>{
                     console.log(err)
                 })
@@ -122,38 +127,8 @@
             toShowBall(){
                 // this.showBall = true
             },
-            beforeEnter(el,done){
-                console.log(el,"*******")
-                // let elContent = document.querySelector(".sku-to-cart").getBoundingClientRect()
-                // let x = elContent.y
-                // console.log("进入动画之前",x)
-                // el.offsetHeight;
-                el.style.transform="translate(0,0)"
-                // el.style.top = "0"
-                // el.style.left = "0"
-
-            },
-            Enter(el,done){
-                let elContent = document.querySelector(".sku-to-cart").getBoundingClientRect()
-                let x = elContent.top
-                let y = elContent.left
-                var test = `translate(210px,${-485}px)`
-                console.log(test,"----hhhhh")
-                el.offsetHeight;
-                // el.style.transform = "translate(0,0)"
-                el.style.top = `${x}px`
-                el.style.left = `${y}px`
-                // el.style.transition = " left 0s ,top 0s ease-in-out";
-                el.style.transition = " all 3s ease-in-out";
-                // setTimeout(()=>{
-                //     el.style.transition = " left 1s linear,top 1s ease-in-out";
-                // },20)
-                el.addEventListener("transilated",done);
-                done();
-            },
-            afterEnter(){
-                console.log("动画进入后");
-                // this.showBall = !this.showBall;
+            back(){
+                this.$router.back()
             },
         },
         activated(){
@@ -170,8 +145,8 @@
     }
     .sku-label{
         position: absolute;
-        top: 80px;
-        right:60px;
+        top: 10%;
+        right:12%;
         font-size: 24px;
         text-align: center;
         z-index: 99;
@@ -215,15 +190,22 @@
         width: 100%;
         height: 100%;
     }
-    .ball{
-        position: absolute;
-        left: 20%;
-        right: 0;
-        bottom: 0;
+    .sku-to-cart .cart-num{
+        position: relative;
+        left: 24px;
+        bottom: 40px;
+        background-color: red;
         width: 20px;
         height: 20px;
         border-radius: 50%;
-        background: red;
-        z-index: 1000;
+        font-size: 16px;
+        text-align: center;
+        line-height: 20px;
+    }
+    .sku .sku-back{
+        position: fixed;
+        z-index: 1;
+        top: 5px;
+        left: 20px;
     }
 </style>

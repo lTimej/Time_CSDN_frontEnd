@@ -39,3 +39,9 @@ export function addCart(sku_id,count) {
         }
     })
 }
+export function getCart() {
+    return requests({
+        url:'/v1/shop/get/cart',
+        method:'get'
+    })
+}
