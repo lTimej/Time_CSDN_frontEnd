@@ -30,6 +30,7 @@ const Search = () => import ("views/search/Search");
 const AllSearch = () => import ("views/search/AllSearch");
 const Spu = () => import ("views/shop/Spu")
 const Sku = () => import ("views/shop/Sku")
+const Order = () => import ("views/order/Order")
 
 const routes = [
     {
@@ -209,6 +210,14 @@ const routes = [
       name:'sku',
       component:Sku,
       path:'/sku',
+      meta:{
+          isShowTabbar:true
+        }
+    },
+    {
+      name:'order',
+      component:Order,
+      path:'/order',
       meta:{
           isShowTabbar:true
         }

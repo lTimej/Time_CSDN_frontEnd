@@ -1,18 +1,21 @@
 import axios from "axios";
 import {refresh_token} from "./users/login";
-
+import cookies from "vue-cookies";
 export function requests(config){
     //实例化对象
     const instance = axios.create({
         baseURL:'http://172.20.16.20:8891',
-        timeout: 5000
+        timeout: 5000,
+        withCredentials: true,
     });
 
     //请求前调用
     instance.interceptors.request.use(config=>{
         //请求前，将token加入请求头
         config.headers.Authorization = "Bearer " + window.localStorage.getItem('token');
-        console.log("--------------请求前----------------",config);
+        console.log("--------------请求前----------------",config,"**********");
+        // var c = cookies.get("Set-Cookie")
+        // console.log("黑黑黑黑黑黑",c,"哈哈哈哈啊哈")
         return config
     },error => {
         console.log(error);

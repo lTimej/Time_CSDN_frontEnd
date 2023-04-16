@@ -8,6 +8,7 @@ import VueTouch from 'vue-touch'
 // import SocketIOConfig from "common/socketIoConfig";
 import ws from "common/config.js"
 import toast from 'components/contents/toast'
+import VueCookies from 'vue-cookies'
 
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
  
@@ -17,6 +18,7 @@ import '@/assets/iconfont/iconfont.css'
 import '@/assets/iconfont/iconfont.js'
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
+Vue.use(VueCookies)
 Vue.config.productionTip = false
 Vue.prototype.$ws = ws
 // Vue.use(SocketIOConfig)

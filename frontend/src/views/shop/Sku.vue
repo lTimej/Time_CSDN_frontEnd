@@ -4,7 +4,7 @@
             <div class="sku-to-home">
                 <i class="el-icon-house"></i>
             </div>
-            <div class="sku-to-cart">
+            <div class="sku-to-cart" @click="toCart">
                 <i class="el-icon-shopping-cart-2"></i>
                 <div class="cart-num" v-show="cart_num != 0">
                     <span>{{ cart_num }}</span>
@@ -59,7 +59,7 @@
     import Swiper from "components/contents/swipper/Swiper"
     import SwiperSlide from "components/contents/swipper/SwiperSlide"
     import {getSkuBySpuId} from "network/shop/product"
-    import {getCart} from "network/shop/product"
+    import {getCart} from "network/shop/cart"
     import SkuBaseInfo from "views/shop/child/SkuBaseInfo"
     import SkuSpec from "views/shop/child/SkuSpec"
     import SkuSpecTabar from "views/shop/child/SkuSpecTabar"
@@ -130,6 +130,9 @@
             back(){
                 this.$router.back()
             },
+            toCart(){
+                this.$router.push("/cart")
+            }
         },
         activated(){
             // this.spu_id = this.$route.query.spu_id

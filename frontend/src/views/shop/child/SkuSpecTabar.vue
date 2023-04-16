@@ -56,7 +56,7 @@
 </template>
 
 <script>
-    import {addCart} from "network/shop/product"
+    import {addCart} from "network/shop/cart"
     export default {
         name: "SkuSpecTabar",
         props:{
@@ -130,8 +130,10 @@
                     return
                 }
                 this.showBall = !this.showBall
+                console.log("add cart")
                 addCart(this.sku_id,this.num).then(res =>{
                     console.log(res)
+                    // this.$cookies.set("anonymity_user_cart","[1,2]:1")
                 }).catch(err =>{
                     console.log(err)
                 })
