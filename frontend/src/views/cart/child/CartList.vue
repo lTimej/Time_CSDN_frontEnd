@@ -63,6 +63,10 @@
                         }
                     }
                 }
+            },
+            orders:{
+                type: Array,
+                default: () => []
             }
         },
         data(){
@@ -84,14 +88,33 @@
                     this.buy.total_price = this.buy.total_price - this.carts[index].count * this.carts[index].price;
                     this.buy.total_price = Math.round(this.buy.total_price * 100) / 100;
                     this.buy.select_num--;
-                    console.log(this.buy.total_price,"------------",typeof(this.buy.total_price))
+                    console.log(this.carts[index],"一样的")
+                    // let tmp = []
+                    // for(let i = 0;i < this.orders.length;i++){
+                    //     if(this.orders[i].sku_id != this.carts[index].sku_id){
+                    //         tmp.push(this.orders[i])
+                    //     }
+                    // }
+                    // for(let i = 0;i < this.orders.length;i++){
+                    //     this.orders.pop();
+                    // }
+                    // for(let i = 0;i < tmp.length;i++){
+                    //     this.orders.push(tmp[i]);
+                    // }
+                    this.orders = this.orders.filter(item => item.sku_id != this.carts[index].sku_id);
+                    // this.orders.splice(this.carts[index],1)
+                    console.log(this.orders,"333333333")
+                    // console.log(this.buy.total_price,"------------",typeof(this.buy.total_price))
                 }else{
                     arr[index].classList.add("cart-radio-tick");
                     this.allSelect++;
                     this.buy.total_price = this.buy.total_price + this.carts[index].count * this.carts[index].price;
                     this.buy.total_price = Math.round(this.buy.total_price * 100) / 100;
                     this.buy.select_num++;
-                    console.log(this.buy.total_price,"********",typeof(this.buy.total_price))
+                    this.orders.push(this.carts[index])
+                    console.log(index,"5555555555",this.carts[index])
+                    console.log(this.orders,"4444444")
+                    // console.log(this.buy.total_price,"********",typeof(this.buy.total_price))
                 }
                 // console.log(this.allSelect,"选中了@@@@@@@@@@")
                 if(this.allSelect == this.carts.length){

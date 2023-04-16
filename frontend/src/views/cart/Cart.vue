@@ -15,12 +15,15 @@
                 :select_num="select_num"
                 :carts="carts"
                 :buy="buy"
+                :orders="orders"
             />
         </scroll>
        <cart-tabar 
        :allSelect="allSelect" 
        @toAllTick="toAllTick"
        :buy="buy"
+       :carts="carts"
+       :orders="orders"
        />
        <cart-spec v-show="isShowCartSpec" @shutTabar="shutTabar"/>
     </div>
@@ -52,7 +55,8 @@
                 buy:{
                     total_price: 0,
                     select_num: 0,
-                }
+                },
+                orders: [],
             }
         },
         methods:{

@@ -37,13 +37,17 @@
         },
         data(){
             return{
-                
+                orders: []
             }
         },
         methods:{
             back(){
                 this.$router.back();
             }
+        },
+        activated(){
+            this.orders = this.$route.query.orders
+            console.log(this.orders,"&&&&&&&&&&&&&&**********")
         }
     }
 </script>

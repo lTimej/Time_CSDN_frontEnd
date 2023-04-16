@@ -41,12 +41,21 @@
                         }
                     }
                 }
+            },
+            carts:{
+                type: Array,
+                default: []
+            },
+            orders:{
+                type: Array,
+                default: () => []
             }
         },
         data(){
             return{
                 cart_num: 10,
-                isAllTick: false,
+                isAllTick: -1,
+                // orders: []
             }
         },
         methods:{
@@ -69,6 +78,10 @@
                     }
                     this.isAllTick = false;
                     this.$emit("toAllTick",-1,false)
+                    for(i;i< this.orders.length;i++){
+                        this.orders.pop();
+                    }
+                    // this.orders = [];
                 }else{
                     for (let i = 0; i < arr.length; i++) {
                         if(arr[i].getAttribute('class').indexOf('cart-radio-tick') <=-1){
@@ -77,13 +90,25 @@
                     }
                     this.isAllTick = true;
                     this.$emit("toAllTick",choose_num,true);
+                    var i = 0;
+                    for(i;i< this.orders.length;i++){
+                        this.orders.pop();
+                    }
+                    for(i=0;i<this.carts.length;i++){
+                        this.orders.push(this.carts[i]);
+                    }
+                    // this.orders = this.carts;
                 }
             },
             toOrder(){
+                if(this.orders.length == 0){
+                    this.$toast.show("商品不能为空",5000);
+                    return;
+                }
                 this.$router.push({
                     path:'/order',
                     query:{
-                        
+                        orders:this.orders,
                     }
                 })
             }
@@ -96,7 +121,28 @@
                 },
                 deep:true,
                 immediate:true
-            }
+            },
+            // "buy.orders":{
+            //     handler(newValue,oldValue){
+            //         this.orders = newValue
+            //     },
+            //     deep:true,
+            //     immediate:true
+            // },
+        },
+        computed:{
+            // order(){
+            //     if(this.isAllTick){
+            //         console.log(8888888888)
+            //         return this.carts;
+            //     }else if(!this.isAllTick){
+            //         console.log(999999999)
+            //         return []
+            //     }else{
+            //         console.log(100000000)
+            //         return this.orders;
+            //     }
+            // }
         }
     }
 </script>
