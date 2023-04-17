@@ -13,6 +13,7 @@ export function requests(config){
     instance.interceptors.request.use(config=>{
         //请求前，将token加入请求头
         config.headers.Authorization = "Bearer " + window.localStorage.getItem('token');
+        //config.headers.Authorization = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkI…4ODJ9.iNBJpkoribKS72gu6Ec_14Jsea8EsIpfm9JfOoMI00g"
         console.log("--------------请求前----------------",config,"**********");
         // var c = cookies.get("Set-Cookie")
         // console.log("黑黑黑黑黑黑",c,"哈哈哈哈啊哈")

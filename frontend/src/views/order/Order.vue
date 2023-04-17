@@ -13,9 +13,13 @@
             class="content"
             ref="scroll"
         >
-            <order-address />
+            <order-address 
+                :address="address" 
+                @addAddr="addAddr"
+            />
             <order-info />
         </scroll>
+        <add-address :drawer="drawer"/>
         <order-tabar />
     </div>
 </template>
@@ -26,6 +30,7 @@
     import OrderAddress from "views/order/child/OrderAddress"
     import Scroll from "components/common/scroll/Scroll";
     import OrderInfo from "views/order/child/OrderInfo"
+    import AddAddress from "views/order/child/AddAddress"
     export default {
         name: "Order",
         components:{
@@ -34,16 +39,23 @@
             OrderAddress,
             Scroll,
             OrderInfo,
+            AddAddress,
         },
         data(){
             return{
-                orders: []
+                orders: [],
+                address: [],
+                drawer: false,
             }
         },
         methods:{
             back(){
                 this.$router.back();
+            },
+            addAddr(flag){
+                this.drawer = true;
             }
+            
         },
         activated(){
             this.orders = this.$route.query.orders

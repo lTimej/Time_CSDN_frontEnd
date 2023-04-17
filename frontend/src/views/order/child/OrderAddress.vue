@@ -1,9 +1,12 @@
 <template>
     <div class="order-address">
         <div class="address-location">
-            <i class="el-icon-shopping-cart-2"></i>
+            <i class="el-icon-location-outline"></i>
         </div>
-        <div class="address-title">
+        <div class="address-title-kong" v-if="address.length == 0" @click="addAddr">
+            <div class="address-info">请填写收获地址</div>
+        </div>
+        <div class="address-title" v-else v-for="addr in address">
             <div class="address-info">六七元 19971251761</div>
             <div class="address-place">北京市北京市丰台区五楼</div>
         </div>
@@ -20,13 +23,21 @@
         components:{
             
         },
+        props:{
+            address:{
+                type: Array,
+                default: () => []
+            }
+        },
         data(){
             return{
                 
             }
         },
         methods:{
-            
+            addAddr(){
+                this.$emit("addAddr",true);
+            }
         }
     }
 </script>
@@ -48,6 +59,12 @@
         margin: 5px 10px;
         color: #333333;
         line-height: 5vh;
+    }
+    .order-address .address-title-kong{
+        float: left;
+        margin: 5px 10px;
+        color: #333333;
+        line-height: 10vh;
     }
     .order-address .address-title .address-info{
         font-weight: 600;
