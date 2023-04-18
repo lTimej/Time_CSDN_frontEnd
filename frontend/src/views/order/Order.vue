@@ -45,7 +45,9 @@
             return{
                 orders: [],
                 address: [],
-                drawer: false,
+                drawer: {
+                    d: false
+                }
             }
         },
         methods:{
@@ -53,7 +55,7 @@
                 this.$router.back();
             },
             addAddr(flag){
-                this.drawer = true;
+                this.drawer.d = flag;
             }
             
         },

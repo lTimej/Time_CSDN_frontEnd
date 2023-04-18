@@ -36,6 +36,7 @@
         },
         methods:{
             addAddr(){
+                console.log("##########433333333")
                 this.$emit("addAddr",true);
             }
         }
