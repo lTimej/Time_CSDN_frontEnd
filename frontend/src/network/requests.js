@@ -2,12 +2,56 @@ import axios from "axios";
 import {refresh_token} from "./users/login";
 import cookies from "vue-cookies";
 export function requests(config){
+    var u = config.url
+    var u_list = u.split("/")
+    var url_prefix = "/" + u_list[1] + "/" + u_list[2]
     //实例化对象
-    const instance = axios.create({
-        baseURL:'http://172.20.16.20:8891',
-        timeout: 5000,
-        withCredentials: true,
-    });
+    let instance
+    console.log(url_prefix,"^^^^^^^^^")
+    if(url_prefix == "/v1/user"){
+        instance = axios.create({
+            baseURL:'http://172.20.16.20:8888',
+            timeout: 5000,
+            withCredentials: true,
+        });
+    }else if(url_prefix == "/v1/channel"){
+        instance = axios.create({
+            baseURL:'http://172.20.16.20:8889',
+            timeout: 5000,
+            withCredentials: true,
+        });
+    }else if(url_prefix == "/v1/article"){
+        instance = axios.create({
+            baseURL:'http://172.20.16.20:8889',
+            timeout: 5000,
+            withCredentials: true,
+        });
+    }
+    else if(url_prefix == "/v1/im"){
+        instance = axios.create({
+            baseURL:'http://172.20.16.20:8890',
+            timeout: 5000,
+            withCredentials: true,
+        });
+    }else if(url_prefix == "/v1/shop"){
+        instance = axios.create({
+            baseURL:'http://172.20.16.20:8891',
+            timeout: 5000,
+            withCredentials: true,
+        });
+    }else if(url_prefix == "/v1/order"){
+        instance = axios.create({
+            baseURL:'http://172.20.16.20:8893',
+            timeout: 5000,
+            withCredentials: true,
+        });
+    }else if(url_prefix == "/v1/city"){
+        instance = axios.create({
+            baseURL:'http://172.20.16.20:8895',
+            timeout: 5000,
+            withCredentials: true,
+        });
+    }
 
     //请求前调用
     instance.interceptors.request.use(config=>{

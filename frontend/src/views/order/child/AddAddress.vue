@@ -89,7 +89,7 @@
                     </div>
                     <div class="address-button">
                         <el-button>取消</el-button>
-                        <el-button type="danger">确定</el-button>
+                        <el-button type="danger" @click="addAddress">确定</el-button>
                     </div>
                 </el-drawer>
             </div>
@@ -98,7 +98,6 @@
 </template>
 
 <script>
-    
     export default {
         name: "OrderAddress",
         components:{
@@ -181,6 +180,9 @@
             handleClose(done) {
                 // done();
                 this.drawer.d = !this.drawer.d;
+            },
+            addAddress(){
+                console.log(this.province,this.city,this.district,"------------")
             }
         },
         computed:{},
