@@ -37,36 +37,36 @@
                         </div>
                         <div class="address-title">
                             <span>省份</span>
-                            <el-select v-model="province" filterable placeholder="请选择">
+                            <el-select v-model="province" filterable placeholder="请选择" @change="addProvince">
                                 <el-option
-                                    v-for="item in options"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value"
+                                    v-for="item in provinces"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id"
                                 >
                                 </el-option>
                             </el-select>
                         </div>
                         <div class="address-title">
                             <span>城市</span>
-                            <el-select v-model="city" filterable placeholder="请选择">
+                            <el-select v-model="city" :disabled="province==0" filterable placeholder="请选择" @change="addCity">
                                 <el-option
-                                    v-for="item in options"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value"
+                                    v-for="item in cities"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id"
                                 >
                                 </el-option>
                             </el-select>
                         </div>
                         <div class="address-title">
                             <span>地区</span>
-                            <el-select v-model="district" filterable placeholder="请选择">
+                            <el-select v-model="district" :disabled="city==0" filterable placeholder="请选择" @change="addDistrict">
                                 <el-option
-                                    v-for="item in options"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value"
+                                    v-for="item in districts"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id"
                                 >
                                 </el-option>
                             </el-select>
@@ -98,6 +98,7 @@
 </template>
 
 <script>
+    import {getcity} from "network/city/city"
     export default {
         name: "OrderAddress",
         components:{
@@ -120,57 +121,14 @@
             return{
                 isShowDrawer: this.drawer,
                 innerDrawer: false,
-                options: [{
-                    value: '选项1',
-                    label: '黄金糕'
-                    }, {
-                    value: '选项2',
-                    label: '双皮奶'
-                    }, {
-                    value: '选项3',
-                    label: '蚵仔煎'
-                    }, {
-                    value: '选项4',
-                    label: '龙须面'
-                    }, {
-                    value: '选项5',
-                    label: '北京烤鸭'},
-                    {
-                    value: '选项1',
-                    label: '黄金糕'
-                    }, {
-                    value: '选项2',
-                    label: '双皮奶'
-                    }, {
-                    value: '选项3',
-                    label: '蚵仔煎'
-                    }, {
-                    value: '选项4',
-                    label: '龙须面'
-                    }, {
-                    value: '选项5',
-                    label: '北京烤鸭'},
-                    {
-                    value: '选项1',
-                    label: '黄金糕'
-                    }, {
-                    value: '选项2',
-                    label: '双皮奶'
-                    }, {
-                    value: '选项3',
-                    label: '蚵仔煎'
-                    }, {
-                    value: '选项4',
-                    label: '龙须面'
-                    }, {
-                    value: '选项5',
-                    label: '北京烤鸭'}
-                ],
+                provinces: [],
+                cities: [],
+                districts: [],
                 receiver: "",
                 phone: "",
-                province: '',
-                city: "",
-                district: "",
+                province: 0,
+                city: 0,
+                district: 0,
                 place: "",
                 email: ""
 
@@ -183,9 +141,33 @@
             },
             addAddress(){
                 console.log(this.province,this.city,this.district,"------------")
-            }
+                
+            },
+            get_city(pid){
+                getcity(pid).then(res => {
+                    console.log(res.data.data,"************")
+                    this.provinces = res.data.data.city;
+                }).catch(err => {
+                    console.log(err)
+                })
+            },
+            addProvince(){
+                console.log(this.province,"1111111111111")
+                getcity(this.province).then(res => {
+                    this.cities = res.data.data.city;
+                })
+            },
+            addCity(){
+                console.log(this.city,"2222222222")
+                getcity(this.city).then(res => {
+                    this.districts = res.data.data.city;
+                })
+}
         },
         computed:{},
+        activated(){
+            this.get_city(10000000)
+        }
         // watch:{
         //     drawer:{
         //         handler(newValue,oldValue){
