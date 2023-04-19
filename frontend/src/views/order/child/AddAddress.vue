@@ -49,7 +49,7 @@
                         </div>
                         <div class="address-title">
                             <span>城市</span>
-                            <el-select v-model="city" :disabled="province==0" filterable placeholder="请选择" @change="addCity">
+                            <el-select v-model="city" :disabled="province==''" filterable placeholder="请选择" @change="addCity">
                                 <el-option
                                     v-for="item in cities"
                                     :key="item.id"
@@ -61,7 +61,7 @@
                         </div>
                         <div class="address-title">
                             <span>地区</span>
-                            <el-select v-model="district" :disabled="city==0" filterable placeholder="请选择" @change="addDistrict">
+                            <el-select v-model="district" :disabled="city==''" filterable placeholder="请选择">
                                 <el-option
                                     v-for="item in districts"
                                     :key="item.id"
@@ -99,6 +99,7 @@
 
 <script>
     import {getcity} from "network/city/city"
+    import {addAddress} from "network/users/address"
     export default {
         name: "OrderAddress",
         components:{
@@ -126,9 +127,9 @@
                 districts: [],
                 receiver: "",
                 phone: "",
-                province: 0,
-                city: 0,
-                district: 0,
+                province: "",
+                city: "",
+                district: "",
                 place: "",
                 email: ""
 
@@ -141,6 +142,12 @@
             },
             addAddress(){
                 console.log(this.province,this.city,this.district,"------------")
+                addAddress(this.receiver,this.phone,this.province,this.city,this.district,this.place,this.email).
+                    then(res =>  {
+                        console.log(res.res.data,"========")
+                }).catch(err =>{
+                    console.log(err)
+                })
                 
             },
             get_city(pid){
@@ -243,7 +250,7 @@
         margin: 20px 20px;
     }
     .address-button >>> el-button{
-        margin: 23px 0;
+        margin: 23px 23px;
     }
     .address-img img{
         width: 100%;
