@@ -144,11 +144,11 @@
                 console.log(this.province,this.city,this.district,"------------")
                 addAddress(this.receiver,this.phone,this.province,this.city,this.district,this.place,this.email).
                     then(res =>  {
-                        console.log(res.res.data,"========")
+                        console.log(res,"========")
                 }).catch(err =>{
                     console.log(err)
                 })
-                
+                this.innerDrawer = false;
             },
             get_city(pid){
                 getcity(pid).then(res => {
