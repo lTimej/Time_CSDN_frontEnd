@@ -17,3 +17,10 @@ export function addAddress(receiver,phone,province,city,district,place,email) {
     })
 }
 
+//获取用户地址
+export function getAddress() {
+    return requests({
+        url:'/v1/user/address',
+        method:'get'
+    })
+}

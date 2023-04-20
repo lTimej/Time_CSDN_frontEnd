@@ -8,9 +8,41 @@
             size="80%"
         >
             <div>
-                <div class="address-img">
+                <div class="address-img" v-if="address!=null">
                     <img src="https://s10.mogucdn.com/p2/170222/upload_1ga8374ha4c1e315k293bce18d3b9_514x258.png">
                     <p>您还没有收货地址哦～</p>
+                </div>
+                <div v-else>
+                    <div class="address-list" v-for="(i,index) in [1,2,3,4,5,6,7,8]" 
+                        :class="{'address-list-choice':isAddress==index}"
+                        @click="toAddress(index)"
+                    >
+                        <div class="address-user-info">
+                            <span>刘思远</span>
+                            <span>18888888888</span>
+                        </div>
+                        <div class="address-user-place">
+                            <span>内蒙古自治区赤峰市巴林左旗五楼</span>
+                        </div>
+                        <div class="address-user-setting">
+                            <!-- <div class="address-default"> -->
+                                <i class="el-icon-success address-default" 
+                                    :class="{'address-default-open':chooice_default==index}"
+                                    @click="toChose(index)"
+                                >
+                                </i>
+                            <!-- </div> -->
+                            <span>设为默认</span>
+                            <div class="address-user-del">
+                                <i class="el-icon-delete"></i>
+                                <span>删除</span>
+                            </div>
+                            <div class="address-user-edit">
+                                <i class="el-icon-edit-outline"></i>
+                                <span>编辑</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div 
                     @click="innerDrawer = true"
@@ -100,6 +132,7 @@
 <script>
     import {getcity} from "network/city/city"
     import {addAddress} from "network/users/address"
+    import {getAddress} from "network/users/address"
     export default {
         name: "OrderAddress",
         components:{
@@ -113,6 +146,7 @@
                         d:{
                             type: Boolean,
                             default: false,
+                            chooice: false,
                         }
                     }
                 }
@@ -131,8 +165,10 @@
                 city: "",
                 district: "",
                 place: "",
-                email: ""
-
+                email: "",
+                address: null,
+                chooice_default:-1,
+                isAddress: -1,
             }
         },
         methods:{
@@ -149,12 +185,21 @@
                     console.log(err)
                 })
                 this.innerDrawer = false;
+                this.get_address()
             },
             get_city(pid){
                 getcity(pid).then(res => {
                     console.log(res.data.data,"************")
                     this.provinces = res.data.data.city;
                 }).catch(err => {
+                    console.log(err)
+                })
+            },
+            get_address(){
+                getAddress().then(res => {
+                    console.log(res)
+                    this.address = res.data.data.user_address;
+                }).catch(err =>{
                     console.log(err)
                 })
             },
@@ -169,26 +214,20 @@
                 getcity(this.city).then(res => {
                     this.districts = res.data.data.city;
                 })
-}
+            },
+            toChose(index){
+                console.log(111111)
+                this.chooice_default = index;
+            },
+            toAddress(index){
+                this.isAddress = index;
+            }
         },
         computed:{},
         activated(){
-            this.get_city(10000000)
-        }
-        // watch:{
-        //     drawer:{
-        //         handler(newValue,oldValue){
-        //             if(newValue == -1){
-        //                 this.allSelect = 0
-        //             }else{
-        //                 this.allSelect = this.carts.length
-        //             }
-        //             // console.log("我也变动了",newValue)
-        //         },
-        //         deep:true,
-        //         immediate:true
-        //     }
-        // },
+            this.get_city(10000000);
+            this.get_address();
+        },
     }
 </script>
 
@@ -198,6 +237,9 @@
         height: 80%;
         bottom: 0;
         top: unset;
+    }
+    >>> .el-drawer__body{
+        background-color: rgba(125,125,125,0.09);
     }
     .address{
         bottom: 0;
@@ -261,5 +303,61 @@
         margin-bottom: 1rem;
         text-align: center;
         color: #999;
+    }
+    .address-list{
+        margin: 10px;
+        background-color: white;
+    }
+    .address-list-choice{
+        margin: 10px;;
+        border: 2px solid red;
+    }
+    .address-list .address-user-info{
+        font-size: 13px;
+        color: #333;
+        padding: 5px 5px;
+
+    }
+    .address-list .address-user-place{
+        font-size: 13px;
+        color: #333;
+        padding: 5px 5px;
+    }
+    .address-list .address-user-setting{
+        font-size: 13px;
+        color: #333;
+        padding: 5px 5px;
+    }
+    .address-list .address-user-setting .address-default{
+        font-size: 16px;
+        color: rgba(125,125,125,0.3);
+        padding: 0 5px 0 0;
+    }
+    .address-list .address-user-setting .address-default-open{
+        font-size: 16px;
+        color: red;
+        padding: 0 5px 0 0;
+    }
+    .address-list .address-user-setting .address-user-edit{
+        display: inline-block;
+        float: right;
+        font-size:13px;
+    }
+    .address-list .address-user-setting .address-user-edit i{
+        color: red;
+        font-size:16px;
+        padding: 0 3px 0 0;
+        font-weight: 600;
+    }
+    .address-list .address-user-setting .address-user-del{
+        display: inline-block;
+        float: right;
+        font-size:13px;
+    }
+    .address-list .address-user-setting .address-user-del i{
+        color: red;
+        font-size:16px;
+        padding: 0 0 0 3px;
+        font-weight: 600;
     }
 </style>
