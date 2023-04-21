@@ -3,12 +3,12 @@
         <div class="address-location">
             <i class="el-icon-location-outline"></i>
         </div>
-        <div class="address-title-kong" v-if="address.length == 0" @click="addAddr">
+        <div class="address-title-kong" v-if="address==null" @click="addAddr">
             <div class="address-info">请填写收获地址</div>
         </div>
-        <div class="address-title" v-else v-for="addr in address">
-            <div class="address-info">六七元 19971251761</div>
-            <div class="address-place">北京市北京市丰台区五楼</div>
+        <div class="address-title" v-else @click="addAddr">
+            <div class="address-info">{{address.receiver}} {{address.mobile}}</div>
+            <div class="address-place">{{address.province}}{{address.city}}{{address.district}}{{address.place}}</div>
         </div>
         <div class="address-item">
             <i class="el-icon-arrow-right"></i>
@@ -25,8 +25,8 @@
         },
         props:{
             address:{
-                type: Array,
-                default: () => []
+                type: Object,
+                default: () => null
             }
         },
         data(){

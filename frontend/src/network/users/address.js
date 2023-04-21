@@ -24,3 +24,22 @@ export function getAddress() {
         method:'get'
     })
 }
+
+//修改用户地址
+export function updateAddress(address,is_default) {
+    return requests({
+        url:'/v1/user/address',
+        method:'patch',
+        data:{
+            address_id:address.address_id,
+            receiver: address.receiver,
+            mobile: address.mobile,
+            province_id: address.province_id,
+            city_id: address.city_id,
+            district_id: address.district_id,
+            place: address.place,
+            email: address.email,
+            is_default: is_default,
+        }
+    })
+}

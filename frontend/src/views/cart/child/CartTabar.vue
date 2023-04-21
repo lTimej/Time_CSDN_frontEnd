@@ -109,6 +109,8 @@
                     path:'/order',
                     query:{
                         orders:this.orders,
+                        total_price: this.buy.total_price,
+                        total_num: this.buy.select_num,
                     }
                 })
             }

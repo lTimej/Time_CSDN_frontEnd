@@ -13,17 +13,33 @@
         <div class="order-num">
             <span>共3件商品</span>
         </div>
-        <div class="order-buy">
+        <div class="order-buy" @click="toOrder">
             <span>提交订单</span>
         </div>
     </div>
 </template>
 
 <script>
+    import {addOrder} from "network/order/order"
     export default {
         name: "orderNav",
         props:{
-            
+            orders:{
+                type: Array,
+                default: () => []
+            },
+            total_price:{
+                type: Number,
+                default: 0,
+            },
+            total_num:{
+                type: Number,
+                default: 0,
+            },
+            address: {
+                type: Object,
+                default: () => {}
+            }
         },
         components:{
             
@@ -34,7 +50,29 @@
             }
         },
         methods:{
-            
+            toOrder(){
+                let sku = []
+                for(let i = 0;i < this.orders.length;i++){
+                    var spec_id = ""
+                    var specs = ""
+                    for(let j = 0;j < this.orders[i].spec_label.length;j++){
+                        spec_id += this.orders[i].spec_label[j].spec_id + ",";
+                        specs += this.orders[i].spec_label[j].label + ":" + this.orders[i].spec_label[j].name + " ";
+                    }
+                    spec_id = spec_id.slice(0,spec_id.length-1);
+                    sku.push({
+                        "sku_id": this.orders[i].sku_id,
+                        "spec_id": spec_id,
+                        "specs": specs,
+                        "count": this.orders[i].count,
+                    })
+                }
+                // console.log(sku,"%%%%^^^^^^^^^^^^^^^^sku======",parseInt(this.total_num),parseFloat(this.total_price),this.address.address_id)
+                addOrder(parseInt(this.total_num),parseFloat(this.total_price),this.address.address_id,sku).then(res => {
+                    console.log("提交订单成功!!!!!!!!")
+                })
+                // console.log(this.total_num,this.total_price,"提交订单！！！！！！！！",this.address.address_id,this.orders[0]);
+            }
         }
     
     }

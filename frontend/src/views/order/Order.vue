@@ -19,8 +19,16 @@
             />
             <order-info />
         </scroll>
-        <add-address :drawer="drawer"/>
-        <order-tabar />
+        <add-address 
+            :drawer="drawer" 
+            @getAddress="getAddress"
+        />
+        <order-tabar 
+            :orders="orders"
+            :address="address" 
+            :total_num="total_num"
+            :total_price="total_price"
+        />
     </div>
 </template>
 
@@ -44,7 +52,9 @@
         data(){
             return{
                 orders: [],
-                address: [],
+                total_price: 0,
+                total_num: 0,
+                address: {},
                 drawer: {
                     d: false
                 }
@@ -56,11 +66,19 @@
             },
             addAddr(flag){
                 this.drawer.d = flag;
+            },
+            getAddress(address){
+                this.address = address;
             }
             
         },
         activated(){
             this.orders = this.$route.query.orders
+            this.total_num = this.$route.query.total_num
+            this.total_price = this.$route.query.total_price
+            for(var i = 0;i < this.orders.length;i++){
+                console.log(this.orders[i],"hhhhhhhhhhhhhhhh")
+            }
             console.log(this.orders,"&&&&&&&&&&&&&&**********")
         }
     }

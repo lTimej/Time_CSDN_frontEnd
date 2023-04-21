@@ -8,36 +8,34 @@
             size="80%"
         >
             <div>
-                <div class="address-img" v-if="address!=null">
+                <div class="address-img" v-if="address==null">
                     <img src="https://s10.mogucdn.com/p2/170222/upload_1ga8374ha4c1e315k293bce18d3b9_514x258.png">
                     <p>您还没有收货地址哦～</p>
                 </div>
                 <div v-else>
-                    <div class="address-list" v-for="(i,index) in [1,2,3,4,5,6,7,8]" 
+                    <div class="address-list" v-for="(i,index) in address" 
                         :class="{'address-list-choice':isAddress==index}"
                         @click="toAddress(index)"
                     >
                         <div class="address-user-info">
-                            <span>刘思远</span>
-                            <span>18888888888</span>
+                            <span>{{ i.receiver }}</span>
+                            <span>{{ i.mobile }}</span>
                         </div>
                         <div class="address-user-place">
-                            <span>内蒙古自治区赤峰市巴林左旗五楼</span>
+                            <span>{{i.province}}{{i.city}}{{i.district}}{{i.place}}</span>
                         </div>
                         <div class="address-user-setting">
-                            <!-- <div class="address-default"> -->
-                                <i class="el-icon-success address-default" 
-                                    :class="{'address-default-open':chooice_default==index}"
-                                    @click="toChose(index)"
-                                >
-                                </i>
-                            <!-- </div> -->
+                            <i class="el-icon-success address-default" 
+                                :class="{'address-default-open':chooice_default==index}"
+                                @click.stop="toChose(index)"
+                            >
+                            </i>
                             <span>设为默认</span>
                             <div class="address-user-del">
                                 <i class="el-icon-delete"></i>
                                 <span>删除</span>
                             </div>
-                            <div class="address-user-edit">
+                            <div class="address-user-edit" @click.stop="editAddress(index)">
                                 <i class="el-icon-edit-outline"></i>
                                 <span>编辑</span>
                             </div>
@@ -133,6 +131,7 @@
     import {getcity} from "network/city/city"
     import {addAddress} from "network/users/address"
     import {getAddress} from "network/users/address"
+    import {updateAddress} from "network/users/address"
     export default {
         name: "OrderAddress",
         components:{
@@ -199,6 +198,10 @@
                 getAddress().then(res => {
                     console.log(res)
                     this.address = res.data.data.user_address;
+                    if(this.address.length > 0){
+                        this.$emit("getAddress",this.address[0])
+                    }
+                    
                 }).catch(err =>{
                     console.log(err)
                 })
@@ -216,11 +219,21 @@
                 })
             },
             toChose(index){
-                console.log(111111)
+                console.log(111111444,"====",index)
                 this.chooice_default = index;
+                updateAddress(this.address[index],1).then(res =>{
+                    console.log(res,"****8888")
+                }).catch(err =>{
+                    console.log(err)
+                })
             },
             toAddress(index){
                 this.isAddress = index;
+                this.$emit("getAddress",this.address[index])
+                this.drawer.d = false;
+            },
+            editAddress(index){
+                console.log(index,"===========")
             }
         },
         computed:{},
@@ -342,6 +355,7 @@
         display: inline-block;
         float: right;
         font-size:13px;
+        z-index: 1;
     }
     .address-list .address-user-setting .address-user-edit i{
         color: red;
