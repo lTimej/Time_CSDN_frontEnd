@@ -12,3 +12,10 @@ export function addOrder(total_count,total_price,address_id,sku) {
         }
     })
 }
+
+export function getOrder() {
+    return requests({
+        url:'/v1/order/get',
+        method:'get'
+    })
+}
