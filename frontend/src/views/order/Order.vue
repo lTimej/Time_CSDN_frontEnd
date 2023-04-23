@@ -17,7 +17,7 @@
                 :address="address" 
                 @addAddr="addAddr"
             />
-            <order-info />
+            <order-info :orders="orders"/>
         </scroll>
         <add-address 
             :drawer="drawer" 
@@ -54,7 +54,7 @@
                 orders: [],
                 total_price: 0,
                 total_num: 0,
-                address: {},
+                address: null,
                 drawer: {
                     d: false
                 }
@@ -74,8 +74,8 @@
         },
         activated(){
             this.orders = this.$route.query.orders
-            this.total_num = this.$route.query.total_num
-            this.total_price = this.$route.query.total_price
+            this.total_num = parseInt(this.$route.query.total_num)
+            this.total_price = parseFloat(this.$route.query.total_price)
             for(var i = 0;i < this.orders.length;i++){
                 console.log(this.orders[i],"hhhhhhhhhhhhhhhh")
             }

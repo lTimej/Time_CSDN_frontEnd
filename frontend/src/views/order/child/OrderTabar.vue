@@ -4,14 +4,14 @@
             <div>总价： </div>
         </div>
         <div class="order-price">
-            <div>￥{{ 185.34 }}</div>
+            <div>￥{{ total_price}}</div>
         </div>
         <div class="order-collection">
             <!-- <i class="el-icon-star-off"></i>
             <div>收藏</div> -->
         </div>
         <div class="order-num">
-            <span>共3件商品</span>
+            <span>共{{total_num}}件商品</span>
         </div>
         <div class="order-buy" @click="toOrder">
             <span>提交订单</span>
@@ -28,14 +28,14 @@
                 type: Array,
                 default: () => []
             },
-            total_price:{
-                type: Number,
-                default: 0,
-            },
-            total_num:{
-                type: Number,
-                default: 0,
-            },
+            // total_price:{
+            //     type: Number,
+            //     default: 0,
+            // },
+            // total_num:{
+            //     type: Number,
+            //     default: 0,
+            // },
             address: {
                 type: Object,
                 default: () => {}
@@ -47,6 +47,22 @@
         data(){
             return{
                 
+            }
+        },
+        computed:{
+            total_num(){
+                var c = 0
+                for(var i = 0;i < this.orders.length;i++){
+                    c += this.orders[i].count;
+                }
+                return c;
+            },
+            total_price(){
+                var p = 0
+                for(var i = 0;i < this.orders.length;i++){
+                    p += this.orders[i].price * this.orders[i].count;
+                }
+                return p;
             }
         },
         methods:{
@@ -67,11 +83,9 @@
                         "count": this.orders[i].count,
                     })
                 }
-                // console.log(sku,"%%%%^^^^^^^^^^^^^^^^sku======",parseInt(this.total_num),parseFloat(this.total_price),this.address.address_id)
-                addOrder(parseInt(this.total_num),parseFloat(this.total_price),this.address.address_id,sku).then(res => {
+                addOrder(this.total_num,this.total_price,this.address.address_id,sku).then(res => {
                     console.log("提交订单成功!!!!!!!!")
                 })
-                // console.log(this.total_num,this.total_price,"提交订单！！！！！！！！",this.address.address_id,this.orders[0]);
             }
         }
     

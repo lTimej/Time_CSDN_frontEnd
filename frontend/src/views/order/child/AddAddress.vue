@@ -196,8 +196,13 @@
             },
             get_address(){
                 getAddress().then(res => {
-                    console.log(res)
-                    this.address = res.data.data.user_address;
+                    if(res.data.data.user_address == null){
+                        this.address = null;
+                        console.log(res,"|||||||||||||||")
+                    }else{
+                        this.address = res.data.data.user_address;
+                    }
+                    console.log(this.address,"===44444444===")
                     if(this.address.length > 0){
                         this.$emit("getAddress",this.address[0])
                     }

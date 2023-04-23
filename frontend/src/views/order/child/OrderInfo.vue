@@ -1,6 +1,6 @@
 <template>
     <div class="order-item">
-        <div>
+        <div v-for="(order,index) in orders">
             <div class="order-msg">
                 <i class="el-icon-chat-dot-square"></i>联系商家
             </div>
@@ -10,19 +10,19 @@
                 </div>
                 <div class="order-info-item">
                     <div class="order-title">
-                        <span>秋冬渔夫帽女网红款百搭毛呢盆帽韩版潮日系复古毛线针织帽子</span>
+                        <span>{{ order.title }}</span>
                     </div>
                     <div class="order-spec">
-                        <span>颜色：杏色；尺寸：可调节（56-60）</span>
+                        <span>{{ specs }}</span>
                     </div>
                 </div>
                 <div class="order-info-price">
                     <div class="order-price">
-                        <span>￥61.84</span>
+                        <span>￥{{ order.price }}</span>
                     </div>
                     <div class="order-num">
                         <i class="el-icon-minus" ></i>
-                        <input type="text" v-model="num">
+                        <input type="text" v-model="order.count">
                         <i class="el-icon-plus"></i>
                     </div>
                 </div>
@@ -68,6 +68,12 @@
         components:{
             
         },
+        props:{
+            orders:{
+                type: Array,
+                default: () => []
+            },
+        },
         data(){
             return{
                 num:0,
@@ -76,6 +82,20 @@
         },
         methods:{
            
+        },
+        computed:{
+            specs(){
+                for(var i = 0;i < this.orders.length;i++){
+                    var s = "";
+                    for(var j = 0;j < this.orders[i].spec_label.length;j++){
+                        s += this.orders[i].spec_label[j].label + ": " + this.orders[i].spec_label[j].name + " ";
+                    }
+                }
+                return s;
+            }
+        },
+        activated(){
+            console.log(this.orders,"&&&&&&&&&&&&&&&&&&&&")
         }
     }
 </script>
