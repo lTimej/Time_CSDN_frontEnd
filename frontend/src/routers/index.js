@@ -31,6 +31,7 @@ const AllSearch = () => import ("views/search/AllSearch");
 const Spu = () => import ("views/shop/Spu")
 const Sku = () => import ("views/shop/Sku")
 const Order = () => import ("views/order/Order")
+const OrderList = () => import ("views/order/orderList/OrderList")
 
 const routes = [
     {
@@ -218,6 +219,14 @@ const routes = [
       name:'order',
       component:Order,
       path:'/order',
+      meta:{
+          isShowTabbar:true
+        }
+    },
+    {
+      name:'orderList',
+      component:OrderList,
+      path:'/order/list',
       meta:{
           isShowTabbar:true
         }

@@ -1,6 +1,6 @@
 <template>
     <profile-sample class="profile-sample-all">
-        <span slot="left">我的订单</span>
+        <span slot="left" @click="orderList">我的订单</span>
         <profile-sample-item>
             <i slot="icon" class="el-icon-notebook-2"></i>
             <span slot="text">全部</span>
@@ -36,6 +36,11 @@
         components:{
             ProfileSample,
             ProfileSampleItem
+        },
+        methods:{
+            orderList(){
+                this.$router.push("/order/list")
+            }
         }
     }
 </script>
