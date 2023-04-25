@@ -1,29 +1,29 @@
 <template>
     <profile-sample class="profile-sample-all">
-        <span slot="left" @click="orderList">我的订单</span>
+        <span slot="left" @click="orderList('all_order')">我的订单</span>
         <profile-sample-item>
-            <i slot="icon" class="el-icon-notebook-2"></i>
-            <span slot="text">全部</span>
+            <i slot="icon" class="el-icon-notebook-2" @click="orderList('all_order')"></i>
+            <span slot="text" @click="orderList('all_order')">全部</span>
         </profile-sample-item>
         <profile-sample-item>
-            <i slot="icon" class="el-icon-shopping-cart-full"></i>
-            <span slot="text">待付款</span>
+            <i slot="icon" class="el-icon-shopping-cart-full" @click="orderList('paying')"></i>
+            <span slot="text" @click="orderList('paying')">待付款</span>
         </profile-sample-item>
         <profile-sample-item>
-            <i slot="icon" class="el-icon-chat-square"></i>
-            <span slot="text">代发货</span>
+            <i slot="icon" class="el-icon-chat-square" @click="orderList('sending')"></i>
+            <span slot="text" @click="orderList('sending')">代发货</span>
         </profile-sample-item>
         <profile-sample-item>
-            <i slot="icon" class="el-icon-medal"></i>
-            <span slot="text">待收货</span>
+            <i slot="icon" class="el-icon-medal" @click="orderList('recving')"></i>
+            <span slot="text" @click="orderList('recving')">待收货</span>
         </profile-sample-item>
         <profile-sample-item>
-            <i slot="icon" class="el-icon-chat-square"></i>
-            <span slot="text">待评价</span>
+            <i slot="icon" class="el-icon-chat-square" @click="orderList('comment')"></i>
+            <span slot="text" @click="orderList('comment')">待评价</span>
         </profile-sample-item>
         <profile-sample-item>
-            <i slot="icon" class="el-icon-medal"></i>
-            <span slot="text">售后</span>
+            <i slot="icon" class="el-icon-medal" @click="orderList('saled')"></i>
+            <span slot="text" @click="orderList('saled')">售后</span>
         </profile-sample-item>
     </profile-sample>
 </template>
@@ -38,9 +38,15 @@
             ProfileSampleItem
         },
         methods:{
-            orderList(){
-                this.$router.push("/order/list")
-            }
+            orderList(ty){
+                console.log(ty,"-----")
+                this.$router.push({
+                    path:"/order/list",
+                    query:{
+                        ty: ty,
+                    }
+                })
+            },
         }
     }
 </script>

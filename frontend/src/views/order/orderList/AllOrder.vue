@@ -49,8 +49,7 @@
 
 <style scoped>
    .all-order{
-    height: 100px;
-    /* background-color: red; */
+    margin: 10px 8px 0 8px;
    }
    .all-order-item{
       margin-top: 10px;
@@ -64,11 +63,9 @@
         display: flex;
     }
     .all-order .order-info .order-info-img{
-        /* float: left; */
-        
         width: 20%;
         height: 15vh;
-        padding-left: 5px;
+        padding: 5px;
     }
     .all-order .order-info .order-info-img img{
         height: 100%;
@@ -101,7 +98,7 @@
         font-weight: 600;
     }
     .all-order .order-info .order-info-price .order-num{
-        font-size: 13px;
+        font-size: 12px;
         margin-right: 5px;
         float: right;
     }

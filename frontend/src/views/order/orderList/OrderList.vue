@@ -68,12 +68,13 @@
     import Recving from "views/order/orderList/Recving"
     import Saled from "views/order/orderList/Saled"
     import Sending from "views/order/orderList/Sending"
+    import {getOrder} from "network/order/order"
     export default {
         name: "MainTabControl",
         data(){
             return{
                 currIndex:1,
-                order_type: "all_order",
+                order_type: "",
                 search: "",
             }
 
@@ -94,10 +95,48 @@
             changeRouter(type){
                 this.order_type = type;
                 // this.$emit('changeRouter',index)
+                if(this.order_type == "all_order"){
+                    this.get_order(0);
+                }else if(this.order_type == "paying"){
+                    this.get_order(1);
+                }else if(this.order_type == "sending"){
+                    this.get_order(2);
+                }else if(this.order_type == "recving"){
+                    this.get_order(3);
+                }else if(this.order_type == "comment"){
+                    this.get_order(4);
+                }else if(this.order_type == "saled"){
+                    this.get_order(5);
+                }
             },
             back(){
                 this.$router.back();
+            },
+            get_order(pay_status){
+                getOrder(pay_status).then(res =>{
+                    console.log(res.data.data);
+                }).catch(err =>{
+                    console.log(err)
+                })
             }
+        },
+        activated(){
+            this.order_type = this.$route.query.ty;
+            console.log(this.order_type,"==========")
+            if(this.order_type == "all_order"){
+                this.get_order(0);
+            }else if(this.order_type == "paying"){
+                this.get_order(1);
+            }else if(this.order_type == "sending"){
+                this.get_order(2);
+            }else if(this.order_type == "recving"){
+                this.get_order(3);
+            }else if(this.order_type == "comment"){
+                this.get_order(4);
+            }else if(this.order_type == "saled"){
+                this.get_order(5);
+            }
+
         }
     }
 </script>
@@ -143,7 +182,7 @@
     .content{
         position: absolute;
         overflow: hidden;
-        top: 160px;
+        top: 168px;
         left: 0;
         right: 0;
         bottom: 0;

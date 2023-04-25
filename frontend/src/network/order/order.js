@@ -13,9 +13,12 @@ export function addOrder(total_count,total_price,address_id,sku) {
     })
 }
 
-export function getOrder() {
+export function getOrder(pay_status) {
     return requests({
         url:'/v1/order/get',
-        method:'get'
+        method:'get',
+        params:{
+            "pay_status":pay_status,
+        }
     })
 }
