@@ -32,6 +32,7 @@ const Spu = () => import ("views/shop/Spu")
 const Sku = () => import ("views/shop/Sku")
 const Order = () => import ("views/order/Order")
 const OrderList = () => import ("views/order/orderList/OrderList")
+const orderDesc = () => import ("views/order/child/OrderDesc")
 
 const routes = [
     {
@@ -227,6 +228,14 @@ const routes = [
       name:'orderList',
       component:OrderList,
       path:'/order/list',
+      meta:{
+          isShowTabbar:true
+        }
+    },
+    {
+      name:'orderDesc',
+      component:orderDesc,
+      path:'/order/desc',
       meta:{
           isShowTabbar:true
         }

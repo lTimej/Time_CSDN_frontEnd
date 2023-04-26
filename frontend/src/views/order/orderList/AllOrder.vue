@@ -1,6 +1,6 @@
 <template>
     <div class="all-order">
-        <div class="all-order-item" v-for="i in [1,2,3,4,5,6,7]">
+        <div class="all-order-item" v-for="i in [1,2,3,4,5,6,7]" @click="toDesc">
             <div class="order-info">
                 <div class="order-info-img">
                     <img src="~assets/img/2.png">
@@ -29,7 +29,7 @@
 <script>
 
     export default {
-        name: "Order",
+        name: "AllOrder",
         components:{
             
         },
@@ -39,7 +39,9 @@
             }
         },
         methods:{
-            
+            toDesc(){
+                this.$router.push("/order/desc")
+            }
         },
         activated(){
             

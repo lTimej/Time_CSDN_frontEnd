@@ -7,7 +7,7 @@
 <script>
 
     export default {
-        name: "Order",
+        name: "Paying",
         components:{
             
         },

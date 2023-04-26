@@ -70,7 +70,7 @@
     import Sending from "views/order/orderList/Sending"
     import {getOrder} from "network/order/order"
     export default {
-        name: "MainTabControl",
+        name: "OrderList",
         data(){
             return{
                 currIndex:1,
