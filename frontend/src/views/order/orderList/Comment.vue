@@ -1,15 +1,21 @@
 <template>
     <div class="order-comment">
-        待评价
+        <order-list-temp :my_orders="my_orders"/>
     </div>
 </template>
 
 <script>
-
+    import OrderListTemp from 'views/order/orderList/OrderListTemp';
     export default {
         name: "Comment",
+        props:{
+            my_orders:{
+                type: Array,
+                default: () => []
+            }
+        },
         components:{
-            
+            OrderListTemp
         },
         data(){
             return{

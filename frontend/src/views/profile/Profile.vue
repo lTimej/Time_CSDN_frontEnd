@@ -82,6 +82,7 @@
                     }else if(res.status===201){
                         this.SaveIndividuleInfo(res.data.data);
                         this.individuleInfo = res.data.data
+                        console.log(this.individuleInfo,"23333")
                     }
                 })
             },

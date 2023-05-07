@@ -1,6 +1,6 @@
 <template>
     <div class="order-item">
-        <div>
+        <div class="order-list" v-for="spec in order.order_spec">
             <div class="order-msg">
                 <i class="el-icon-chat-dot-square"></i>联系商家
             </div>
@@ -10,19 +10,19 @@
                 </div>
                 <div class="order-info-item">
                     <div class="order-title">
-                        <span>sdfsdfg</span>
+                        <span>{{ spec.title }}</span>
                     </div>
                     <div class="order-spec">
-                        <span>gdfgfd</span>
+                        <span>{{ spec.specs }}</span>
                     </div>
                 </div>
                 <div class="order-info-price">
                     <div class="order-price">
-                        <span>￥444</span>
+                        <span>￥{{ spec.price }}</span>
                     </div>
                     <div class="order-num">
                         <i class="el-icon-minus" ></i>
-                        <input type="text" v-model="num">
+                        <input type="text" v-model="spec.count">
                         <i class="el-icon-plus"></i>
                     </div>
                 </div>
@@ -30,17 +30,17 @@
             <div class="order-other">
                 <div class="order-other-item">
                     <span>商品应付金额 </span>
-                    <div>￥0.00</div>
+                    <div>￥{{ spec.price }}</div>
                 </div>
                 <div class="order-other-item">
                     <span>快递运费： </span>
                     <span> 包邮</span>
-                    <div>￥0.00</div>
+                    <div>￥10.00</div>
                 </div>
                 <div class="order-other-item">
                     <span>店铺合计 </span>
                     <span> （含运费）</span>
-                    <div>￥0.00</div>
+                    <div>￥{{ spec.price }}</div>
                 </div>
                 <div class="order-other-item">
                     <span>退货补贴 </span>
@@ -68,6 +68,12 @@
         components:{
             
         },
+        props:{
+            order:{
+                type: Object,
+                default: () => {}
+            }
+        },
         data(){
             return{
                 num: 0,
@@ -80,7 +86,7 @@
             
         },
         activated(){
-            
+            console.log("xixiixixi!!!!!!!!",this.order.address_id)
         }
     }
 </script>
@@ -88,6 +94,10 @@
 <style scoped>
     .order-item{
         /* height: 500px; */
+        /* background-color: white; */
+    }
+    .order-item .order-list{
+        margin-bottom: 10px;
         background-color: white;
     }
     .order-item .order-msg{

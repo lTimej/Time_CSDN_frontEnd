@@ -1,15 +1,21 @@
 <template>
     <div class="order-sending">
-        待发货
+        <order-list-temp :my_orders="my_orders"/>
     </div>
 </template>
 
 <script>
-
+    import OrderListTemp from 'views/order/orderList/OrderListTemp';
     export default {
         name: "Sending",
+        props:{
+            my_orders:{
+                type: Array,
+                default: () => []
+            }
+        },
         components:{
-            
+            OrderListTemp
         },
         data(){
             return{

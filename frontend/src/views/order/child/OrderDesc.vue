@@ -21,17 +21,15 @@
                     <div class="desc-button-item">取消订单</div>
                 </div>
             </div>
-            <order-address />
-            <order-desc-info />
-            <order-desc-info />
-            <order-desc-info />
+            <order-address :address="address"/>
+            <order-desc-info :order="order"/>
         </scroll>
         <div class="order-tabar">
             <div class="order-price-title">
                 <div>总价： </div>
             </div>
             <div class="order-price">
-                <div>￥10</div>
+                <div>￥{{ order.total_price }}</div>
             </div>
             <div class="order-collection">
             </div>
@@ -49,6 +47,7 @@
     import OrderAddress from "views/order/child/OrderAddress"
     import OrderDescInfo from "views/order/child/OrderDescInfo"
     import Scroll from "components/common/scroll/Scroll";
+    import {getOrderAddress} from "network/order/order";
     export default {
         name: "OrderDesc",
         components:{
@@ -59,16 +58,24 @@
         },
         data(){
             return{
-                
+                order: {},
+                address: {}
             }
         },
         methods:{
             back(){
                 this.$router.back();
+            },
+            get_address(){
+                getOrderAddress(order.address_id).then(res =>{
+                    console.log(res.data.data);
+                    this.address = res.data.data.user_address;
+                })
             }
         },
         activated(){
-            
+            this.order = this.$route.query.my_orders;
+            this.get_address();
         }
     }
 </script>

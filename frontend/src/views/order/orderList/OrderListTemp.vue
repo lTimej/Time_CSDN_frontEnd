@@ -1,6 +1,10 @@
 <template>
     <div class="all-order">
-        <div  v-for="my_order in my_orders" @click="toDesc">
+        <div  v-for="(my_order,index) in my_orders" @click="toDesc(index)" class="myorder">
+            <div class="order-status">
+                <div class="status">待付款</div>
+                <div class="time">剩23小时32分46秒</div>
+            </div>
             <div class="all-order-item" v-for="order in my_order.order_spec">
                 <div class="order-info">
                 <div class="order-info-img">
@@ -24,6 +28,17 @@
                 </div>
             </div>
             </div>
+            <div class="order-jiesuan">
+                <div class="jiesuan-item">
+                    <div class="jiesuan">
+                        <span>包邮，总计：￥</span>
+                        <span>168.0.0</span>
+                    </div>
+                    <div class="buy">
+                        待付款
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -31,7 +46,7 @@
 <script>
 
     export default {
-        name: "AllOrder",
+        name: "OrderListTemp",
         props:{
             my_orders:{
                 type: Array,
@@ -47,8 +62,13 @@
             }
         },
         methods:{
-            toDesc(){
-                this.$router.push("/order/desc")
+            toDesc(index){
+                this.$router.push({
+                    "path": "/order/desc",
+                    query:{
+                        my_orders:this.my_orders[index],
+                    }
+                })
             }
         },
         activated(){
@@ -59,11 +79,33 @@
 
 <style scoped>
    .all-order{
-    margin: 10px 8px 0 8px;
+    /* margin: 0 0 0 0; */
+   }
+   .all-order .myorder{
+    background-color: white;
+    margin: 10px;
    }
    .all-order-item{
-      margin-top: 10px;
-      background-color: white;
+      margin: 6px;
+   }
+   .order-status{
+      margin: 12px;
+      height: 20px;
+      /* position: relative; */
+   }
+   .order-status .status{
+    float: left;
+    /* display: inline-block; */
+    color: #080808;
+    font-size: 16px;
+    font-weight: 600;
+   }
+   .order-status .time{
+    float: right;
+    /* display: inline-block; */
+    color: red;
+    font-size: 13px;
+    font-weight: 500;
    }
    .all-order .order-msg{
         margin-left: 5px;
@@ -106,5 +148,27 @@
         font-size: 12px;
         margin-right: 5px;
         float: right;
+    }
+    .order-jiesuan{
+        height: 60px;
+        margin: 10px;
+    }
+    .order-jiesuan .jiesuan-item{
+        float: right;
+    }
+    .order-jiesuan .jiesuan{
+        /* float: right; */
+    }
+    .order-jiesuan .buy{
+        float: right;
+        height: 20px;
+        width: 60px;
+        background-color: red;
+        color: white;
+        text-align: center;
+        font-size: 13px;
+        /* padding: 10px; */
+        border-radius: 4px;
+
     }
 </style>

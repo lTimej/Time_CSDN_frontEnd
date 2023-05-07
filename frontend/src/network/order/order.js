@@ -22,3 +22,13 @@ export function getOrder(pay_status) {
         }
     })
 }
+
+export function getOrderAddress(address_id) {
+    return requests({
+        url:'/v1/user/order/address',
+        method:'get',
+        params:{
+            "address_id": address_id,
+        }
+    })
+}

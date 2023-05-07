@@ -46,12 +46,12 @@
             class="content"
             ref="scroll"
         >
-            <all-order v-show="order_type=='all_order'"/>
-            <paying v-show="order_type=='paying'"/>
-            <sending v-show="order_type=='sending'"/>
-            <recving v-show="order_type=='recving'"/>
-            <comment v-show="order_type=='comment'"/>
-            <saled v-show="order_type=='saled'"/>
+            <all-order v-show="order_type=='all_order'" :my_orders="my_orders"/>
+            <paying v-show="order_type=='paying'" :my_orders="my_orders"/>
+            <sending v-show="order_type=='sending'" :my_orders="my_orders"/>
+            <recving v-show="order_type=='recving'" :my_orders="my_orders"/>
+            <comment v-show="order_type=='comment'" :my_orders="my_orders"/>
+            <saled v-show="order_type=='saled'" :my_orders="my_orders"/>
         </scroll>
         
     </div>
@@ -76,6 +76,7 @@
                 currIndex:1,
                 order_type: "",
                 search: "",
+                my_orders: [],
             }
 
         },
@@ -115,6 +116,7 @@
             get_order(pay_status){
                 getOrder(pay_status).then(res =>{
                     console.log(res.data.data);
+                    this.my_orders = res.data.data.order_info;
                 }).catch(err =>{
                     console.log(err)
                 })
