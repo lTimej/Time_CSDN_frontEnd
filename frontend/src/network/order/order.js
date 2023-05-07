@@ -32,3 +32,14 @@ export function getOrderAddress(address_id) {
         }
     })
 }
+
+export function updateOrderStatus(sn,pay_status) {
+    return requests({
+        url:'/v1/order/update',
+        method:'patch',
+        data:{
+            "sn": sn,
+            "pay_status": pay_status,
+        }
+    })
+}

@@ -17,7 +17,7 @@
                     <div><span>等待买家付款</span></div>
                     <div class="desc-time"><span>00小时56分05秒后自动取消订单</span></div>
                 </div>
-                <div class="desc-button">
+                <div class="desc-button" @click="cancel_order">
                     <div class="desc-button-item">取消订单</div>
                 </div>
             </div>
@@ -48,6 +48,7 @@
     import OrderDescInfo from "views/order/child/OrderDescInfo"
     import Scroll from "components/common/scroll/Scroll";
     import {getOrderAddress} from "network/order/order";
+    import {updateOrderStatus} from "network/order/order"
     export default {
         name: "OrderDesc",
         components:{
@@ -70,6 +71,11 @@
                 getOrderAddress(order.address_id).then(res =>{
                     console.log(res.data.data);
                     this.address = res.data.data.user_address;
+                })
+            },
+            cancel_order(){
+                updateOrderStatus(order.sn,0).then(res => {
+                    console.log(res.data.data)
                 })
             }
         },
