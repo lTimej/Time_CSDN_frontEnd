@@ -3,7 +3,12 @@
         <div  v-for="(my_order,index) in my_orders" @click="toDesc(index)" class="myorder">
             <div class="order-status">
                 <div class="status">待付款</div>
-                <div class="time">剩23小时32分46秒</div>
+                <div class="time">
+                    剩<span class="time-item">0</span>天
+                    <span class="time-item">0</span>时
+                    <span class="time-item">0</span>分
+                    <span class="time-item">0</span>秒
+                </div>
             </div>
             <div class="all-order-item" v-for="order in my_order.order_spec">
                 <div class="order-info">
@@ -69,10 +74,28 @@
                         my_orders:this.my_orders[index],
                     }
                 })
+            },
+            show_time(){
+                var spans = document.querySelectorAll('.time-item');
+                var endTime = new Date('2023-05-08 00:00:00').getTime();
+                var newTime = new Date().getTime();
+                var diffTime = (endTime - newTime) / 1000;
+                var day = parseInt(diffTime / 60 / 60 / 24);
+                var honur = parseInt(diffTime / 60 / 60 % 24);
+                var min = parseInt(diffTime / 60 % 60);
+                var sen = parseInt(diffTime % 60);
+                spans[0].innerText = day;
+                spans[1].innerText = honur;
+                spans[2].innerText = min;
+                spans[3].innerText = sen;
+                if(diffTime == 0){
+                    console.log(diffTime,"!!!!!!!!!!!")
+                }
             }
         },
         activated(){
             console.log(this.my_orders,"哈哈哈哈啊哈")
+            setInterval(this.show_time, 1000)
         }
     }
 </script>

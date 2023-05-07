@@ -15,7 +15,13 @@
             <div class="order-desc-status">
                 <div class="desc-status">
                     <div><span>等待买家付款</span></div>
-                    <div class="desc-time"><span>00小时56分05秒后自动取消订单</span></div>
+                    <div class="desc-time">
+
+                        <span class="time-item">0</span>天
+                        <span class="time-item">0</span>时
+                        <span class="time-item">0</span>分
+                        <span class="time-item">0</span>秒后自动取消订单
+                    </div>
                 </div>
                 <div class="desc-button" @click="cancel_order">
                     <div class="desc-button-item">取消订单</div>
@@ -77,11 +83,31 @@
                 updateOrderStatus(order.sn,0).then(res => {
                     console.log(res.data.data)
                 })
+            },
+            show_time(){
+                var spans = document.querySelectorAll('.time-item');
+                var endTime = new Date('2023-05-08 00:00:00').getTime();
+                var newTime = new Date().getTime();
+                var diffTime = (endTime - newTime) / 1000;
+                var day = parseInt(diffTime / 60 / 60 / 24);
+                var honur = parseInt(diffTime / 60 / 60 % 24);
+                var min = parseInt(diffTime / 60 % 60);
+                var sen = parseInt(diffTime % 60);
+                spans[0].innerText = day;
+                spans[1].innerText = honur;
+                spans[2].innerText = min;
+                spans[3].innerText = sen;
+                if(diffTime == 0){
+                    console.log(diffTime,"!!!!!!!!!!!")
+                    this.cancel_order();
+                    diffTime = -1;
+                }
             }
         },
         activated(){
             this.order = this.$route.query.my_orders;
             this.get_address();
+            setInterval(this.show_time, 1000)
         }
     }
 </script>
