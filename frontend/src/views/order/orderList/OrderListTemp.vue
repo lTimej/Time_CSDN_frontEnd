@@ -1,14 +1,20 @@
 <template>
     <div class="all-order">
         <div  v-for="(my_order,index) in my_orders" @click="toDesc(index)" class="myorder">
-            <div class="order-status">
+            <div class="order-status" v-if="my_order.pay_status == 1">
                 <div class="status">待付款</div>
                 <div class="time">
-                    剩<span class="time-item">0</span>天
-                    <span class="time-item">0</span>时
-                    <span class="time-item">0</span>分
-                    <span class="time-item">0</span>秒
+                    剩<span :class="['time-item' + '-' + index]">0</span>天
+                    <span :class="['time-item' + '-' + index]">0</span>时
+                    <span :class="['time-item' + '-' + index]">0</span>分
+                    <span :class="['time-item' + '-' + index]">0</span>秒
                 </div>
+            </div>
+            <div class="order-status" v-else-if="my_order.pay_status == 0">
+                <div class="status">已取消</div>
+            </div>
+            <div class="order-status" v-else>
+                <div class="status">已支付</div>
             </div>
             <div class="all-order-item" v-for="order in my_order.order_spec">
                 <div class="order-info">
@@ -49,7 +55,7 @@
 </template>
 
 <script>
-
+    import {updateOrderStatus} from "network/order/order"
     export default {
         name: "OrderListTemp",
         props:{
@@ -64,6 +70,14 @@
         data(){
             return{
                 num:0,
+                timers: [],
+            }
+        },
+        mounted(){
+            for(let i = 0;i < this.my_orders.length;i++){
+                if(this.my_orders[i].pay_status == 1){
+                    this.timers.push(setInterval(this.show_time(i), 1000))
+                }
             }
         },
         methods:{
@@ -75,27 +89,42 @@
                     }
                 })
             },
-            show_time(){
-                var spans = document.querySelectorAll('.time-item');
-                var endTime = new Date('2023-05-08 00:00:00').getTime();
-                var newTime = new Date().getTime();
-                var diffTime = (endTime - newTime) / 1000;
-                var day = parseInt(diffTime / 60 / 60 / 24);
-                var honur = parseInt(diffTime / 60 / 60 % 24);
-                var min = parseInt(diffTime / 60 % 60);
-                var sen = parseInt(diffTime % 60);
-                spans[0].innerText = day;
-                spans[1].innerText = honur;
-                spans[2].innerText = min;
-                spans[3].innerText = sen;
-                if(diffTime == 0){
-                    console.log(diffTime,"!!!!!!!!!!!")
-                }
+            show_time(i){
+                // for(let i = 0;i < this.my_orders.length;i++){
+                    if(this.my_orders[i].pay_status == 1){
+                        var cl = "." + "time-item" + "-" + i;
+                        var spans = document.querySelectorAll(cl);
+                        var order_cancel_time = this.my_orders[i].create_time
+                        var endTime = new Date(order_cancel_time).getTime();
+                        var newTime = new Date().getTime();
+                        var diffTime = (endTime - newTime) / 1000;
+                        var day = parseInt(diffTime / 60 / 60 / 24);
+                        var honur = parseInt(diffTime / 60 / 60 % 24);
+                        var min = parseInt(diffTime / 60 % 60);
+                        var sen = parseInt(diffTime % 60);
+                        spans[0].innerText = day;
+                        spans[1].innerText = honur;
+                        spans[2].innerText = min;
+                        spans[3].innerText = sen;
+                        if(diffTime <= 0){
+                            console.log(diffTime,"!!!!!!!!!!!")
+                            updateOrderStatus(this.my_orders[i].sn,0).then(res => {
+                                if(res.status == 201){
+                                    this.my_orders[i].pay_status = 0;
+                                    clearInterval(this.timers[i])
+                                    console.log("订单取消成功");
+                                }
+                            }).catch(err => {
+                                console.log(err)
+                            })
+                            return;
+                        }
+                    }
+                // }
             }
         },
         activated(){
             console.log(this.my_orders,"哈哈哈哈啊哈")
-            setInterval(this.show_time, 1000)
         }
     }
 </script>

@@ -1,35 +1,11 @@
 <template>
     <div class="all-order">
-        <div  v-for="my_order in my_orders" @click="toDesc">
-            <div class="all-order-item" v-for="order in my_order.order_spec">
-                <div class="order-info">
-                <div class="order-info-img">
-                    <img src="~assets/img/2.png">
-                </div>
-                <div class="order-info-item">
-                    <div class="order-title">
-                        <span>{{ order.title }}</span>
-                    </div>
-                    <div class="order-spec">
-                        <span>{{ order.specs }}</span>
-                    </div>
-                </div>
-                <div class="order-info-price">
-                    <div class="order-price">
-                        <span>￥{{ order.price }}</span>
-                    </div>
-                    <div class="order-num">
-                        <span>x {{ order.count }}</span>
-                    </div>
-                </div>
-            </div>
-            </div>
-        </div>
+        <order-list-temp :my_orders="my_orders"/>
     </div>
 </template>
 
 <script>
-
+    import OrderListTemp from 'views/order/orderList/OrderListTemp';
     export default {
         name: "AllOrder",
         props:{
@@ -39,7 +15,7 @@
             }
         },
         components:{
-            
+            OrderListTemp,
         },
         data(){
             return{
@@ -47,9 +23,9 @@
             }
         },
         methods:{
-            toDesc(){
-                this.$router.push("/order/desc")
-            }
+            // toDesc(){
+            //     this.$router.push("/order/desc")
+            // }
         },
         activated(){
             console.log(this.my_orders,"哈哈哈哈啊哈")
@@ -58,53 +34,8 @@
 </script>
 
 <style scoped>
-   .all-order{
-    margin: 10px 8px 0 8px;
-   }
-   .all-order-item{
-      margin-top: 10px;
-      background-color: white;
-   }
-   .all-order .order-msg{
-        margin-left: 5px;
-    }
-    .all-order .order-info{
-        display: flex;
-    }
-    .all-order .order-info .order-info-img{
-        width: 20%;
-        height: 15vh;
-        padding: 5px;
-    }
-    .all-order .order-info .order-info-img img{
+   .order-paying{
         height: 100%;
-        padding: 3px;
-    }
-    .all-order .order-info .order-info-item{
-        width: 60%;
-        font-size: 13px;
-        color: #333333;
-    }
-    .all-order .order-info .order-info-item .order-title{
-        font-weight: 600;
-        font-size: 12px;
-    }
-    .all-order .order-info .order-info-item .order-spec{
-        font-size: 12px;
-        color: lightgray;
-    }
-    .all-order .order-info .order-info-price{
-        width: 20%;
-        font-size: 14px;
-    }
-    .all-order .order-info .order-info-price .order-price{
-        float: right;
-        margin: 0 5px 5px 0;
-        font-weight: 600;
-    }
-    .all-order .order-info .order-info-price .order-num{
-        font-size: 12px;
-        margin-right: 5px;
-        float: right;
-    }
+        /* background-color: red; */
+   }
 </style>

@@ -84,7 +84,11 @@
                     })
                 }
                 addOrder(this.total_num,this.total_price,this.address.address_id,sku).then(res => {
-                    console.log("提交订单成功!!!!!!!!")
+                    if(res.status == 201){
+                        console.log("提交订单成功!!!!!!!!");
+                        
+                    }
+                    
                 })
             }
         }
