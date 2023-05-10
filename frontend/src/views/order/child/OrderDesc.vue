@@ -12,11 +12,10 @@
             class="content"
             ref="scroll"
         >
-            <div class="order-desc-status">
+            <div class="order-desc-status" v-if="order.pay_status == 1">
                 <div class="desc-status">
                     <div><span>等待买家付款</span></div>
                     <div class="desc-time">
-
                         <span class="time-item">0</span>天
                         <span class="time-item">0</span>时
                         <span class="time-item">0</span>分
@@ -25,6 +24,16 @@
                 </div>
                 <div class="desc-button" @click="cancel_order">
                     <div class="desc-button-item">取消订单</div>
+                </div>
+            </div>
+            <div class="order-desc-status" v-else-if="order.pay_status == 0">
+                <div class="desc-button">
+                    <div><span>订单已取消</span></div>
+                </div>
+            </div>
+            <div class="order-desc-status" v-else>
+                <div class="desc-button">
+                    <div><span>已付款</span></div>
                 </div>
             </div>
             <order-address :address="address"/>
@@ -74,9 +83,13 @@
                 this.$router.back();
             },
             get_address(){
-                getOrderAddress(order.address_id).then(res =>{
-                    console.log(res.data.data);
-                    this.address = res.data.data.user_address;
+                console.log("获取订单地址")
+                getOrderAddress(this.order.address_id).then(res =>{
+                    if (res.status == 201){
+                        console.log(res.data.data);
+                        this.address = res.data.data.user_address;
+                        console.log(this.address,"获取订单地址成功")
+                    }
                 })
             },
             cancel_order(){
@@ -86,7 +99,8 @@
             },
             show_time(){
                 var spans = document.querySelectorAll('.time-item');
-                var endTime = new Date('2023-05-08 00:00:00').getTime();
+                var order_cancel_time = this.order.create_time
+                var endTime = new Date(order_cancel_time).getTime();
                 var newTime = new Date().getTime();
                 var diffTime = (endTime - newTime) / 1000;
                 var day = parseInt(diffTime / 60 / 60 / 24);
@@ -97,7 +111,7 @@
                 spans[1].innerText = honur;
                 spans[2].innerText = min;
                 spans[3].innerText = sen;
-                if(diffTime == 0){
+                if(diffTime <= 0){
                     console.log(diffTime,"!!!!!!!!!!!")
                     this.cancel_order();
                     diffTime = -1;
@@ -106,8 +120,15 @@
         },
         activated(){
             this.order = this.$route.query.my_orders;
+            console.log(this.order,"******************")
             this.get_address();
-            setInterval(this.show_time, 1000)
+            let timer = null;
+            if(this.order.pay_status == 1){
+                timer = setInterval(this.show_time, 1000)
+            }else{
+                clearInterval(timer)
+            }
+            
         }
     }
 </script>
